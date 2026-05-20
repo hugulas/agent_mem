@@ -72,4 +72,4 @@
 - [[Codex CLI]]
 - [[Hermes]]
 - [[memory-security]]
-- [S003](sources/S003.md), [S004](sources/S004.md), [S031](sources/S031.md), [S076](sources/S076.md)
+- [S132](sources/S132.md), [S132](sources/S132.md), [S131](sources/S131.md), [S076](sources/S076.md)

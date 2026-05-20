@@ -5,8 +5,8 @@
 ## Sources
 - [S001](sources/S001.md): OpenClaw docs: Memory overview
 - [S002](sources/S002.md): OpenClaw docs: Builtin memory engine
-- [S003](sources/S003.md): arXiv: A Security Analysis of OpenClaw
-- [S004](sources/S004.md): arXiv: OpenClaw case study / tri-layered risk
+- [S132](sources/S132.md): arXiv: A Security Analysis of OpenClaw
+- [S132](sources/S132.md): arXiv: OpenClaw case study / tri-layered risk
 - [S005](sources/S005.md): RobotPaper: Reference Architecture OpenClaw
 - [S006](sources/S006.md): MMNTM: How OpenClaw Implements Agent Memory
 - [S007](sources/S007.md): arXiv: Dive into Claude Code (2604.14228)
@@ -33,7 +33,7 @@
 - [S028](sources/S028.md): Business20Channel: Hermes vs OpenClaw benchmarks
 - [S029](sources/S029.md): OpenAI Community: Memory-first architecture
 - [S030](sources/S030.md): OpenClaw memorySearch complete guide (dev.to)
-- [S031](sources/S031.md): Skywork: Deep Dive CVE-2026-25253
+- [S131](sources/S131.md): Skywork: Deep Dive CVE-2026-25253
 - [S032](sources/S032.md): Ollama local deployment for Claude Code
 - [S033](sources/S033.md): 万字拆解OpenClaw (huxiu)
 - [S034](sources/S034.md): ClaudeMem vs Context Mode
