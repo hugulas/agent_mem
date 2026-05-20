@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Claude Code Architecture Analysis</title>
+	<meta name="description" content="Claude Code Exposed: Anatomy of an Agentic AI Through an npm Source Map Leak" />
+	
+	<meta name="author" content="Jonas Kim" />
+	<meta name="copyright" content="&copy; Jonas Kim 2026" />
+	
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&family=Source+Sans+Pro:wght@300;400;600;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+	<!-- External libraries -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/v4-shims.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai-sublime.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+
+	<!-- Favicon and other icons -->
+	<link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" sizes="57x57" href="/assets/icons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/assets/icons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/icons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/icons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/icons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/assets/icons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/icons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/assets/icons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+	<link rel="manifest" href="/assets/icons/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage" content="/assets/icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff" />
+
+	<!-- Facebook OGP cards -->
+	
+	<meta property="og:description" content="Claude Code Exposed: Anatomy of an Agentic AI Through an npm Source Map Leak" />
+	<meta property="og:url" content="https://bits-bytes-nn.github.io/insights/agentic-ai/2026/03/31/claude-code-architecture-analysis.html" />
+	<meta property="og:site_name" content="Bits, Bytes and Neural Networks" />
+	<meta property="og:title" content="Claude Code Architecture Analysis" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="https://bits-bytes-nn.github.io/assets/images/insights.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="612" />
+	<meta property="og:image:height" content="605" />
+	
+
+	<!-- Twitter: card tags -->
+	
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Claude Code Architecture Analysis" />	<meta name="twitter:description" content="Claude Code Exposed: Anatomy of an Agentic AI Through an npm Source Map Leak" />
+	<meta name="twitter:image" content="https://bits-bytes-nn.github.io/assets/images/insights.png" />
+	<meta name="twitter:url" content="https://bits-bytes-nn.github.io/insights/agentic-ai/2026/03/31/claude-code-architecture-analysis.html" />
+	
+
+	<!-- Open Source Protocol -->
+	
+	<link rel="profile" href="https://osprotocol.com" />
+	<meta property="os:repo" content="https://github.com/bits-bytes-nn/bits-bytes-nn.github.io" />
+	<meta property="os:rcs_type" content="git" />
+	<meta property="os:src" content="git@github.com:bits-bytes-nn/bits-bytes-nn.github.io.git" />
+	
+
+	<!-- Site styles -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="canonical" href="https://bits-bytes-nn.github.io/insights/agentic-ai/2026/03/31/claude-code-architecture-analysis.html" />
+	<link rel="alternate" type="application/rss+xml" title="Bits, Bytes and Neural Networks" href="https://bits-bytes-nn.github.io/feed.xml" />
+
+	<!-- MathJax 3 -->
+	<script>
+	MathJax = {
+	  tex: {
+	    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+	    macros: {
+	      '|': '\\vert'
+	    }
+	  },
+      chtml: {
+        linebreaks: { automatic: true }
+      },
+      svg: {
+        linebreaks: { automatic: true }
+      }
+	};
+	</script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+	<!-- Tooltips -->
+	<script type="text/javascript">
+		window.tooltips = [];
+	</script>
+
+	<!-- Google Analytics -->
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MRH9Z5ETSQ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-MRH9Z5ETSQ');
+	</script>
+	
+
+	
+</head>
+
+  <body>
+    <header class="navigation" role="banner">
+	<div class="navigation-wrapper">
+		<a href="/" class="logo">
+			
+			<img
+				src="/assets/my_logo.png"
+				alt="Bits, Bytes and Neural Networks"
+			/>
+			
+		</a>
+		<button type="button" id="js-mobile-menu" class="navigation-menu-button">
+			<i class="fa fa-bars"></i>
+		</button>
+		<nav role="navigation">
+			<ul id="js-navigation-menu" class="navigation-menu show">
+				
+
+<li class="nav-link">
+	<a href="/about/">About</a>
+</li>
+
+<li class="nav-link">
+	<a href="/paper-summaries/">Paper Summaries</a>
+</li>
+
+<li class="nav-link">
+	<a href="/paper-reviews/">Paper Reviews</a>
+</li>
+
+<li class="nav-link">
+	<a href="/insights/">Insights</a>
+</li>
+
+<li class="nav-link">
+	<a href="/search/">Search</a>
+</li>
+
+
+			</ul>
+		</nav>
+	</div>
+</header>
+
+
+    <main class="page-content">
+      <div class="post">
+  <div class="post-header-container has-cover" style="background-image: url(/assets/images/insights.png);">
+    <div class="scrim has-cover">
+      <header class="post-header">
+        <h1 class="title">Claude Code Architecture Analysis</h1>
+        
+      </header>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    
+
+    <section class="post-meta">
+      <div class="post-header-info">
+        <div class="post-date">
+          <strong>Published Date</strong> March 31, 2026
+        </div>
+        
+        <div class="post-categories">
+          <strong>Category</strong>
+          
+            
+              <a href="/categories/#insights" class="category">Insights</a> • 
+            
+          
+            
+              <a href="/categories/#agentic-ai" class="category">Agentic AI</a>
+            
+          
+        </div>
+        
+      </div>
+      
+      <div class="post-tags">
+        <strong>Tags</strong>
+        
+          <a href="/tags/#claude-code" class="tag">Claude Code</a>
+        
+          <a href="/tags/#agentic-architecture" class="tag">Agentic Architecture</a>
+        
+          <a href="/tags/#context-compaction" class="tag">Context Compaction</a>
+        
+          <a href="/tags/#multi-agent-orchestration" class="tag">Multi Agent Orchestration</a>
+        
+          <a href="/tags/#security-architecture" class="tag">Security Architecture</a>
+        
+      </div>
+      
+    </section>
+
+    <article class="post-content">
+      <h1 id="claude-code-exposed-anatomy-of-an-agentic-ai-through-an-npm-source-map-leak">Claude Code Exposed: Anatomy of an Agentic AI Through an npm Source Map Leak</h1>
+
+<blockquote>
+  <p>Between what Anthropic calls "open source" and what is actually open, there was a gap of 4,600 files.</p>
+</blockquote>
+
+<h3 id="tldr">TL;DR</h3>
+<ul>
+  <li>An npm source map mishap exposed Claude Code's proprietary core engine — all 4,600+ files of it</li>
+  <li>The official "open source" release was just a plugin shell (279 files) — the core engine was commercially closed</li>
+  <li>Inside lies a sophisticated production architecture: 8-layer security, 4-tier message compaction, cost-aware error recovery, and more</li>
+  <li>Unreleased feature flags reveal the roadmap: voice mode, multi-agent Coordinator, proactive Kairos mode</li>
+  <li>This is a rare opportunity to examine the real-world architecture of an agentic AI system</li>
+</ul>
+
+<hr />
+
+<h2 id="1-what-happened">1. What Happened</h2>
+
+<p>On March 31, 2026, security researcher Chaofan Shou posted a few screenshots on X. The entire internal source code of Anthropic's Claude Code was sitting right there inside the npm package. Source map (<code class="language-plaintext highlighter-rouge">.map</code>) files are debugging artifacts that map minified/bundled code back to the original source — they should always be stripped from production builds, but these were left intact.</p>
+
+<p><a href="https://www.reddit.com/r/LocalLLaMA/comments/1s8ijfb/claude_code_source_code_has_been_leaked_via_a_map/">Reddit r/LocalLLaMA</a> exploded, and the community began dissecting the entire codebase within hours.</p>
+
+<p>This was not an intentional hack. Nor was it a sophisticated social engineering attack. Someone simply forgot to exclude <code class="language-plaintext highlighter-rouge">.map</code> files from the production package in the build pipeline — a straightforward build configuration mistake. But inside those <code class="language-plaintext highlighter-rouge">.map</code> files lay the entire brain of Claude Code: internal prompt structures, agent orchestration logic, tool invocation patterns. It was a moment that simultaneously revealed how meticulously Anthropic had <em>designed</em> Claude Code — and how carelessly they had <em>shipped</em> it. An unintended gift to both competitors and security researchers alike.</p>
+
+<p>One thing worth clarifying: Anthropic has marketed Claude Code as "open source." There is an <a href="https://github.com/anthropics/claude-code">official GitHub repository</a> that anyone can browse. But what is actually there?</p>
+
+<p>The plugin system. Hook examples. Configuration file templates. Eleven example plugins.</p>
+
+<p>If this were a restaurant, it would be like publishing the menu and table settings and declaring "our kitchen is open." The actual recipes, cooking techniques, and secret sauces were all hidden behind closed doors. What the npm source map revealed was the entire kitchen — over 4,600 source files across 55+ directories, written in TypeScript/React. The license is not Apache 2.0 but Anthropic Commercial Terms of Service. A far cry from <em>true</em> open source.</p>
+
+<p>This post sets aside the legal and ethical debates. Instead, it digs deep into the technical architecture revealed by the leaked code. Frankly, it is quite impressive — except for the part where they accidentally leaked it.</p>
+
+<hr />
+
+<h2 id="2-overall-architecture-much-bigger-than-you-think">2. Overall Architecture: Much Bigger Than You Think</h2>
+
+<p><a href="/assets/images/architecture-overview.png" data-lightbox="claude-code" data-title="Overall System Architecture">
+  <img src="/assets/images/architecture-overview.png" alt="Overall System Architecture" />
+</a></p>
+
+<p>When you first encounter Claude Code, it is easy to think: "Isn't this just an API wrapper?" You talk to Claude in the terminal, Claude fixes your code, done. Looks simple.</p>
+
+<p>Open the leaked code and that notion shatters.</p>
+
+<h3 id="tech-stack">Tech Stack</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Technology</th>
+      <th>Why This Choice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Runtime</td>
+      <td><strong>Bun</strong></td>
+      <td>Faster startup than Node.js with native TypeScript support. The <code class="language-plaintext highlighter-rouge">feature()</code> bundling API enables build-time dead code elimination (detailed in Section 6.1)</td>
+    </tr>
+    <tr>
+      <td>Language</td>
+      <td><strong>TypeScript</strong> (strict mode)</td>
+      <td>Type safety is not optional in a 4,600+ file codebase</td>
+    </tr>
+    <tr>
+      <td>UI</td>
+      <td><strong>React 18 + <a href="https://github.com/vadimdemedes/ink">Ink</a></strong></td>
+      <td>Renders React components in the terminal. Complex UI elements like permission dialogs, progress bars, and multi-panel layouts justify this choice</td>
+    </tr>
+    <tr>
+      <td>API Client</td>
+      <td><code class="language-plaintext highlighter-rouge">@anthropic-ai/sdk</code></td>
+      <td>Official Anthropic SDK</td>
+    </tr>
+    <tr>
+      <td>MCP Client</td>
+      <td><code class="language-plaintext highlighter-rouge">@modelcontextprotocol/sdk</code></td>
+      <td>An open protocol for LLMs to communicate with external tools and data sources in a standardized way (<a href="https://modelcontextprotocol.io/">Model Context Protocol</a>)</td>
+    </tr>
+    <tr>
+      <td>Feature Flags</td>
+      <td><strong>GrowthBook</strong></td>
+      <td>Server-side feature control and A/B testing — from security kill switches to unreleased feature gates (Sections 6.2, 7)</td>
+    </tr>
+    <tr>
+      <td>Bundler</td>
+      <td><strong>Bun bundler</strong></td>
+      <td>Based on the return value of the <code class="language-plaintext highlighter-rouge">feature()</code> function, unused code branches are completely eliminated from the build, separating internal and external builds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Using React for a terminal app might seem like overkill. But when you look at the code — permission dialogs (<code class="language-plaintext highlighter-rouge">PermissionDialog.tsx</code>), Worker badges (<code class="language-plaintext highlighter-rouge">WorkerBadge</code>), multi-panel layouts, real-time streaming UI — these complex interactions make the choice understandable. It is a terminal, but far from simple text output. The UI is remarkably rich.</p>
+
+<h3 id="official-open-source-vs-leaked-code-the-gap-in-numbers">Official Open Source vs. Leaked Code: The Gap in Numbers</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Official Repo (<code class="language-plaintext highlighter-rouge">anthropics/claude-code</code>)</th>
+      <th>Leaked Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>File Count</td>
+      <td>~279 (scripts/configs)</td>
+      <td><strong>4,600+</strong> (full-stack engine)</td>
+    </tr>
+    <tr>
+      <td>Core Engine</td>
+      <td><strong>Not included</strong></td>
+      <td>Included</td>
+    </tr>
+    <tr>
+      <td>Tool Implementations</td>
+      <td><strong>Not included</strong></td>
+      <td>Fully included (Bash, Read, Write, Edit…)</td>
+    </tr>
+    <tr>
+      <td>Agentic Loop</td>
+      <td><strong>Not included</strong></td>
+      <td>Included (<code class="language-plaintext highlighter-rouge">query.ts</code>, 1,729 lines)</td>
+    </tr>
+    <tr>
+      <td>Permission System</td>
+      <td><strong>Not included</strong></td>
+      <td>Included (<code class="language-plaintext highlighter-rouge">permissions.ts</code>, 52K)</td>
+    </tr>
+    <tr>
+      <td>API Communication</td>
+      <td><strong>Not included</strong></td>
+      <td>Included (streaming, caching, fallback)</td>
+    </tr>
+    <tr>
+      <td>Bridge/Remote</td>
+      <td><strong>Not included</strong></td>
+      <td>Included (33+ files)</td>
+    </tr>
+    <tr>
+      <td>MCP Client</td>
+      <td><strong>Not included</strong></td>
+      <td>Included (<code class="language-plaintext highlighter-rouge">client.ts</code>, 119K)</td>
+    </tr>
+    <tr>
+      <td>License</td>
+      <td>Anthropic Commercial ToS</td>
+      <td>Proprietary commercial code</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>279 vs 4,600. Time to rethink the definition of "open source."</p>
+
+<hr />
+
+<h2 id="3-the-agentic-loop-opening-the-heart">3. The Agentic Loop: Opening the Heart</h2>
+
+<p><a href="/assets/images/agentic-loop.png" data-lightbox="claude-code" data-title="Agentic Loop State Machine">
+  <img src="/assets/images/agentic-loop.png" alt="Agentic Loop State Machine" />
+</a></p>
+
+<p>The heart of Claude Code is <code class="language-plaintext highlighter-rouge">query.ts</code> — a 1,729-line <code class="language-plaintext highlighter-rouge">while(true)</code> loop. This "agentic loop" governs the entire cycle: receiving user input, executing tools, and feeding results back to Claude.</p>
+
+<h3 id="31-async-generator-an-elegant-design-choice">3.1 Async Generator: An Elegant Design Choice</h3>
+
+<p>The first thing that catches the eye is the function signature.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">async</span> <span class="kd">function</span><span class="o">*</span> <span class="nx">query</span><span class="p">(</span>
+  <span class="nx">params</span><span class="p">:</span> <span class="nx">QueryParams</span><span class="p">,</span>
+<span class="p">):</span> <span class="nx">AsyncGenerator</span><span class="o">&lt;</span>
+  <span class="o">|</span> <span class="nx">StreamEvent</span>
+  <span class="o">|</span> <span class="nx">RequestStartEvent</span>
+  <span class="o">|</span> <span class="nx">Message</span>
+  <span class="o">|</span> <span class="nx">TombstoneMessage</span>
+  <span class="o">|</span> <span class="nx">ToolUseSummaryMessage</span><span class="p">,</span>
+  <span class="nx">Terminal</span>  <span class="c1">// Return value: termination reason</span>
+<span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">async function*</code> — an async generator. Unlike a normal function that can only <code class="language-plaintext highlighter-rouge">return</code> a single value, a generator function (denoted by <code class="language-plaintext highlighter-rouge">function*</code>) can emit multiple values via <code class="language-plaintext highlighter-rouge">yield</code>. Adding <code class="language-plaintext highlighter-rouge">async</code> to that means it can <code class="language-plaintext highlighter-rouge">await</code> asynchronous operations (API calls, file reads, etc.) while pushing out intermediate results one at a time.</p>
+
+<p>Here is why this is a clever design choice. There are two traditional approaches for "emitting a stream of events." The <strong>EventEmitter</strong> pattern registers callbacks to event names, like <code class="language-plaintext highlighter-rouge">emitter.on('data', callback)</code> — Node.js streams are a prime example. The <strong>callback-based</strong> pattern passes separate functions for each concern: <code class="language-plaintext highlighter-rouge">query(params, onEvent, onDone, onError)</code>. Both approaches scatter event flow, termination handling, and error handling across different channels. As complexity grows, bugs like "received events but missed the termination signal" or "forgot to register the error handler" become all too common.</p>
+
+<p>An async generator unifies all three into <strong>a single function</strong>. On the consumer side, events arrive one by one via a <code class="language-plaintext highlighter-rouge">for await...of</code> loop. When the generator finishes, the termination reason (<code class="language-plaintext highlighter-rouge">Terminal</code>) comes from the <code class="language-plaintext highlighter-rouge">return</code> value. If an error occurs, <code class="language-plaintext highlighter-rouge">throw</code> inside the generator naturally propagates to the consumer's <code class="language-plaintext highlighter-rouge">try-catch</code> — no separate error channels or callback registration needed.</p>
+
+<p>The result is that "streaming events, normal termination, and error propagation" are all cleanly expressed in a single function signature. It is a remarkably fitting pattern for the complex state machine that an agentic loop demands.</p>
+
+<h3 id="32-immutable-parameters--mutable-state-the-continue-site-pattern">3.2 Immutable Parameters + Mutable State: The Continue Site Pattern</h3>
+
+<p>The loop separates two kinds of data.</p>
+
+<p><strong>Immutable parameters</strong> — things that do not change throughout the loop:</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">QueryParams</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">messages</span><span class="p">:</span> <span class="nx">Message</span><span class="p">[]</span>
+  <span class="na">systemPrompt</span><span class="p">:</span> <span class="nx">SystemPrompt</span>
+  <span class="na">canUseTool</span><span class="p">:</span> <span class="nx">CanUseToolFn</span>       <span class="c1">// Permission check callback</span>
+  <span class="na">toolUseContext</span><span class="p">:</span> <span class="nx">ToolUseContext</span>   <span class="c1">// Tool execution context</span>
+  <span class="nx">taskBudget</span><span class="p">?:</span> <span class="p">{</span> <span class="na">total</span><span class="p">:</span> <span class="kr">number</span> <span class="p">}</span>  <span class="c1">// API task_budget (beta)</span>
+  <span class="nl">maxTurns</span><span class="p">?:</span> <span class="kr">number</span>               <span class="c1">// Maximum turn limit</span>
+  <span class="nx">fallbackModel</span><span class="p">?:</span> <span class="kr">string</span>          <span class="c1">// Fallback model</span>
+  <span class="na">querySource</span><span class="p">:</span> <span class="nx">QuerySource</span>        <span class="c1">// Query source (REPL, agent, etc.)</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Mutable state</strong> — things updated on every iteration:</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">messages</span><span class="p">:</span> <span class="nx">Message</span><span class="p">[]</span>
+  <span class="na">toolUseContext</span><span class="p">:</span> <span class="nx">ToolUseContext</span>
+  <span class="na">autoCompactTracking</span><span class="p">:</span> <span class="nx">AutoCompactTrackingState</span> <span class="o">|</span> <span class="kc">undefined</span>
+  <span class="na">maxOutputTokensRecoveryCount</span><span class="p">:</span> <span class="kr">number</span>
+  <span class="na">hasAttemptedReactiveCompact</span><span class="p">:</span> <span class="nx">boolean</span>
+  <span class="na">maxOutputTokensOverride</span><span class="p">:</span> <span class="kr">number</span> <span class="o">|</span> <span class="kc">undefined</span>
+  <span class="na">pendingToolUseSummary</span><span class="p">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">ToolUseSummaryMessage</span> <span class="o">|</span> <span class="kc">null</span><span class="o">&gt;</span> <span class="o">|</span> <span class="kc">undefined</span>
+  <span class="na">stopHookActive</span><span class="p">:</span> <span class="nx">boolean</span> <span class="o">|</span> <span class="kc">undefined</span>
+  <span class="na">turnCount</span><span class="p">:</span> <span class="kr">number</span>
+  <span class="na">transition</span><span class="p">:</span> <span class="nx">Continue</span> <span class="o">|</span> <span class="kc">undefined</span>  <span class="c1">// Continuation reason from previous iteration</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The pattern to note here is the <strong>"Continue Site"</strong> — the term refers to points in the loop where state is updated and execution continues to the next iteration. The source code comments explain it directly:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Continue sites write `state = { ... }` instead of 9 separate assignments.</span>
+</code></pre></div></div>
+
+<p>Instead of modifying 9 individual fields one by one, the entire state object is reassigned at once.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+  <span class="na">messages</span><span class="p">:</span> <span class="nx">newMessages</span><span class="p">,</span>
+  <span class="na">turnCount</span><span class="p">:</span> <span class="nx">nextTurnCount</span><span class="p">,</span>
+  <span class="na">transition</span><span class="p">:</span> <span class="p">{</span> <span class="na">reason</span><span class="p">:</span> <span class="dl">'</span><span class="s1">next_turn</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This pattern has two advantages. First, state transitions are <strong>atomic</strong> — meaning "either everything succeeds or nothing changes." If you modified 9 fields one line at a time and an error occurred on the 3rd line, you would end up in a half-updated state where 2 fields changed and the other 7 did not. Reassigning the entire object at once makes such intermediate states structurally impossible. Second, the <code class="language-plaintext highlighter-rouge">transition</code> field records <strong>why</strong> execution continued to the next turn. Was it <code class="language-plaintext highlighter-rouge">'next_turn'</code>? Error recovery? A fallback model switch? This is explicit, so tests can verify that recovery paths worked correctly without inspecting message contents.</p>
+
+<p>React's <code class="language-plaintext highlighter-rouge">setState</code> philosophy has permeated all the way into the backend loop — a glimpse into the Anthropic engineers' love for React.</p>
+
+<p>This pattern matters because, in an agentic loop, state management bugs translate directly into user costs. Corrupted state leads to unnecessary API calls, and those calls cost tokens. Competitors like Cursor or Windsurf presumably implement similar agentic loops, but whether they achieve this level of state management rigor is unknown — their code is not public.</p>
+
+<h3 id="33-the-6-stage-per-turn-pipeline-a-detailed-walkthrough">3.3 The 6-Stage Per-Turn Pipeline: A Detailed Walkthrough</h3>
+
+<p>Each turn goes through the following 6 stages. We will examine them alongside the actual line numbers in the source code.</p>
+
+<h4 id="stage-1-pre-request-compaction-lines-365-548">Stage 1: Pre-Request Compaction (lines 365-548)</h4>
+
+<p>Conversation history is cleaned up <em>before</em> calling the API. Five compaction mechanisms are applied <strong>cheapest-first, in sequence</strong>. Each is covered in depth in Section 4, but here is a brief overview:</p>
+
+<ol>
+  <li><strong>Tool Result Budget</strong> — Caps oversized tool results. File reads or search results can span thousands of lines; this trims them to budget.</li>
+  <li><strong>Snip Compact</strong> — Drops old messages wholesale. The cheapest but most aggressive.</li>
+  <li><strong>Microcompact</strong> — Selectively clears individual tool results, choosing targets with prompt-cache awareness.</li>
+  <li><strong>Context Collapse</strong> — Reduces message blocks in stages. Creates a collapsed view without touching the originals.</li>
+  <li><strong>Auto-Compact</strong> — Summarizes the entire conversation via an LLM call. The most expensive but most effective.</li>
+</ol>
+
+<p>In code:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. Apply Tool Result Budget (lines 369-394)</span>
+<span class="nx">messagesForQuery</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">applyToolResultBudget</span><span class="p">(</span>
+  <span class="nx">messagesForQuery</span><span class="p">,</span>
+  <span class="nx">toolUseContext</span><span class="p">.</span><span class="nx">contentReplacementState</span><span class="p">,</span>
+  <span class="c1">// Only save replacement records for agent/REPL sources (for resume)</span>
+  <span class="nx">persistReplacements</span> <span class="p">?</span> <span class="nx">records</span> <span class="o">=&gt;</span> <span class="k">void</span> <span class="nx">recordContentReplacement</span><span class="p">(...)</span> <span class="p">:</span> <span class="kc">undefined</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">// 2. Snip Compact — the cheapest option (lines 401-410)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">HISTORY_SNIP</span><span class="dl">'</span><span class="p">))</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">snipResult</span> <span class="o">=</span> <span class="nx">snipModule</span><span class="o">!</span><span class="p">.</span><span class="nx">snipCompactIfNeeded</span><span class="p">(</span><span class="nx">messagesForQuery</span><span class="p">)</span>
+  <span class="nx">messagesForQuery</span> <span class="o">=</span> <span class="nx">snipResult</span><span class="p">.</span><span class="nx">messages</span>
+  <span class="nx">snipTokensFreed</span> <span class="o">=</span> <span class="nx">snipResult</span><span class="p">.</span><span class="nx">tokensFreed</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. Microcompact — cache-aware tool result clearing (lines 413-426)</span>
+<span class="kd">const</span> <span class="nx">microcompactResult</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">deps</span><span class="p">.</span><span class="nx">microcompact</span><span class="p">(</span><span class="nx">messagesForQuery</span><span class="p">,</span> <span class="nx">toolUseContext</span><span class="p">,</span> <span class="nx">querySource</span><span class="p">)</span>
+<span class="nx">messagesForQuery</span> <span class="o">=</span> <span class="nx">microcompactResult</span><span class="p">.</span><span class="nx">messages</span>
+
+<span class="c1">// 4. Context Collapse — staged reduction (lines 440-447)</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">CONTEXT_COLLAPSE</span><span class="dl">'</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">contextCollapse</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">collapseResult</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">contextCollapse</span><span class="p">.</span><span class="nx">applyCollapsesIfNeeded</span><span class="p">(...)</span>
+  <span class="nx">messagesForQuery</span> <span class="o">=</span> <span class="nx">collapseResult</span><span class="p">.</span><span class="nx">messages</span>
+<span class="p">}</span>
+
+<span class="c1">// 5. Auto-Compact — full summarization when threshold exceeded (lines 453-543)</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">compactionResult</span><span class="p">,</span> <span class="nx">consecutiveFailures</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">deps</span><span class="p">.</span><span class="nx">autocompact</span><span class="p">(...)</span>
+</code></pre></div></div>
+
+<p>The ordering matters. The reason Context Collapse comes <strong>before</strong> Auto-Compact is explained directly in the source code comments:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Runs BEFORE autocompact so that if collapse gets us under the</span>
+<span class="c1">// autocompact threshold, autocompact is a no-op and we keep granular</span>
+<span class="c1">// context instead of a single summary.</span>
+</code></pre></div></div>
+
+<p>If Collapse reduces enough, Auto-Compact (an expensive API call) does not fire. The strategy is to preserve fine-grained context as much as possible while saving costs.</p>
+
+<p>There is a subtle problem here. When compaction drops older messages, the server can no longer know how many tokens were consumed in those messages. So the client must calculate "total tokens spent so far is X, remaining budget is Y" itself and report it to the server. Because the server and client are looking at history from different points in time, this synchronization problem is a tricky issue commonly encountered in agentic systems.</p>
+
+<h4 id="stage-2-api-call--streaming-lines-659-863">Stage 2: API Call &amp; Streaming (lines 659-863)</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="k">await</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">message</span> <span class="k">of</span> <span class="nx">deps</span><span class="p">.</span><span class="nx">callModel</span><span class="p">(</span>
+  <span class="nx">fullSystemPrompt</span><span class="p">,</span>
+  <span class="nx">prependUserContext</span><span class="p">(</span><span class="nx">messagesForQuery</span><span class="p">,</span> <span class="nx">userContext</span><span class="p">),</span>
+  <span class="nx">toolUseContext</span><span class="p">,</span>
+  <span class="p">{</span> <span class="nx">taskBudget</span><span class="p">,</span> <span class="nx">taskBudgetRemaining</span><span class="p">,</span> <span class="nx">maxOutputTokensOverride</span><span class="p">,</span> <span class="nx">skipCacheWrite</span> <span class="p">},</span>
+<span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// Process streaming events</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The key here is the <strong>StreamingToolExecutor</strong>. Normally, you would expect a sequential flow: "Claude finishes responding, then tools execute, then results return." But Claude Code runs tools in parallel <em>while</em> Claude is still generating its response. This means files are already being read while Claude is typing "Let me read that file." The reduction in perceived latency comes from tricks like this.</p>
+
+<p>Of course, not all tools can run concurrently without consequences. Running two file-read tools simultaneously is harmless, but running a file-write tool and a file-read tool at the same time produces unpredictable results. The source code handles this problem with considerable sophistication:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// StreamingToolExecutor.ts</span>
+<span class="k">private</span> <span class="nx">canExecuteTool</span><span class="p">(</span><span class="nx">isConcurrencySafe</span><span class="p">:</span> <span class="nx">boolean</span><span class="p">):</span> <span class="nx">boolean</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">executingTools</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">tools</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">t</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">executing</span><span class="dl">'</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="nx">executingTools</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">||</span>
+    <span class="p">(</span><span class="nx">isConcurrencySafe</span> <span class="o">&amp;&amp;</span> <span class="nx">executingTools</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">t</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">.</span><span class="nx">isConcurrencySafe</span><span class="p">))</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Every tool has an <code class="language-plaintext highlighter-rouge">isConcurrencySafe</code> flag. Read-only tools like <code class="language-plaintext highlighter-rouge">FileReadTool</code>, <code class="language-plaintext highlighter-rouge">GlobTool</code>, and <code class="language-plaintext highlighter-rouge">GrepTool</code> are <code class="language-plaintext highlighter-rouge">true</code> — they do not affect each other and can safely run in parallel. Tools that modify the filesystem or environment, like <code class="language-plaintext highlighter-rouge">FileWriteTool</code> or <code class="language-plaintext highlighter-rouge">BashTool</code>, are <code class="language-plaintext highlighter-rouge">false</code> — they must run alone. The condition above, stated in plain language: "allow execution only when no tools are currently running, or when both the currently running tools and the new tool are all concurrency-safe."</p>
+
+<p>And when one tool errors, sibling tools running alongside it are cancelled with <code class="language-plaintext highlighter-rouge">sibling_error</code>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">AbortReason</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="dl">'</span><span class="s1">sibling_error</span><span class="dl">'</span>       <span class="c1">// Sibling tool error → cancel me too</span>
+  <span class="o">|</span> <span class="dl">'</span><span class="s1">user_interrupted</span><span class="dl">'</span>     <span class="c1">// User pressed Ctrl+C / ESC</span>
+  <span class="o">|</span> <span class="dl">'</span><span class="s1">streaming_fallback</span><span class="dl">'</span>   <span class="c1">// Discarded due to model fallback</span>
+</code></pre></div></div>
+
+<p>Model fallback is also handled here. When the API call fails or the primary model cannot respond, it automatically switches to a pre-designated fallback model:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">innerError</span> <span class="k">instanceof</span> <span class="nx">FallbackTriggeredError</span> <span class="o">&amp;&amp;</span> <span class="nx">fallbackModel</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">currentModel</span> <span class="o">=</span> <span class="nx">fallbackModel</span>
+  <span class="nx">attemptWithFallback</span> <span class="o">=</span> <span class="kc">true</span>
+  <span class="c1">// Create tombstones for orphaned messages</span>
+  <span class="k">yield</span><span class="o">*</span> <span class="nx">yieldMissingToolResultBlocks</span><span class="p">(</span><span class="nx">assistantMessages</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Model fallback triggered</span><span class="dl">'</span><span class="p">)</span>
+  <span class="c1">// Reset StreamingToolExecutor and retry</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The tombstone messages here deserve explanation. When the model switches, tool calls requested by the previous model are no longer valid. But the conversation history still records "a tool was called," and without a corresponding result, the history becomes inconsistent. A tombstone is a marker that fills this gap — borrowing the concept from databases where entries are marked as "deleted" — it leaves a record saying "this tool call was discarded due to model fallback," keeping the history internally consistent.</p>
+
+<h4 id="stage-3-error-recovery-cascade-lines-1062-1256">Stage 3: Error Recovery Cascade (lines 1062-1256)</h4>
+
+<p>This is the most architecturally impressive section. API calls can fail — the prompt may be too long (413 error, meaning "Prompt Too Long"), or the response may exceed the output token limit (max-output-tokens error). A simple system would just throw the error at the user and give up. Claude Code instead attempts recovery <strong>in order from lowest to highest cost</strong>.</p>
+
+<p><strong>Prompt-too-long (413 error) recovery — 3-stage cascade:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Stage 1: Context Collapse drain (cost: 0)
+  └ Context Collapse normally pre-selects message blocks as reduction candidates (preview).
+    When a 413 error hits, those pending candidates are immediately committed to shrink context.
+    Since the candidates are already prepared, applying them requires no additional API calls.
+
+Stage 2: Reactive Compact (cost: 1 API call)
+  └ Summarizes the entire conversation. Strips images, summarizes, then retries.
+  └ "strip retry" — if the summary itself is too large, removes media and tries once more.
+
+Stage 3: Surface the error
+  └ If all attempts fail, shows the error to the user.
+</code></pre></div></div>
+
+<p><strong>Max-output-tokens recovery — also 3 stages:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Stage 1: Token cap escalation (cost: 0)
+  └ Transparently increases from 8K → 64K (ESCALATED_MAX_TOKENS).
+  └ Handled automatically with no meta-message. The user does not notice.
+
+Stage 2: Resume message injection (cost: API re-call, up to 3 times)
+  └ Injects a message: "Your previous response was truncated. Please continue from where you left off."
+  └ Then calls the model again.
+  └ Tracks maxOutputTokensRecoveryCount, attempting up to 3 times.
+
+Stage 3: Recovery exhaustion
+  └ If still unresolved after 3 attempts, completes with whatever results are available.
+</code></pre></div></div>
+
+<p>The design principle behind this cascade is clear: <strong>the first attempt is always free.</strong> The expensive operation of summarizing the entire conversation is a last resort. This is not simple "retry" logic — it is a recovery strategy with precise cost-effectiveness considerations.</p>
+
+<h4 id="stage-4-stop-hooks--token-budget-lines-1267-1355">Stage 4: Stop Hooks &amp; Token Budget (lines 1267-1355)</h4>
+
+<p>Stop hooks execute user-defined validation logic. If you set up a hook saying "don't stop unless tests pass," the hook runs when Claude tries to finish. If it fails, the hook's error message is injected into the conversation and Claude tries again.</p>
+
+<p>The token budget is even more interesting. It is not simply "stop when the budget runs out" — it also <strong>stops when there is no progress even with budget remaining</strong>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">checkTokenBudget</span><span class="p">(</span><span class="nx">tracker</span><span class="p">,</span> <span class="nx">budget</span><span class="p">,</span> <span class="nx">globalTurnTokens</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">pct</span> <span class="o">=</span> <span class="p">(</span><span class="nx">turnTokens</span> <span class="o">/</span> <span class="nx">budget</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+  <span class="kd">const</span> <span class="nx">isDiminishing</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="nx">continuationCount</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span>        <span class="c1">// Continued 3+ times consecutively</span>
+    <span class="nx">deltaSinceLastCheck</span> <span class="o">&lt;</span> <span class="mi">500</span> <span class="o">&amp;&amp;</span>     <span class="c1">// Fewer than 500 tokens since last check</span>
+    <span class="nx">lastDeltaTokens</span> <span class="o">&lt;</span> <span class="mi">500</span>            <span class="c1">// Previous check also under 500 → "spinning wheels"</span>
+  <span class="p">)</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isDiminishing</span> <span class="o">&amp;&amp;</span> <span class="nx">turnTokens</span> <span class="o">&lt;</span> <span class="nx">budget</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// Not spinning and under 90% budget</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="na">action</span><span class="p">:</span> <span class="dl">'</span><span class="s1">continue</span><span class="dl">'</span><span class="p">,</span> <span class="na">nudgeMessage</span><span class="p">:</span> <span class="p">...</span> <span class="p">}</span>   <span class="c1">// Keep going</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="na">action</span><span class="p">:</span> <span class="dl">'</span><span class="s1">stop</span><span class="dl">'</span><span class="p">,</span> <span class="na">completionEvent</span><span class="p">:</span> <span class="p">{</span> <span class="nx">diminishingReturns</span><span class="p">,</span> <span class="p">...</span> <span class="p">}</span> <span class="p">}</span>  <span class="c1">// Stop</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Diminishing returns detection</strong> is built in. If Claude continues 3 consecutive times but produces fewer than 500 tokens each time, the system decides "continuing further is pointless" and stops. It keeps going until 90% of the budget is consumed, but it will not spin its wheels.</p>
+
+<p>Why this logic matters: the most dangerous thing in an agentic loop is an <strong>infinite loop</strong>. Claude repeatedly saying "let me try one more fix" while burning tokens with no progress. This diminishing returns detection automatically blocks those situations.</p>
+
+<h4 id="stage-5-tool-execution-lines-1363-1520">Stage 5: Tool Execution (lines 1363-1520)</h4>
+
+<p>Streaming mode (already started in Stage 2) and batch mode coexist. In Stage 2, the <code class="language-plaintext highlighter-rouge">StreamingToolExecutor</code> already began executing concurrency-safe tools in parallel during API response generation. Here, those results are collected and the remaining tools are executed sequentially.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Streaming: collect results from concurrency-safe tools already executing since Stage 2</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">streamingToolExecutor</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">toolResults</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">streamingToolExecutor</span><span class="p">.</span><span class="nx">getRemainingResults</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// Batch: remaining tools that were not streamed execute sequentially here</span>
+<span class="nx">toolResults</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">runTools</span><span class="p">(</span><span class="nx">toolUseBlocks</span><span class="p">,</span> <span class="nx">toolUseContext</span><span class="p">,</span> <span class="nx">canUseTool</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>While tools are running, the terminal spinner updates in real time. A Promise resolver called <code class="language-plaintext highlighter-rouge">progressAvailableResolve</code> sends a signal to UI consumers that "new progress is available," and the UI receives this signal to refresh the spinner text.</p>
+
+<h4 id="stage-6-post-tool--next-turn-transition-lines-1547-1727">Stage 6: Post-Tool &amp; Next Turn Transition (lines 1547-1727)</h4>
+
+<p>After tool execution completes, several "side tasks" are processed in preparation for the next turn. The most notable aspect here is the <strong>prefetch pattern</strong>. Back in Stage 1 (compaction), slow operations like "fetch skill list" and "load memory" were kicked off in advance. Here in Stage 6, those results are harvested. Since the network requests completed in the background during Stages 2 through 5, there is no waiting.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. Consume skill discovery — harvest what was prefetched in Stage 1</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">pendingSkillPrefetch</span><span class="p">?.</span><span class="nx">settledAt</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">skillAttachments</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">pendingSkillPrefetch</span><span class="p">.</span><span class="nx">promise</span>
+<span class="p">}</span>
+
+<span class="c1">// 2. Consume memory attachments — also harvest prefetched results from Stage 1</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">pendingMemoryPrefetch</span><span class="p">?.</span><span class="nx">settledAt</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">memoryAttachments</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">pendingMemoryPrefetch</span><span class="p">.</span><span class="nx">promise</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. Drain queued commands — slash commands, task notifications queued during tool execution</span>
+<span class="kd">const</span> <span class="nx">queuedCommands</span> <span class="o">=</span> <span class="nx">getCommandsByMaxPriority</span><span class="p">(...)</span>
+
+<span class="c1">// 4. Refresh MCP server tools — external tool list may have changed</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">toolUseContext</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">refreshTools</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">toolUseContext</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">tools</span> <span class="o">=</span> <span class="nx">toolUseContext</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">refreshTools</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then the state transitions:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Continue Site: proceed to next turn</span>
+<span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">messages</span><span class="p">:</span> <span class="p">[...</span><span class="nx">messagesForQuery</span><span class="p">,</span> <span class="p">...</span><span class="nx">assistantMessages</span><span class="p">,</span> <span class="p">...</span><span class="nx">toolResults</span><span class="p">],</span>
+  <span class="na">toolUseContext</span><span class="p">:</span> <span class="nx">toolUseContextWithQueryTracking</span><span class="p">,</span>
+  <span class="na">autoCompactTracking</span><span class="p">:</span> <span class="nx">tracking</span><span class="p">,</span>
+  <span class="na">turnCount</span><span class="p">:</span> <span class="nx">nextTurnCount</span><span class="p">,</span>
+  <span class="na">transition</span><span class="p">:</span> <span class="p">{</span> <span class="na">reason</span><span class="p">:</span> <span class="dl">'</span><span class="s1">next_turn</span><span class="dl">'</span> <span class="p">},</span>
+<span class="p">}</span>
+<span class="c1">// Returns to top of while(true) loop</span>
+</code></pre></div></div>
+
+<h3 id="34-termination-reasons-9-ways-the-loop-ends">3.4 Termination Reasons: 9 Ways the Loop Ends</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Exit Reason</th>
+      <th>Meaning</th>
+      <th>Trigger Point</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">completed</code></td>
+      <td>Normal completion (response ended without tool calls)</td>
+      <td>line 1264, 1357</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">blocking_limit</code></td>
+      <td>Hard token limit reached</td>
+      <td>line 646</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">aborted_streaming</code></td>
+      <td>User interrupted during streaming (Ctrl+C)</td>
+      <td>line 1051</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">aborted_tools</code></td>
+      <td>User interrupted during tool execution</td>
+      <td>line 1515</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prompt_too_long</code></td>
+      <td>Prompt exceeded limit even after recovery attempts</td>
+      <td>line 1175, 1182</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">image_error</code></td>
+      <td>Image validation failure (size exceeded, etc.)</td>
+      <td>line 977, 1175</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">model_error</code></td>
+      <td>Unexpected model error</td>
+      <td>line 996</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">hook_stopped</code></td>
+      <td>Stop hook blocked continuation</td>
+      <td>line 1520</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">max_turns</code></td>
+      <td>Maximum turn count exceeded (<code class="language-plaintext highlighter-rouge">maxTurns</code> parameter)</td>
+      <td>line 1711</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="35-queryenginets-the-session-level-supervisor">3.5 QueryEngine.ts: The Session-Level Supervisor</h3>
+
+<p>Everything we have examined so far in <code class="language-plaintext highlighter-rouge">query.ts</code> handles the cycle of "one user input, Claude responds, tools execute, Claude again." But who manages the <strong>entire session</strong> spanning multiple user inputs? That would be <code class="language-plaintext highlighter-rouge">QueryEngine.ts</code> (1,295 lines).</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">QueryEngine</span> <span class="p">{</span>
+  <span class="nl">mutableMessages</span><span class="p">:</span> <span class="nx">Message</span><span class="p">[]</span>       <span class="c1">// Full conversation history</span>
+  <span class="nx">permissionDenials</span><span class="p">:</span> <span class="nx">PermissionDenial</span><span class="p">[]</span>  <span class="c1">// Tool permission denial records</span>
+  <span class="nx">totalUsage</span><span class="p">:</span> <span class="nx">Usage</span>                <span class="c1">// Cumulative token usage</span>
+  <span class="nx">readFileState</span><span class="p">:</span> <span class="nx">FileStateCache</span>    <span class="c1">// File state cache (prevents duplicate reads)</span>
+  <span class="nx">discoveredSkillNames</span><span class="p">:</span> <span class="nb">Set</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span> <span class="c1">// Discovered skills (reset per turn)</span>
+  <span class="nx">loadedNestedMemoryPaths</span><span class="p">:</span> <span class="nb">Set</span><span class="o">&lt;</span><span class="kr">string</span><span class="o">&gt;</span> <span class="c1">// Loaded memory paths (prevents duplicates)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">submitMessage()</code> method receives user input, calls <code class="language-plaintext highlighter-rouge">query()</code>, and accumulates results into the session.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Accumulate usage</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">totalUsage</span> <span class="o">=</span> <span class="nx">accumulateUsage</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">totalUsage</span><span class="p">,</span> <span class="nx">currentMessageUsage</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>An asymmetric strategy is applied to transcript recording:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// User messages: blocking save (essential for --resume restoration)</span>
+<span class="k">await</span> <span class="nx">recordTranscript</span><span class="p">(</span><span class="nx">userMessage</span><span class="p">)</span>
+
+<span class="c1">// Assistant messages: fire-and-forget (start the operation, don't wait for it to complete)</span>
+<span class="nx">recordTranscript</span><span class="p">(</span><span class="nx">assistantMessage</span><span class="p">)</span>  <span class="c1">// No await</span>
+</code></pre></div></div>
+
+<p>Not all messages are saved with equal priority. User messages are required for <code class="language-plaintext highlighter-rouge">--resume</code> to pick up a session, so the loop waits until the write is confirmed on disk before proceeding (<code class="language-plaintext highlighter-rouge">await</code>). Assistant responses, on the other hand, are not strictly necessary for session restoration, so the save request is dispatched and the loop moves on immediately without waiting for completion (no <code class="language-plaintext highlighter-rouge">await</code>). Even if the write fails, the loop keeps running. This cuts disk I/O wait time roughly in half while still guaranteeing the data that truly cannot be lost is persisted.</p>
+
+<hr />
+
+<h2 id="4-message-compaction-a-sophisticated-war-against-the-context-window">4. Message Compaction: A Sophisticated War Against the Context Window</h2>
+
+<p><a href="/assets/images/compaction-layers.png" data-lightbox="claude-code" data-title="Message Compaction Layers">
+  <img src="/assets/images/compaction-layers.png" alt="Message Compaction Layers" />
+</a></p>
+
+<p>The greatest enemy of an agentic AI tool is the context window limit. There is an upper bound on the total text that can be sent to an LLM, and as conversations grow longer, earlier content gets truncated or the API returns a 413 (Prompt Too Long) error. Claude Code's compaction system addresses this with 4 layers, each with different costs and levels of information loss. The core principle: <strong>"always start with the cheapest option."</strong></p>
+
+<h3 id="41-snip-compact--cheapest-and-most-aggressive">4.1 Snip Compact — Cheapest and Most Aggressive</h3>
+
+<p>Cost: <strong>Free</strong> (no API calls)
+Information loss: <strong>High</strong></p>
+
+<p>True to its name ("snip" as in cutting), it removes entire blocks of older messages and keeps only recent context. No summarization or analysis — it simply discards, so information loss is high, but cost is zero since no API calls are made. Gated behind the <code class="language-plaintext highlighter-rouge">HISTORY_SNIP</code> feature flag, primarily used in headless (UI-less, background) sessions. Since automated sessions are not directly viewed by users, aggressive snipping is acceptable.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">snipResult</span> <span class="o">=</span> <span class="nx">snipModule</span><span class="o">!</span><span class="p">.</span><span class="nx">snipCompactIfNeeded</span><span class="p">(</span><span class="nx">messagesForQuery</span><span class="p">)</span>
+<span class="nx">messagesForQuery</span> <span class="o">=</span> <span class="nx">snipResult</span><span class="p">.</span><span class="nx">messages</span>
+<span class="nx">snipTokensFreed</span> <span class="o">=</span> <span class="nx">snipResult</span><span class="p">.</span><span class="nx">tokensFreed</span>
+</code></pre></div></div>
+
+<p>Importantly, <code class="language-plaintext highlighter-rouge">snipTokensFreed</code> — the number of tokens Snip removed — is passed to the Auto-Compact stage. Why? Auto-Compact decides whether to trigger based on "has the current token count exceeded the threshold?" But the token count estimate (<code class="language-plaintext highlighter-rouge">tokenCountWithEstimation</code>) only counts currently remaining messages, so it has no way of knowing what Snip already removed. Without passing this information, "Snip already reduced enough, yet Auto-Compact fires unnecessarily" becomes a real scenario. The source comments explain this directly:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// snipTokensFreed is plumbed to autocompact so its threshold check reflects</span>
+<span class="c1">// what snip removed; tokenCountWithEstimation alone can't see it</span>
+</code></pre></div></div>
+
+<h3 id="42-microcompact-530-lines--selective-clearing-that-respects-the-cache">4.2 Microcompact (530 lines) — Selective Clearing That Respects the Cache</h3>
+
+<p>Cost: <strong>Free</strong> (no API calls)
+Information loss: <strong>Medium</strong></p>
+
+<p>The "micro" in the name reflects that it operates on individual tool results rather than the entire conversation — selectively clearing only specific tools' outputs. For example, file contents read by <code class="language-plaintext highlighter-rouge">file_read</code> ten turns ago (potentially hundreds of lines) are information Claude has already digested. Replacing the original with a short placeholder like <code class="language-plaintext highlighter-rouge">"[Old tool result content cleared]"</code> has little impact on subsequent conversation.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Clearing targets: file_read, shell, grep, glob, web_search, web_fetch, file_edit, file_write</span>
+<span class="c1">// Replaces results with "[Old tool result content cleared]"</span>
+<span class="c1">// Images/documents: estimated at 2,000 tokens</span>
+<span class="c1">// Text: rough token count estimation</span>
+</code></pre></div></div>
+
+<p>But you cannot blindly clear any tool result. This is where the real core of this layer emerges — <strong>cache edit block pinning</strong>.</p>
+
+<p>To understand this, you first need to know about <strong>prompt caching</strong>. When sending a prompt to the Anthropic API, if the beginning of the prompt (the prefix) is identical to the previous request, the server skips recomputation for that portion. In an agentic loop that must resend the system prompt plus the entire conversation history every turn, this caching dramatically reduces both cost and latency.</p>
+
+<p>The problem is that when Microcompact clears a tool result in the middle of the conversation, the prompt content changes from that point forward, and <strong>all cache entries after that point are invalidated</strong>. If you clear one old <code class="language-plaintext highlighter-rouge">grep</code> result near the beginning of the conversation and it wipes out tens of thousands of tokens worth of cache downstream, the "optimization" backfires.</p>
+
+<p><strong>Cache edit block pinning</strong> solves this. "Pinning" means keeping tool results that fall within the cached prefix region <strong>pinned in place</strong> rather than clearing them. Specifically:</p>
+
+<ol>
+  <li>Track which tool results currently fall within the cached prefix range</li>
+  <li>Exclude results within the cache range from clearing candidates (pinning)</li>
+  <li>Safely clear only results outside the cache range</li>
+  <li>Record pinned results in <code class="language-plaintext highlighter-rouge">pendingCacheEdits</code> as "candidates to clear later"</li>
+  <li>On the next turn, when the cache range shifts, clear candidates that are no longer within the cache</li>
+</ol>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">pendingCacheEdits</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">CACHED_MICROCOMPACT</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="nx">microcompactResult</span><span class="p">.</span><span class="nx">compactionInfo</span><span class="p">?.</span><span class="nx">pendingCacheEdits</span>
+  <span class="p">:</span> <span class="kc">undefined</span>
+</code></pre></div></div>
+
+<p>The strategy boils down to "clearing now would break the cache, so defer until it is safe." In prompt caching, a single cache miss means recomputation of tens of thousands of tokens, so sending a slightly larger prompt may actually be cheaper than breaking the cache with premature clearing. Reducing context while maintaining cache hit rates are conflicting goals, and this pinning mechanism strikes the balance.</p>
+
+<h3 id="43-context-collapse--staged-reduction">4.3 Context Collapse — Staged Reduction</h3>
+
+<p>Cost: <strong>Low</strong>
+Information loss: <strong>Medium</strong></p>
+
+<p>This layer uses a concept reminiscent of Git's commit model: "staged collapse." Instead of compressing the entire conversation at once, it operates in two stages.</p>
+
+<p><strong>Preview stage</strong>: The system scans the conversation and identifies "this message block could be collapsed." For example, if there is a block from 10 turns ago where 5 files were read consecutively, it marks this as collapsible into a one-line summary: "Read 5 files and confirmed X." Nothing changes at this point.</p>
+
+<p><strong>Commit stage</strong>: The candidates selected during preview are actually collapsed. But the crucial design decision here is that <strong>original messages are never modified</strong>. Instead, the collapsed results (summaries) are stored in a separate collapse store, and when sending the prompt to the API, a <code class="language-plaintext highlighter-rouge">projectView()</code> function overlays the collapsed view on top of the originals.</p>
+
+<p>The source comments explain this design directly:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Nothing is yielded — the collapsed view is a read-time projection</span>
+<span class="c1">// over the REPL's full history. Summary messages live in the collapse</span>
+<span class="c1">// store, not the REPL array. This is what makes collapses persist</span>
+<span class="c1">// across turns: projectView() replays the commit log on every entry.</span>
+</code></pre></div></div>
+
+<p>This is called a <strong>read-time projection</strong> — the same concept as a database "view." The original table remains untouched, and a virtual table shows processed results each time you query. Here too, the original message array is never touched; the collapsed version is computed at the moment of sending to the API. Similar to how Git shows different branch snapshots without modifying the underlying files.</p>
+
+<p>Why this level of complexity? Because of prompt caching. Directly modifying original messages would invalidate all cache entries from that point forward (the same problem described in Section 4.2). By preserving the originals, the cached prefix remains intact, so you get the benefits of collapse while maintaining cache hit rates.</p>
+
+<h3 id="44-auto-compact-351-lines--the-last-resort">4.4 Auto-Compact (351 lines) — The Last Resort</h3>
+
+<p>Cost: <strong>High</strong> (additional Claude API call)
+Information loss: <strong>Low</strong> (AI summarizes, so key information is preserved)</p>
+
+<p>The three preceding layers (Snip, Microcompact, Context Collapse) all work by cutting, clearing, or collapsing views of existing messages. Auto-Compact is fundamentally different — it sends the entire conversation history to Claude and asks <strong>"please summarize the conversation so far."</strong> Since the AI understands the context and distills only the essentials, information loss is minimal, but the additional API call makes it the most expensive option.</p>
+
+<p>The threshold logic that determines when to trigger is clear:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">getAutoCompactThreshold</span><span class="p">(</span><span class="nx">model</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">effectiveContextWindow</span> <span class="o">=</span> <span class="nx">getEffectiveContextWindowSize</span><span class="p">(</span><span class="nx">model</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">effectiveContextWindow</span> <span class="o">-</span> <span class="mi">13</span><span class="nx">_000</span>  <span class="c1">// 13K token buffer</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It reserves 13K tokens of headroom from the context window. This buffer is where the system prompt, tool definitions, and the next turn's model response need to fit. When the remaining space fills up with conversation history, auto-compaction fires.</p>
+
+<p>A <strong>circuit breaker</strong> pattern is applied here. Just as an electrical breaker cuts the circuit to protect equipment when overloaded, this software pattern stops retrying after detecting consecutive failures:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">MAX_CONSECUTIVE_AUTOCOMPACT_FAILURES</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<p>Why is this needed? When a conversation becomes extremely long, even the summarization request itself can exceed the context limit and fail. Without the circuit breaker, this leads to an infinite loop of "compact fails, retry, fails again, retry…" After 3 consecutive failures, the circuit breaker trips and gives up cleanly, handing control to other recovery paths (the error recovery cascade in Section 3.3).</p>
+
+<h3 id="45-full-compaction-1705-lines--auto-compacts-engine-room">4.5 Full Compaction (1,705 lines) — Auto-Compact's Engine Room</h3>
+
+<p>This is the preprocessing stage before Auto-Compact sends its "please summarize" request. Even the summarization prompt has a context limit, so unnecessary parts are trimmed first to increase the success rate of summarization.</p>
+
+<ol>
+  <li><strong>Image stripping</strong>: Replaces images and documents with <code class="language-plaintext highlighter-rouge">[image]</code> / <code class="language-plaintext highlighter-rouge">[document]</code> placeholders. A single image can consume thousands of tokens; for the summarization model, knowing "an image was here" is sufficient.</li>
+  <li><strong>API round grouping</strong>: In the Claude API, <code class="language-plaintext highlighter-rouge">tool_use</code> (tool call request) and <code class="language-plaintext highlighter-rouge">tool_result</code> (execution result) must always exist as pairs. Deleting one without the other causes the API to reject the request, so these pairs are grouped together and handled as units — "when dropping, drop by group."</li>
+  <li><strong>Thinking block removal</strong>: (Anthropic internal builds only) Removes reasoning process (chain-of-thought) blocks before compaction, since intermediate reasoning steps do not need to be included in the summary.</li>
+  <li><strong>PTL (Prompt-Too-Long) retry</strong>: If the compaction request itself exceeds the limit even after preprocessing, drops the oldest API round groups. Repeats until within limits, falling back to dropping 20% of all groups at once if needed.</li>
+</ol>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">truncateHeadForPTLRetry</span><span class="p">(</span><span class="nx">messages</span><span class="p">,</span> <span class="nx">ptlResponse</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Drop oldest API-round groups until prompt-too-long gap is covered</span>
+  <span class="c1">// Falls back to dropping 20% of groups</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="46-token-warning-state-machine">4.6 Token Warning State Machine</h3>
+
+<p>A 4-stage warning system provides visual feedback to the user about how full the context is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Normal]
+  ↓ Context window - 20K tokens remaining
+[Warning] ← Yellow warning. "The conversation is getting long"
+  ↓ Context window - 20K tokens remaining
+[Error] ← Orange warning. "Compaction will trigger soon"
+  ↓ Context window - 13K tokens remaining
+[AutoCompact] ← Auto-compaction fires. User is notified
+  ↓ Context window - 3K tokens remaining
+[BlockingLimit] ← Red. Auto-compaction was not enough; only manual compaction (/compact) available
+</code></pre></div></div>
+
+<h3 id="insight-why-4-tiers">Insight: Why 4 Tiers?</h3>
+
+<p>The 4-tier compaction is not simply "compress progressively harder." Each tier <strong>sacrifices different things along different axes</strong>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Cost</th>
+      <th>Information Loss</th>
+      <th>Cache Impact</th>
+      <th>Core Trade-off</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Snip</strong></td>
+      <td>Free</td>
+      <td>High</td>
+      <td>None</td>
+      <td>Discards the past wholesale but preserves current cache</td>
+    </tr>
+    <tr>
+      <td><strong>Microcompact</strong></td>
+      <td>Free</td>
+      <td>Medium</td>
+      <td>Minimized via pinning</td>
+      <td>Clears individual results while respecting cache ranges</td>
+    </tr>
+    <tr>
+      <td><strong>Context Collapse</strong></td>
+      <td>Low</td>
+      <td>Medium</td>
+      <td>Minimal (one-time reset, then stable)</td>
+      <td>Originals preserved, but collapsed view causes cache reset at application. Cache re-accumulates on new stable prefix</td>
+    </tr>
+    <tr>
+      <td><strong>Auto-Compact</strong></td>
+      <td>High</td>
+      <td>Low</td>
+      <td>Full reset</td>
+      <td>AI summarizes so information is preserved, but incurs API costs</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This is a problem of finding the Pareto optimum along two axes: "minimize cost" and "maximize information preservation." The Pareto frontier is the boundary where improving one axis necessarily worsens the other. The 4 layers represent different balance points along that frontier, and no single strategy can be optimal in every dimension — so the appropriate strategy is applied in sequence based on the situation.</p>
+
+<hr />
+
+<h2 id="5-tool-system-a-systematically-extensible-swiss-army-knife">5. Tool System: A Systematically Extensible Swiss Army Knife</h2>
+
+<p>What Claude Code can actually <em>do</em> is determined by the tool system. Looking at <code class="language-plaintext highlighter-rouge">tools.ts</code> reveals the full picture of how tools are registered.</p>
+
+<h3 id="51-tool-interface">5.1 Tool Interface</h3>
+
+<p>Every tool follows the same interface. The key is <code class="language-plaintext highlighter-rouge">ToolUseContext</code> — the "world" object that a tool receives when it executes. Any tool, regardless of what it does, pulls everything it needs from this single object.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ToolUseContext — everything needed for tool execution is bundled here</span>
+<span class="kd">type</span> <span class="nx">ToolUseContext</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">options</span><span class="p">:</span> <span class="p">{</span> <span class="na">tools</span><span class="p">:</span> <span class="nx">Tools</span><span class="p">;</span> <span class="nl">mainLoopModel</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="nl">mcpClients</span><span class="p">:</span> <span class="nx">MCPServerConnection</span><span class="p">[];</span> <span class="nl">maxBudgetUsd</span><span class="p">?:</span> <span class="kr">number</span><span class="p">;</span> <span class="p">...</span> <span class="p">}</span>
+  <span class="nl">abortController</span><span class="p">:</span> <span class="nx">AbortController</span>
+  <span class="na">readFileState</span><span class="p">:</span> <span class="nx">FileStateCache</span>    <span class="c1">// Prevents duplicate file reads</span>
+  <span class="nx">getAppState</span><span class="p">():</span> <span class="nx">AppState</span>          <span class="c1">// Access to application state</span>
+  <span class="nx">setAppState</span><span class="p">(</span><span class="na">f</span><span class="p">:</span> <span class="p">(</span><span class="na">prev</span><span class="p">:</span> <span class="nx">AppState</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">AppState</span><span class="p">):</span> <span class="k">void</span>
+  <span class="c1">// ... 40+ fields (agent ID, permission tracking, content replacement state, etc.)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The reason there are over 40 fields is that tools do not simply "read a file" in isolation. They need the full execution context: which model is currently in use (<code class="language-plaintext highlighter-rouge">mainLoopModel</code>), whether the cost limit has been exceeded (<code class="language-plaintext highlighter-rouge">maxBudgetUsd</code>), whether the user pressed cancel (<code class="language-plaintext highlighter-rouge">abortController</code>), whether the same file is being read again (<code class="language-plaintext highlighter-rouge">readFileState</code>), and so on.</p>
+
+<p>Worth noting is the <code class="language-plaintext highlighter-rouge">ToolPermissionContext</code>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">ToolPermissionContext</span> <span class="o">=</span> <span class="nx">DeepImmutable</span><span class="o">&lt;</span><span class="p">{</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="nx">PermissionMode</span>
+  <span class="na">additionalWorkingDirectories</span><span class="p">:</span> <span class="nb">Map</span><span class="o">&lt;</span><span class="kr">string</span><span class="p">,</span> <span class="nx">AdditionalWorkingDirectory</span><span class="o">&gt;</span>
+  <span class="na">alwaysAllowRules</span><span class="p">:</span> <span class="nx">ToolPermissionRulesBySource</span>
+  <span class="na">alwaysDenyRules</span><span class="p">:</span> <span class="nx">ToolPermissionRulesBySource</span>
+  <span class="na">alwaysAskRules</span><span class="p">:</span> <span class="nx">ToolPermissionRulesBySource</span>
+  <span class="na">isBypassPermissionsModeAvailable</span><span class="p">:</span> <span class="nx">boolean</span>
+  <span class="nx">isAutoModeAvailable</span><span class="p">?:</span> <span class="nx">boolean</span>
+  <span class="nx">strippedDangerousRules</span><span class="p">?:</span> <span class="nx">ToolPermissionRulesBySource</span>
+  <span class="nx">shouldAvoidPermissionPrompts</span><span class="p">?:</span> <span class="nx">boolean</span>  <span class="c1">// For background agents</span>
+  <span class="nx">awaitAutomatedChecksBeforeDialog</span><span class="p">?:</span> <span class="nx">boolean</span>  <span class="c1">// For coordinator workers</span>
+  <span class="nx">prePlanMode</span><span class="p">?:</span> <span class="nx">PermissionMode</span>  <span class="c1">// Saves mode before entering plan mode</span>
+<span class="p">}</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>The wrapping <code class="language-plaintext highlighter-rouge">DeepImmutable</code> is significant. TypeScript's <code class="language-plaintext highlighter-rouge">Readonly</code> only makes the top-level properties of an object read-only, but <code class="language-plaintext highlighter-rouge">DeepImmutable</code> <strong>recursively locks every nested property</strong> as read-only. Not just <code class="language-plaintext highlighter-rouge">rules.alwaysAllowRules</code> but also the array elements inside it, and the objects inside those array elements — all become unmodifiable. Since permission rules form the system's security boundary, accidental modification from anywhere in the code is blocked at the type system level.</p>
+
+<h3 id="52-three-tier-tool-registration-structure">5.2 Three-Tier Tool Registration Structure</h3>
+
+<p>Looking at the <code class="language-plaintext highlighter-rouge">getAllBaseTools()</code> function, Claude Code's tools fall into three tiers.</p>
+
+<p><strong>Always active</strong>: Around 20 base tools including <code class="language-plaintext highlighter-rouge">BashTool</code>, <code class="language-plaintext highlighter-rouge">FileReadTool</code>, <code class="language-plaintext highlighter-rouge">FileEditTool</code>, <code class="language-plaintext highlighter-rouge">WebSearchTool</code>, and <code class="language-plaintext highlighter-rouge">AgentTool</code>. These constitute Claude Code's core capabilities.</p>
+
+<p><strong>Conditionally active</strong>: Tools activated based on environment or configuration. For an interesting example, <code class="language-plaintext highlighter-rouge">GlobTool</code> and <code class="language-plaintext highlighter-rouge">GrepTool</code> are disabled in Anthropic's internal build. The reason: the internal build's Bun binary has <code class="language-plaintext highlighter-rouge">bfs</code> (a high-performance native file search tool) and <code class="language-plaintext highlighter-rouge">ugrep</code> (a high-performance native text search tool) directly embedded, so they are faster than the JavaScript-implemented Glob/Grep. External builds lack these embedded tools, so the JavaScript versions are activated instead. <code class="language-plaintext highlighter-rouge">PowerShellTool</code> only activates on Windows, and <code class="language-plaintext highlighter-rouge">LSPTool</code> requires explicit activation via environment variable.</p>
+
+<p><strong>Feature flag-gated (unreleased)</strong>: Tools gated by the <code class="language-plaintext highlighter-rouge">feature()</code> function — <code class="language-plaintext highlighter-rouge">WebBrowserTool</code>, <code class="language-plaintext highlighter-rouge">WorkflowTool</code>, <code class="language-plaintext highlighter-rouge">SleepTool</code>, <code class="language-plaintext highlighter-rouge">PushNotificationTool</code>, and 15+ others fall into this category. These are covered in detail in Section 7.</p>
+
+<p>Interesting are the Anthropic-internal-only tools, gated by <code class="language-plaintext highlighter-rouge">USER_TYPE === 'ant'</code>:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">REPLTool</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USER_TYPE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">ant</span><span class="dl">'</span>
+  <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/REPLTool/REPLTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">REPLTool</span>
+  <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">REPLTool</code>, <code class="language-plaintext highlighter-rouge">ConfigTool</code>, <code class="language-plaintext highlighter-rouge">TungstenTool</code>, <code class="language-plaintext highlighter-rouge">SuggestBackgroundPRTool</code> — these tools do not exist for external users. This means Anthropic engineers have a separate set of tools for internal use. <code class="language-plaintext highlighter-rouge">TungstenTool</code> in particular has a mysterious purpose based on name alone — tungsten (a high-density metal) suggests a tool for handling "heavy" operations.</p>
+
+<p>Why does this 3-tier structure matter? In agentic AI tools, "which capabilities to grant" is a core design decision. Too many tools and the system prompt bloats (increasing token costs); too few and the agent's capabilities are limited. Claude Code solves this with a 3-tier approach of build-time elimination + conditional activation + feature flags. Cursor and Devin likely face similar tool scaling challenges, and this layered approach is worth studying.</p>
+
+<h3 id="53-tool-pool-assembly-designed-with-cache-stability-in-mind">5.3 Tool Pool Assembly: Designed with Cache Stability in Mind</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">assembleToolPool()</code> function merges built-in and MCP tools, and here we see interesting processing for the prompt caching stability discussed in Section 4.2:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">assembleToolPool</span><span class="p">(</span><span class="nx">permissionContext</span><span class="p">,</span> <span class="nx">mcpTools</span><span class="p">):</span> <span class="nx">Tools</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">builtInTools</span> <span class="o">=</span> <span class="nx">getTools</span><span class="p">(</span><span class="nx">permissionContext</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">allowedMcpTools</span> <span class="o">=</span> <span class="nx">filterToolsByDenyRules</span><span class="p">(</span><span class="nx">mcpTools</span><span class="p">,</span> <span class="nx">permissionContext</span><span class="p">)</span>
+
+  <span class="c1">// Sort each partition for prompt-cache stability, keeping built-ins as a</span>
+  <span class="c1">// contiguous prefix. The server's claude_code_system_cache_policy places a</span>
+  <span class="c1">// global cache breakpoint after the last prefix-matched built-in tool; a flat</span>
+  <span class="c1">// sort would interleave MCP tools into built-ins and invalidate all downstream</span>
+  <span class="c1">// cache keys whenever an MCP tool sorts between existing built-ins.</span>
+  <span class="kd">const</span> <span class="nx">byName</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="nx">Tool</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="nx">Tool</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">uniqBy</span><span class="p">(</span>
+    <span class="p">[...</span><span class="nx">builtInTools</span><span class="p">].</span><span class="nx">sort</span><span class="p">(</span><span class="nx">byName</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">allowedMcpTools</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">byName</span><span class="p">)),</span>
+    <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Built-in tools and MCP tools are <strong>sorted separately then concatenated.</strong> Why not sort everything at once?</p>
+
+<p>As explained in Section 4, prompt caching works on "prefix matching" — if the beginning of the prompt matches. Tool definitions are part of the prompt, so if the order of the tool list changes, the cache breaks. Anthropic's server places a <strong>cache breakpoint</strong> (a boundary marker indicating "everything up to here is safe to cache") after the last built-in tool in the list. If you did a flat alphabetical sort of everything together, adding a single MCP tool whose name sorts between existing built-in tools would interleave it into the built-in section, shifting the built-in tool order and invalidating all cache entries before the cache breakpoint. By sorting "built-ins first, then MCP tools separately, then concatenating," adding or removing MCP tools never changes the built-in region, and the cache is preserved.</p>
+
+<p>This level of cache optimization clearly comes from real-world production cost experience.</p>
+
+<h3 id="54-dynamic-tool-search">5.4 Dynamic Tool Search</h3>
+
+<p>This is the <code class="language-plaintext highlighter-rouge">tool-search-2025-10-16</code> beta feature. The problem is straightforward — when Claude Code's tools number over 20 built-in plus dozens of MCP tools, tool definitions alone consume thousands of tokens in the system prompt. Paying this cost every turn is wasteful.</p>
+
+<p>The solution is to <strong>load tools only when needed</strong>. Instead of showing Claude all tools upfront, only a <code class="language-plaintext highlighter-rouge">ToolSearchTool</code> — a "tool that finds tools" — is provided. When Claude thinks "I want to search files," it first searches for the relevant tool via ToolSearchTool, and that tool's definition is loaded on the spot.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tools.ts:247-249</span>
+<span class="c1">// Include ToolSearchTool when tool search might be enabled (optimistic check)</span>
+<span class="c1">// The actual decision to defer tools happens at request time in claude.ts</span>
+<span class="p">...(</span><span class="nx">isToolSearchEnabledOptimistic</span><span class="p">()</span> <span class="p">?</span> <span class="p">[</span><span class="nx">ToolSearchTool</span><span class="p">]</span> <span class="p">:</span> <span class="p">[]),</span>
+</code></pre></div></div>
+
+<p>The phrase "optimistic check" stands out. At tool registration time, ToolSearchTool is included on the optimistic assumption that "it will probably be needed." The actual decision of which tools to defer-load happens later at API request time. Even if the registration-time check is slightly inaccurate, it is harmless — worst case, ToolSearchTool goes unused but the system does not break. This is lazy loading from web frontends applied to the LLM tool system.</p>
+
+<hr />
+
+<h2 id="6-multi-layer-security-peeling-the-onion">6. Multi-Layer Security: Peeling the Onion</h2>
+
+<p><a href="/assets/images/security-layers.png" data-lightbox="claude-code" data-title="Security Layers">
+  <img src="/assets/images/security-layers.png" alt="Security Layers" />
+</a></p>
+
+<p>"An AI agent accessing my filesystem and executing terminal commands" — a sentence sufficient to make any security researcher shudder. A single poorly crafted prompt could execute <code class="language-plaintext highlighter-rouge">rm -rf /</code>, and a malicious prompt injection could exfiltrate sensitive files. Looking at how Claude Code handles this problem reveals an onion-like multi-layered defense. Eight layers deep.</p>
+
+<h3 id="61-layer-1-build-time-gate--security-through-nonexistence">6.1 Layer 1: Build-Time Gate — Security Through Nonexistence</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tools.ts:117-119</span>
+<span class="kd">const</span> <span class="nx">WebBrowserTool</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">WEB_BROWSER_TOOL</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/WebBrowserTool/WebBrowserTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">WebBrowserTool</span>
+  <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">feature()</code> function is <strong>evaluated at build time</strong>. A typical <code class="language-plaintext highlighter-rouge">if (config.enabled)</code> branch is checked at runtime, so the code in the <code class="language-plaintext highlighter-rouge">false</code> branch still exists in the binary — someone could manipulate environment variables to activate it. In contrast, <code class="language-plaintext highlighter-rouge">feature()</code> causes the Bun bundler to <strong>completely eliminate</strong> the <code class="language-plaintext highlighter-rouge">require()</code> in <code class="language-plaintext highlighter-rouge">false</code> branches at build time. Anthropic's internal-only tool code <em>physically does not exist</em> in external builds. Activating them at runtime by changing environment variables is impossible — the code simply is not in the binary.</p>
+
+<p>A clever approach to splitting "internal" and "external" builds from the same codebase while eliminating the security risk of runtime manipulation at its root. Of course, what leaked this time was precisely the code that should have been eliminated at build time, left behind in source maps. Not in the binary, but in the source map — an ironic situation.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">USER_TYPE</code> environment variable follows the same pattern:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// tools.ts:16-19</span>
+<span class="kd">const</span> <span class="nx">REPLTool</span> <span class="o">=</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USER_TYPE</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">ant</span><span class="dl">'</span>
+    <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/REPLTool/REPLTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">REPLTool</span>
+    <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<h3 id="62-layer-2-feature-flags--server-side-kill-switches">6.2 Layer 2: Feature Flags — Server-Side Kill Switches</h3>
+
+<p>Even after the build, features can be controlled server-side. GrowthBook-based flags with the <code class="language-plaintext highlighter-rouge">tengu_</code> prefix serve this role. (<code class="language-plaintext highlighter-rouge">tengu</code> is presumably Claude Code's internal project codename at Anthropic.)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tengu_amber_quartz_disabled</code></td>
+      <td>Voice mode kill switch</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tengu_bypass_permissions_disabled</code></td>
+      <td>Bypass permissions mode kill switch</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tengu_auto_mode_config.enabled</code></td>
+      <td>Auto mode circuit breaker</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tengu_ccr_bridge</code></td>
+      <td>Remote control eligibility check</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tengu_sessions_elevated_auth_enforcement</code></td>
+      <td>Requires trusted device token</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If a security incident occurs, the kill switch can be pulled from the server instantly. Being able to disable features without a client update is critically important from an incident response perspective.</p>
+
+<p>Internally at Anthropic, these can be overridden via environment variable:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// CLAUDE_INTERNAL_FC_OVERRIDES (Ant-only)</span>
+<span class="c1">// '{"my_feature": true, "my_config": {"key": "val"}}'</span>
+</code></pre></div></div>
+
+<h3 id="63-layer-3-configuration-based-rules--priority-across-8-sources">6.3 Layer 3: Configuration-Based Rules — Priority Across 8 Sources</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">PermissionRule</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">source</span><span class="p">:</span> <span class="nx">PermissionRuleSource</span>  <span class="c1">// One of 8 sources</span>
+  <span class="na">ruleBehavior</span><span class="p">:</span> <span class="dl">'</span><span class="s1">allow</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">deny</span><span class="dl">'</span> <span class="o">|</span> <span class="dl">'</span><span class="s1">ask</span><span class="dl">'</span>
+  <span class="na">ruleValue</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">toolName</span><span class="p">:</span> <span class="kr">string</span>     <span class="c1">// "Bash", "FileEdit", etc.</span>
+    <span class="nx">ruleContent</span><span class="p">?:</span> <span class="kr">string</span> <span class="c1">// Pattern, e.g. "python:*"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Since conflicting rules for the same tool can come from multiple sources, a priority system is needed. Lower numbers mean higher priority — later-applied rules override earlier ones.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">userSettings</code> — <code class="language-plaintext highlighter-rouge">~/.claude/settings.json</code> (user global settings, highest priority)</li>
+  <li><code class="language-plaintext highlighter-rouge">projectSettings</code> — <code class="language-plaintext highlighter-rouge">.claude/settings.json</code> (per-project settings, shared with the team)</li>
+  <li><code class="language-plaintext highlighter-rouge">localSettings</code> — <code class="language-plaintext highlighter-rouge">.claude/local.json</code> (local only, not committed to git)</li>
+  <li><code class="language-plaintext highlighter-rouge">flagSettings</code> — GrowthBook feature flags (server-side control)</li>
+  <li><code class="language-plaintext highlighter-rouge">policySettings</code> — Organization-level policies (set by enterprise admins)</li>
+  <li><code class="language-plaintext highlighter-rouge">cliArg</code> — Command-line arguments (<code class="language-plaintext highlighter-rouge">--allowedTools</code>, etc.)</li>
+  <li><code class="language-plaintext highlighter-rouge">command</code> — Runtime rule updates (<code class="language-plaintext highlighter-rouge">/allow</code> during conversation, etc.)</li>
+  <li><code class="language-plaintext highlighter-rouge">session</code> — In-memory session-only rules (disappear on restart, lowest priority)</li>
+</ol>
+
+<p>User settings having the highest priority means that users have stronger control than organization policies (<code class="language-plaintext highlighter-rouge">policySettings</code>) or server feature flags (<code class="language-plaintext highlighter-rouge">flagSettings</code>). However, Layer 5 (dangerous pattern detection) and Layer 8 (kill switch), discussed later, can override this rule system.</p>
+
+<h3 id="64-layer-4-transcript-classifier--ai-watching-ai">6.4 Layer 4: Transcript Classifier — AI Watching AI</h3>
+
+<p><code class="language-plaintext highlighter-rouge">yoloClassifier.ts</code> — a 52K file. (The file is named "YOLO" yet weighs in at 52K — Anthropic engineers clearly have a sense of humor.)</p>
+
+<p>This layer operates in <strong>auto mode</strong> (<code class="language-plaintext highlighter-rouge">auto</code>). Auto mode is where Claude makes its own judgment and executes tools instead of asking the user "is this okay?" every time. Convenient but risky — a wrong judgment could delete files or execute dangerous commands. To mitigate this risk, <strong>an additional Claude API call</strong> separately judges the safety of each tool usage.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Tool usage request occurs
+2. Whitelist check
+   └ FileRead, Grep, Glob, Tasks, etc. (read-only) → skip classifier, auto-allow
+     (reading files is not dangerous, so skip the API call to avoid waste)
+3. Classifier API call → "allow" or "deny"
+4. Denial tracking:
+   └ 3 consecutive denials → fall back to prompting mode
+   └ 20 total denials → fall back to prompting mode
+</code></pre></div></div>
+
+<p>The fallback mechanism in denial tracking is important. If the classifier acts too conservatively, it keeps denying even safe operations, rendering the tool unusable. After 3 consecutive or 20 cumulative denials, it automatically switches to prompting mode — "better to just ask the user directly."</p>
+
+<blockquote>
+  <p><strong>Tip</strong>: Setting the <code class="language-plaintext highlighter-rouge">CLAUDE_CODE_DUMP_AUTO_MODE=1</code> environment variable dumps the classifier's requests/responses as JSON to <code class="language-plaintext highlighter-rouge">/tmp/claude-code/auto-mode/</code>. Useful when debugging why auto mode is rejecting certain operations.</p>
+</blockquote>
+
+<p>What if the classifier API call itself fails (network error, timeout, etc.)? <strong>It falls back to prompting</strong> — not automatic denial. This is a <strong>fail-open</strong> strategy. When a security system encounters a failure, there are two choices: <strong>fail-closed</strong> (block everything) or <strong>fail-open</strong> (let it through). Fail-open is typically dangerous in security, but here "letting it through" means "let the user decide," not "execute unconditionally" — which makes it a reasonable choice.</p>
+
+<h3 id="65-layer-5-dangerous-pattern-detection">6.5 Layer 5: Dangerous Pattern Detection</h3>
+
+<p>Even if a tool passes Layer 3's configuration rules and Layer 4's classifier, certain patterns are blocked via hardcoded detection.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">DANGEROUS_BASH_PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="c1">// Interpreters: programming language runtimes capable of arbitrary code execution</span>
+  <span class="dl">'</span><span class="s1">python</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">node</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ruby</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">perl</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">bash</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sh</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">zsh</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ksh</span><span class="dl">'</span><span class="p">,</span>
+  <span class="c1">// Code execution: commands that interpret strings as code</span>
+  <span class="dl">'</span><span class="s1">exec</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">eval</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">source</span><span class="dl">'</span><span class="p">,</span>
+  <span class="c1">// Network: tools that can exfiltrate data or download malicious code</span>
+  <span class="dl">'</span><span class="s1">curl</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">wget</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">nc</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">ncat</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">socat</span><span class="dl">'</span><span class="p">,</span>
+  <span class="c1">// Binary/crypto: tools that can obfuscate malicious activity via data transformation or encryption</span>
+  <span class="dl">'</span><span class="s1">dd</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">xxd</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">openssl</span><span class="dl">'</span><span class="p">,</span>
+  <span class="c1">// Remote access: tools that can infiltrate other systems</span>
+  <span class="dl">'</span><span class="s1">ssh</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">scp</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">sftp</span><span class="dl">'</span><span class="p">,</span>
+  <span class="c1">// Privilege escalation: commands that can obtain admin privileges or escape isolation</span>
+  <span class="dl">'</span><span class="s1">sudo</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">su</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">chroot</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">unshare</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">docker</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">podman</span><span class="dl">'</span><span class="p">,</span>
+  <span class="c1">// Filesystem permissions: commands that can bypass file protections</span>
+  <span class="dl">'</span><span class="s1">chmod</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">chown</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">chgrp</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">umask</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">mount</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">umount</span><span class="dl">'</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>In auto mode, attempts to set <code class="language-plaintext highlighter-rouge">python:*</code> or interpreter wildcards as allow rules are blocked.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">isDangerousBashPermission</span><span class="p">(</span><span class="nx">rule</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Tool-level allow without content (allow all bash) → dangerous</span>
+  <span class="c1">// "python:*", "python*", "python -*" → dangerous</span>
+  <span class="c1">// Interpreter prefix + wildcard → dangerous</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Why are interpreters especially dangerous? If <code class="language-plaintext highlighter-rouge">BashTool</code> can execute <code class="language-plaintext highlighter-rouge">python</code>, then within Python, <strong>any system command</strong> can be run. Something like <code class="language-plaintext highlighter-rouge">python -c "import os; os.system('rm -rf /')"</code> can bypass all Bash-level security checks, which is why interpreter execution itself is blocked at the source.</p>
+
+<h3 id="66-layer-6-filesystem-permission-validation-62k">6.6 Layer 6: Filesystem Permission Validation (62K)</h3>
+
+<p>The largest permission file (62K) is dedicated solely to file path validation. When Claude says "I'll modify this file," it verifies that the path is actually a place it should be allowed to access.</p>
+
+<ul>
+  <li><strong>Absolute path normalization</strong>: Resolves relative paths like <code class="language-plaintext highlighter-rouge">./src/../config.json</code> to <code class="language-plaintext highlighter-rouge">/home/user/project/config.json</code> to determine "where it actually points"</li>
+  <li><strong>Symlink escape prevention</strong>: If someone creates a symlink inside the project folder pointing to <code class="language-plaintext highlighter-rouge">/etc/passwd</code>, Claude could access system files through the link. This validation checks the symlink's real target path to block such escapes</li>
+  <li><strong>Safe glob pattern expansion</strong>: Limits expansion range so patterns like <code class="language-plaintext highlighter-rouge">/**/*</code> do not inadvertently include paths outside the project</li>
+  <li><strong>CWD-only mode vs. full access mode</strong>: In <code class="language-plaintext highlighter-rouge">acceptEdits</code> mode, only the current working directory is modifiable</li>
+  <li><strong>Scratchpad support</strong>: Allows Coordinator workers (Section 7.3) to access shared directories (<code class="language-plaintext highlighter-rouge">tengu_scratch</code>)</li>
+  <li><strong>Windows/POSIX path handling</strong>: Cross-platform support for both <code class="language-plaintext highlighter-rouge">C:\Users\...</code> and <code class="language-plaintext highlighter-rouge">/home/...</code></li>
+</ul>
+
+<h3 id="67-layer-7-trust-dialog">6.7 Layer 7: Trust Dialog</h3>
+
+<p>When you first run Claude Code in a new project, a security dialog appears. If the project's <code class="language-plaintext highlighter-rouge">.claude/</code> directory contains settings, the dialog shows the user what those settings allow and obtains explicit consent.</p>
+
+<ul>
+  <li>Project-scoped MCP server configurations (external tool connections)</li>
+  <li>Custom Hook configurations (user-defined shell command execution)</li>
+  <li>Bash permission settings (which commands are auto-allowed)</li>
+  <li>API key helpers (authentication credential access)</li>
+  <li>AWS/GCP command access (cloud resource control)</li>
+  <li>OTEL headers (telemetry data transmission)</li>
+</ul>
+
+<p>This layer exists to prevent attacks via malicious project configurations. If someone puts <code class="language-plaintext highlighter-rouge">"allowedTools": ["Bash:rm -rf /"]</code> in <code class="language-plaintext highlighter-rouge">.claude/settings.json</code> and pushes it to GitHub, any user who clones that repository and runs Claude Code could have dangerous commands auto-allowed. The Trust Dialog intercepts this before it happens.</p>
+
+<h3 id="68-layer-8-bypass-permissions-kill-switch">6.8 Layer 8: Bypass Permissions Kill Switch</h3>
+
+<p>Bypass mode is the "ultimate convenience" mode that skips all permission checks. Useful during development when you want Claude to stop asking "is this okay?" every time, but if abused, all security layers are neutralized. This kill switch activates when <code class="language-plaintext highlighter-rouge">tengu_bypass_permissions_disabled</code> is enabled on the GrowthBook server:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// bypassPermissionsKillswitch.ts</span>
+<span class="c1">// Blocks users from entering bypass mode entirely</span>
+<span class="c1">// Forces users already in bypass mode back to their previous mode</span>
+<span class="c1">// Displays diagnostic message</span>
+</code></pre></div></div>
+
+<p>When a security incident occurs and Anthropic flips this flag on the server, bypass mode is instantly disabled across every Claude Code client worldwide. No client update required, so response time is effectively zero.</p>
+
+<h3 id="insight-security-model-design-philosophy">Insight: Security Model Design Philosophy</h3>
+
+<p>A consistent set of principles runs through all 8 layers:</p>
+
+<ol>
+  <li><strong>Deny by default</strong> — Without an explicit allow rule, access is denied. When a new tool is added, it starts in a blocked state</li>
+  <li><strong>Fail to prompting, not to deny</strong> — When the system cannot make a judgment, it asks the user rather than automatically denying. Maintains the safety net without harming UX</li>
+  <li><strong>Defense in depth</strong> — Even if Layer 1 (build-time) is breached, Layer 4 (classifier) catches it; even if the classifier is breached, Layer 5 (pattern detection) catches it. No single point of failure</li>
+  <li><strong>Server-side kill switch</strong> — When a security incident occurs, features can be instantly disabled from the server without client updates</li>
+  <li><strong>Build-time elimination</strong> — If the code does not exist in the binary, neither does the vulnerability. The most fundamental form of security</li>
+</ol>
+
+<hr />
+
+<h2 id="7-unreleased-features-the-roadmap-got-leaked">7. Unreleased Features: The Roadmap Got Leaked</h2>
+
+<p>Unreleased features hiding behind feature flags were exposed. This is the area that became the most "unintended gift" to competitors.</p>
+
+<h3 id="71-voice-mode--coding-by-voice">7.1 Voice Mode — Coding by Voice</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// voice/voiceModeEnabled.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">isVoiceModeEnabled</span><span class="p">():</span> <span class="nx">boolean</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">hasVoiceAuth</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">isVoiceGrowthBookEnabled</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">hasVoiceAuth</span><span class="p">():</span> <span class="nx">boolean</span> <span class="p">{</span>
+  <span class="c1">// OAuth only (requires Claude.ai account)</span>
+  <span class="c1">// Not available via API key/Bedrock/Vertex</span>
+  <span class="c1">// Uses voice_stream endpoint</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">isVoiceGrowthBookEnabled</span><span class="p">():</span> <span class="nx">boolean</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">VOICE_MODE</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">?</span> <span class="o">!</span><span class="nx">getFeatureValue_CACHED_MAY_BE_STALE</span><span class="p">(</span><span class="dl">'</span><span class="s1">tengu_amber_quartz_disabled</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Several things can be gleaned:</p>
+
+<ul>
+  <li>A <strong>dedicated <code class="language-plaintext highlighter-rouge">voice_stream</code> API endpoint</strong> exists, separate from the standard Messages API.</li>
+  <li>It is <strong>OAuth-only</strong>. Users on API keys or third-party clouds (Bedrock/Vertex) cannot access it.</li>
+  <li>A <strong>GrowthBook kill switch</strong> (<code class="language-plaintext highlighter-rouge">tengu_amber_quartz_disabled</code>) allows instant server-side deactivation.</li>
+  <li>The caching strategy uses <code class="language-plaintext highlighter-rouge">_CACHED_MAY_BE_STALE</code>, meaning it uses a cached flag value rather than real-time checks. Voice mode activation status is not queried from the server on every call.</li>
+</ul>
+
+<h3 id="72-web-browser-tool--real-browser-automation">7.2 Web Browser Tool — Real Browser Automation</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">WebBrowserTool</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">WEB_BROWSER_TOOL</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/WebBrowserTool/WebBrowserTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">WebBrowserTool</span>
+  <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<p>The current <code class="language-plaintext highlighter-rouge">WebFetchTool</code> only fetches static HTML — it cannot see the content of SPA (Single Page Application) pages that are rendered by JavaScript. <code class="language-plaintext highlighter-rouge">WebBrowserTool</code> is presumably real browser automation leveraging Bun's <code class="language-plaintext highlighter-rouge">WebView</code> API, enabling interaction with pages that require JavaScript rendering. Think of it as a terminal-specialized version of Anthropic's Computer Use (the feature that sees desktop screens and operates mouse/keyboard).</p>
+
+<h3 id="73-coordinator-mode--multi-agent-orchestration-19k">7.3 Coordinator Mode — Multi-Agent Orchestration (19K)</h3>
+
+<p>The most ambitious unreleased feature.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// coordinator/coordinatorMode.ts</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">isCoordinatorMode</span><span class="p">():</span> <span class="nx">boolean</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">COORDINATOR_MODE</span><span class="dl">'</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">isEnvTruthy</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">CLAUDE_CODE_COORDINATOR_MODE</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <strong>Coordinator</strong> does not write code directly. It is a meta-orchestrator that spawns multiple worker agents and distributes tasks.</p>
+
+<ul>
+  <li>Workers are spawned via <code class="language-plaintext highlighter-rouge">AgentTool</code></li>
+  <li>Results arrive as <code class="language-plaintext highlighter-rouge">&lt;task-notification&gt;</code> XML blocks</li>
+  <li><code class="language-plaintext highlighter-rouge">SendMessage</code> sends follow-up instructions to workers</li>
+  <li><code class="language-plaintext highlighter-rouge">TaskStop</code> terminates workers</li>
+</ul>
+
+<p>The allowed tools are strictly limited:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">COORDINATOR_MODE_ALLOWED_TOOLS</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Set</span><span class="p">([</span>
+  <span class="dl">'</span><span class="s1">AgentTool</span><span class="dl">'</span><span class="p">,</span>           <span class="c1">// Spawn worker</span>
+  <span class="dl">'</span><span class="s1">TaskStop</span><span class="dl">'</span><span class="p">,</span>            <span class="c1">// Terminate worker</span>
+  <span class="dl">'</span><span class="s1">SendMessage</span><span class="dl">'</span><span class="p">,</span>         <span class="c1">// Communicate with worker</span>
+  <span class="dl">'</span><span class="s1">SyntheticOutput</span><span class="dl">'</span><span class="p">,</span>     <span class="c1">// Combine worker results into final output for the user</span>
+<span class="p">])</span>
+</code></pre></div></div>
+
+<p>The Coordinator <strong>cannot execute Bash</strong>. It cannot read files. It can only manage workers. This is an extreme application of the principle of least privilege — if the orchestrator could execute tools directly, it would become a single point of failure.</p>
+
+<p><strong>Shared scratchpad</strong> (<code class="language-plaintext highlighter-rouge">tengu_scratch</code> GrowthBook gate):</p>
+
+<p>A directory for information sharing between workers. It bypasses normal filesystem permission checks — workers need to access the scratchpad outside their CWD.</p>
+
+<p>This is effectively a <strong>microservices architecture for AI agents</strong>. Just as an API gateway in microservices does not execute business logic directly but distributes requests to services, the Coordinator does not write code directly but distributes tasks to workers. Each worker operates independently in an isolated context and returns only results to the Coordinator.</p>
+
+<h3 id="74-kairos--the-proactive-assistant">7.4 Kairos — The Proactive Assistant</h3>
+
+<p>Kairos, Greek for "the opportune moment," is a mode where <strong>Claude acts first</strong>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature Flag</th>
+      <th>Tool</th>
+      <th>Capability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">KAIROS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">SendUserFileTool</code></td>
+      <td>Proactively sends files to the user</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">KAIROS</code> || <code class="language-plaintext highlighter-rouge">KAIROS_PUSH_NOTIFICATION</code></td>
+      <td><code class="language-plaintext highlighter-rouge">PushNotificationTool</code></td>
+      <td>Mobile/desktop push notifications</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">KAIROS_GITHUB_WEBHOOKS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">SubscribePRTool</code></td>
+      <td>GitHub PR webhook subscriptions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PROACTIVE</code> || <code class="language-plaintext highlighter-rouge">KAIROS</code></td>
+      <td><code class="language-plaintext highlighter-rouge">SleepTool</code></td>
+      <td>Background waiting (timer)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">KAIROS_CHANNELS</code></td>
+      <td>(unknown)</td>
+      <td>Multi-channel integration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">KAIROS_BRIEF</code></td>
+      <td>(unknown)</td>
+      <td>Checkpoints/status updates</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Picture this scenario: A new review comment is posted on a GitHub PR. <code class="language-plaintext highlighter-rouge">SubscribePRTool</code> detects it, checks the CI results, and sends a notification via <code class="language-plaintext highlighter-rouge">PushNotificationTool</code>: "PR #123 got a review, and CI failed. Here's what you might want to fix." <code class="language-plaintext highlighter-rouge">SleepTool</code> periodically wakes to check status.</p>
+
+<p>Claude works even when the user has not opened a session. This represents a transition beyond coding assistant to <strong>autonomous software engineering agent</strong>.</p>
+
+<h3 id="75-agent-triggers--monitoring">7.5 Agent Triggers &amp; Monitoring</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">cronTools</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">AGENT_TRIGGERS</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="p">[</span><span class="nx">CronCreateTool</span><span class="p">,</span> <span class="nx">CronDeleteTool</span><span class="p">,</span> <span class="nx">CronListTool</span><span class="p">]</span>
+  <span class="p">:</span> <span class="p">[]</span>
+
+<span class="kd">const</span> <span class="nx">RemoteTriggerTool</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">AGENT_TRIGGERS_REMOTE</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/RemoteTriggerTool/RemoteTriggerTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">RemoteTriggerTool</span>
+  <span class="p">:</span> <span class="kc">null</span>
+
+<span class="kd">const</span> <span class="nx">MonitorTool</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">MONITOR_TOOL</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/MonitorTool/MonitorTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">MonitorTool</span>
+  <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<p>"Teammate" is presumably Anthropic's internal term for a long-running agent instance. Crons created by a teammate are tagged with that agent's <code class="language-plaintext highlighter-rouge">agentId</code> and routed to that agent's message queue. This means long-running agents can <strong>manage their own schedules</strong> — autonomous recurring tasks like "check CI status every morning at 9 AM" become possible.</p>
+
+<h3 id="76-uds-inbox--multi-device-messaging">7.6 UDS Inbox — Multi-Device Messaging</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ListPeersTool</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">UDS_INBOX</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/ListPeersTool/ListPeersTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">ListPeersTool</span>
+  <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<p>"UDS" presumably stands for Unified Device Stack. Agents can query "peers" — other devices or Claude Code instances connected to the same user account — and route messages via <code class="language-plaintext highlighter-rouge">bridge://</code> (through the Bridge system) or <code class="language-plaintext highlighter-rouge">other://</code> (direct communication) schemas.</p>
+
+<p>Picture a world where the Claude Code on your laptop says "ask the Claude Code on my desktop to run these tests." It may still be distant, but the communication pipes are already laid.</p>
+
+<h3 id="77-workflow-scripts">7.7 Workflow Scripts</h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">WorkflowTool</span> <span class="o">=</span> <span class="nx">feature</span><span class="p">(</span><span class="dl">'</span><span class="s1">WORKFLOW_SCRIPTS</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">?</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/WorkflowTool/bundled/index.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">initBundledWorkflows</span><span class="p">()</span>
+      <span class="k">return</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./tools/WorkflowTool/WorkflowTool.js</span><span class="dl">'</span><span class="p">).</span><span class="nx">WorkflowTool</span>
+    <span class="p">})()</span>
+  <span class="p">:</span> <span class="kc">null</span>
+</code></pre></div></div>
+
+<p>There are bundled workflows (pre-built automation scripts) with an initialization system. Recursive execution is blocked inside sub-agents (included in <code class="language-plaintext highlighter-rouge">ALL_AGENT_DISALLOWED_TOOLS</code>) — a safety measure to prevent infinite recursion where a workflow calls another workflow, which calls yet another workflow.</p>
+
+<h3 id="78-bridge--remote-control-system-33-files">7.8 Bridge — Remote Control System (33+ Files)</h3>
+
+<p>The Bridge system is a large subsystem comprising 33+ files. It is the backend for the "Remote Control" feature that controls the local machine's Claude Code from the Claude.ai web interface.</p>
+
+<h4 id="connection-flow">Connection Flow</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. User → OAuth login to claude.ai
+2. CCR (Claude Cloud Runtime) API → Subscription + GrowthBook gate check (tengu_ccr_bridge)
+3. Local Claude Code → Obtains environment_id + environment_secret
+4. Authenticated tunnel setup (WebSocket)
+5. Browser → Bridge API → Local tool execution → Result return
+</code></pre></div></div>
+
+<h4 id="security-tiers">Security Tiers</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tier</th>
+      <th>Authentication Requirements</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard</td>
+      <td>OAuth token</td>
+      <td>Regular remote sessions</td>
+    </tr>
+    <tr>
+      <td>Elevated</td>
+      <td>OAuth + <strong>Trusted Device Token</strong> (JWT)</td>
+      <td>Sessions involving sensitive operations</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In the Elevated tier, device trustworthiness is additionally verified via the <code class="language-plaintext highlighter-rouge">X-Trusted-Device-Token</code> header.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// bridge/trustedDevice.ts</span>
+<span class="c1">// JWT bound to a physical device</span>
+<span class="c1">// Guarantees "this request actually came from a registered device"</span>
+</code></pre></div></div>
+
+<h4 id="session-isolation">Session Isolation</h4>
+
+<p>Each remote session is isolated via <strong>Git worktree</strong>. Even if you connect to the same project from two browser tabs, each runs in an independent working directory. An approach that eliminates merge conflicts between sessions at the source.</p>
+
+<p>Session lifecycle is managed by <code class="language-plaintext highlighter-rouge">sessionRunner.ts</code>, maintaining session handoff security with JWT-signed <code class="language-plaintext highlighter-rouge">WorkSecret</code>.</p>
+
+<h3 id="insight-design-lessons-from-remote-control">Insight: Design Lessons from Remote Control</h3>
+
+<p>The noteworthy aspect of the Bridge system is its <strong>session isolation strategy</strong>. Using Git worktree as the session isolation unit is a pragmatic choice that leverages existing infrastructure (Git) to achieve filesystem-level isolation. It has lower overhead than container or VM-level isolation while still giving each session its own independent working directory.</p>
+
+<p>The 2-tier authentication structure (Standard/Elevated) is also instructive. Requiring maximum authentication for all remote operations degrades user experience; requiring only the minimum weakens security. Varying the authentication level based on operation sensitivity is a realistic approach to balancing security and convenience.</p>
+
+<h3 id="insight-what-unreleased-features-reveal-about-direction">Insight: What Unreleased Features Reveal About Direction</h3>
+
+<p>Synthesizing these features reveals Anthropic's strategy:</p>
+
+<ol>
+  <li><strong>CLI → Platform</strong>: From a single terminal tool to a multi-device, multi-agent platform</li>
+  <li><strong>Reactive → Proactive</strong>: From awaiting user commands to autonomous monitoring and notifications</li>
+  <li><strong>Text → Multimodal</strong>: From typing to voice and browser automation</li>
+  <li><strong>Single → Orchestration</strong>: From one agent to an agent swarm managed by a Coordinator</li>
+</ol>
+
+<hr />
+
+<h2 id="8-conclusion-what-the-leak-tells-us">8. Conclusion: What the Leak Tells Us</h2>
+
+<p>Claude Code's internals, revealed through the absurd channel of an npm source map, turned out to be not a simple API wrapper but a full-stack agent platform spanning 4,600 files. "Call the LLM API and execute tools — done" is a demo-level understanding. Production demands 4-tier compaction layers, cache edit block pinning, cost-aware error recovery, 8-layer security, and streaming parallel tool execution. Competing products like OpenAI's Codex, Cursor, and Devin likely harbor similar levels of complexity internally. Their code simply has never been made public.</p>
+
+<p>If there is one principle running through this architecture, it is <strong>cost-awareness</strong>. Error recovery starts with free options first. Compaction starts with methods that require no API calls. Tool search loads only when needed. In a system where every API call is a cost, "cheapest method first" is not elegance — it is survival.</p>
+
+<p>The unreleased features reveal Anthropic's direction: voice mode, web browser automation, multi-agent Coordinator, proactive Kairos mode. The transition from "coding assistant" to "autonomous software engineering platform" is already underway at the code level.</p>
+
+<p>And a question lingers about "open source." The official repository contains only the plugin interface (279 files), while the core engine (4,600+ files) sits behind a commercial license. This is not solely Anthropic's issue. Many AI products publish only extension interfaces under the "open" label while keeping the core proprietary.</p>
+
+<p>There is irony here. They implemented a sophisticated security mechanism for build-time dead code elimination, then forgot to strip source maps from that same build pipeline. They built 8 layers of onion-like protection around users' filesystems, while uploading their own source code to npm.</p>
+
+<p>Perhaps this is the essence of software engineering. Even the most sophisticated systems fall to the simplest mistakes. What Anthropic's engineers built is undeniably an impressive agentic architecture. Just next time, hopefully they will remember to add <code class="language-plaintext highlighter-rouge">*.map</code> to their <code class="language-plaintext highlighter-rouge">.npmignore</code>.</p>
+
+<hr />
+
+<p><em>This post is a technical analysis of leaked source code and does not encourage redistribution or use of the code. All code copyrights belong to Anthropic PBC.</em></p>
+
+    </article>
+
+    
+
+    <section class="rss">
+      <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+    </section>
+
+    <section class="share">
+      <span>Share: </span>
+      
+        
+      
+        
+          
+          
+          
+
+          <a href="https://www.facebook.com/sharer.php? t=Claude+Code+Architecture+Analysis &u=https%3A%2F%2Fbits-bytes-nn.github.io%2Finsights%2Fagentic-ai%2F2026%2F03%2F31%2Fclaude-code-architecture-analysis.html" class="social-link js-share-popup">
+            <i class="fa-brands fa-facebook fa-lg"></i>
+          </a>
+        
+      
+        
+          
+          
+          
+
+          <a href="https://www.linkedin.com/shareArticle? mini=true &url=https%3A%2F%2Fbits-bytes-nn.github.io%2Finsights%2Fagentic-ai%2F2026%2F03%2F31%2Fclaude-code-architecture-analysis.html" class="social-link js-share-popup">
+            <i class="fa-brands fa-linkedin fa-lg"></i>
+          </a>
+        
+      
+        
+          
+          
+          
+
+          <a href="https://twitter.com/share? text=Claude+Code+Architecture+Analysis &url=https%3A%2F%2Fbits-bytes-nn.github.io%2Finsights%2Fagentic-ai%2F2026%2F03%2F31%2Fclaude-code-architecture-analysis.html" class="social-link js-share-popup">
+            <i class="fa-brands fa-x-twitter fa-lg"></i>
+          </a>
+        
+      
+        
+      
+    </section>
+
+    
+
+    
+  </div>
+</div>
+
+
+
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h3 class="footer-heading">Bits, Bytes and Neural Networks</h3>
+
+    <div class="site-navigation">
+
+      <p><strong>Site Map</strong></p>
+      <ul class="pages">
+				
+
+<li class="nav-link">
+	<a href="/about/">About</a>
+</li>
+
+<li class="nav-link">
+	<a href="/paper-summaries/">Paper Summaries</a>
+</li>
+
+<li class="nav-link">
+	<a href="/paper-reviews/">Paper Reviews</a>
+</li>
+
+<li class="nav-link">
+	<a href="/insights/">Insights</a>
+</li>
+
+<li class="nav-link">
+	<a href="/search/">Search</a>
+</li>
+
+
+      </ul>
+    </div>
+
+    <div class="site-contact">
+
+      <p><strong>Contact</strong></p>
+      <ul class="social-media-list">
+        <li>
+          <a href="mailto:aldente0630@gmail.com">
+            <i class="fa-regular fa-envelope"></i>
+            <span class="username">aldente0630@gmail.com</span>
+          </a>
+        </li>
+
+        
+          
+          <li>
+            <a href="https://github.com/bits-bytes-nn" title="Fork me on GitHub">
+              <i class="fa-brands fa-github"></i>
+              <span class="username">bits-bytes-nn</span>
+            </a>
+          </li>
+          
+        
+          
+        
+          
+          <li>
+            <a href="https://www.linkedin.com/in/aldente0630" title="Connect with me on LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+              <span class="username">Jonas Kim</span>
+            </a>
+          </li>
+          
+        
+          
+        
+          
+          <li>
+            <a href="https://www.threads.com/@aldente0630" title="Follow me on Threads">
+              <i class="fa-brands fa-threads"></i>
+              <span class="username">aldente0630</span>
+            </a>
+          </li>
+          
+        
+
+      </ul>
+    </div>
+
+    <div class="site-signature">
+      <p class="rss-subscribe text"><strong>Subscribe <a href="/feed.xml">via RSS</a></strong></p>
+      <p class="text">A tech blog focusing on AI/ML paper reviews and latest research trends
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  // Default syntax highlighting
+  hljs.highlightAll();
+
+  // Header
+  var menuToggle = $('#js-mobile-menu');
+  $('#js-navigation-menu').removeClass("show");
+
+  menuToggle.off('click').on('click', function(e) {
+    e.preventDefault();
+    $('#js-navigation-menu').slideToggle(function(){
+      if($('#js-navigation-menu').is(':hidden')) {
+        $('#js-navigation-menu').removeAttr('style');
+      }
+    });
+  });
+
+  // Highlight current page in navigation
+  var currentPath = window.location.pathname;
+  $('.nav-link a').each(function() {
+    var link = $(this);
+    var linkPath = new URL(link.attr('href'), window.location.origin).pathname;
+    if (currentPath === linkPath) {
+      link.addClass('active');
+    }
+  });
+
+  // Smooth scroll for navigation links
+  $('a[href^="#"]').on('click', function(e) {
+    e.preventDefault();
+    var target = $(this.hash);
+    if (target.length) {
+      $('html, body').animate({
+        scrollTop: target.offset().top - 80
+      }, 300);
+    }
+  });
+
+  // Enhanced navigation bar on scroll
+  $(window).on('scroll', function() {
+    var navigation = $('.navigation');
+    if ($(this).scrollTop() > 50) {
+      navigation.addClass('scrolled');
+    } else {
+      navigation.removeClass('scrolled');
+    }
+  });
+
+  // Share popups
+  $('.js-share-popup').on('click', function(e) {
+    e.preventDefault();
+    window.open($(this).attr('href'), 'Share', 'width=550,height=255');
+  });
+
+	// Enable tooltips via Tippy.js
+	if (Array.isArray(window.tooltips)) {
+		window.tooltips.forEach(function(tooltip) {
+			var selector = tooltip[0];
+			var config = tooltip[1];
+			tippy(selector, config);
+		});
+	}
+});
+</script>
+
+
+
+
+<!-- Google Analytics 4 tracking is implemented in head.html -->
+
+
+  </body>
+
+</html>
