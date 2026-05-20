@@ -1,0 +1,1162 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="MindStudio Blog" href="/rss.xml"><!-- Inter is self-hosted via @font-face in global.css --><title>What Is Andrej Karpathy&#39;s LLM Wiki? How to Build a Personal Knowledge Base With Claude Code | MindStudio</title><meta name="description" content="Karpathy's LLM wiki turns raw documents into a structured markdown knowledge base Claude can query. Here's how to set it up in 5 minutes with Obsidian."><link rel="canonical" href="https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code/"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="What Is Andrej Karpathy's LLM Wiki? How to Build a Personal Knowledge Base With Claude Code"><meta property="og:description" content="Karpathy's LLM wiki turns raw documents into a structured markdown knowledge base Claude can query. Here's how to set it up in 5 minutes with Obsidian."><meta property="og:image" content="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/1081916b-7b01-435a-8c1f-c853fc4c894b.png?fm=auto&#38;w=1200&#38;h=630&#38;fit=crop"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:url" content="https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code/"><meta property="og:site_name" content="MindStudio"><meta property="article:published_time" content="2026-04-06T00:00:00.000Z"><meta property="article:modified_time" content="2026-05-11T00:00:00.000Z"><meta property="article:author" content="MindStudio Team"><meta property="article:section" content="Claude"><meta property="article:tag" content="Claude"><meta property="article:tag" content="Workflows"><meta property="article:tag" content="Productivity"><meta property="article:tag" content="AI Concepts"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@MindStudio_ai"><meta name="twitter:creator" content="MindStudio Team"><meta name="twitter:title" content="What Is Andrej Karpathy's LLM Wiki? How to Build a Personal Knowledge Base With Claude Code"><meta name="twitter:description" content="Karpathy's LLM wiki turns raw documents into a structured markdown knowledge base Claude can query. Here's how to set it up in 5 minutes with Obsidian."><meta name="twitter:image" content="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/1081916b-7b01-435a-8c1f-c853fc4c894b.png?fm=auto&#38;w=1200&#38;h=630&#38;fit=crop"><!-- CookieYes Consent --><script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/cfb9cb88e1b98070c3fb09f2/script.js"></script><!-- Google Tag Manager --><script>(function(){const GTM_ID = "GTM-MGRB9WXW";
+
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer',GTM_ID);
+      })();</script><!-- Plausible Analytics --><script async src="https://plausible.io/js/pa-Gq4HSvRyySBTxhAYct6cA.js"></script><script>
+        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments); };
+        plausible.init = plausible.init || function (i) { plausible.o = i || {}; };
+        // Disable auto pageview + fire manually with explicit URL — Plausible's
+        // internal trailing-slash normalization strips `/` to `""`, splitting
+        // the homepage across two Entry Page rows. Custom locations bypass it.
+        plausible.init({ autoCapturePageviews: false });
+        plausible('pageview', {
+          url: window.location.origin + (window.location.pathname || '/') + window.location.search,
+        });
+      </script><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.mindstudio.ai/#organization","name":"MindStudio","legalName":"GoMeta, Inc.","url":"https://www.mindstudio.ai","logo":{"@type":"ImageObject","@id":"https://www.mindstudio.ai/#logo","url":"https://www.mindstudio.ai/MindStudio-lockup-blk.svg","contentUrl":"https://www.mindstudio.ai/MindStudio-lockup-blk.svg","caption":"MindStudio"},"image":{"@id":"https://www.mindstudio.ai/#logo"},"sameAs":["https://www.youtube.com/@MindStudio_ai","https://www.linkedin.com/company/mindstudioai"]},{"@type":"WebSite","@id":"https://www.mindstudio.ai/#website","name":"MindStudio","url":"https://www.mindstudio.ai","publisher":{"@id":"https://www.mindstudio.ai/#organization"},"inLanguage":"en-US"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code/","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code/","isPartOf":{"@id":"https://www.mindstudio.ai/#website"}},"headline":"What Is Andrej Karpathy's LLM Wiki? How to Build a Personal Knowledge Base With Claude Code","description":"Karpathy's LLM wiki turns raw documents into a structured markdown knowledge base Claude can query. Here's how to set it up in 5 minutes with Obsidian.","url":"https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code/","datePublished":"2026-04-06T00:00:00.000Z","dateModified":"2026-05-11T00:00:00.000Z","author":{"@type":"Person","name":"MindStudio Team"},"publisher":{"@id":"https://www.mindstudio.ai/#organization"},"inLanguage":"en-US","image":{"@type":"ImageObject","url":"https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/1081916b-7b01-435a-8c1f-c853fc4c894b.png?fm=auto&w=1200&fit=cover","width":1200,"height":675},"keywords":"Claude, Workflows, Productivity, AI Concepts","articleSection":"Claude","wordCount":2630}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Blog","item":"https://www.mindstudio.ai/blog"},{"@type":"ListItem","position":2,"name":"What Is Andrej Karpathy's LLM Wiki? How to Build a Personal Knowledge Base With Claude Code","item":"https://www.mindstudio.ai/blog/andrej-karpathy-llm-wiki-knowledge-base-claude-code/"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What exactly is Karpathy's LLM wiki?","acceptedAnswer":{"@type":"Answer","text":"It's a personal knowledge management system built on plain markdown files, designed to be queried by an LLM rather than browsed manually. Andrej Karpathy has advocated for storing notes in a structured, LLM-readable format so that coding agents like Claude Code can answer questions, synthesize information, and help manage the knowledge base directly. The core insight is that organizing information for a model to read is different — and in many ways simpler — than organizing it for human navigation."}},{"@type":"Question","name":"How is this different from just using Notion AI or ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"The key difference is that your knowledge lives in files you control, not in a proprietary system. With a local markdown wiki and Claude Code, the model reads your actual files. You're not uploading data to a third-party knowledge base, and you're not dependent on one company's AI staying useful or affordable. You also get much more precise answers because Claude is reading your specific notes, not doing a web search or drawing on general training data."}},{"@type":"Question","name":"Do I need to know how to code to use Claude Code?","acceptedAnswer":{"@type":"Answer","text":"No. Claude Code runs in a terminal and you interact with it through natural language. You type questions; it responds and reads your files. The \"code\" in the name refers to its ability to write and edit code — but for a personal wiki use case, you're mostly asking questions and getting answers. If you're comfortable opening a terminal and running one install command, you can use it."}},{"@type":"Question","name":"How many notes can Claude Code handle at once?","acceptedAnswer":{"@type":"Answer","text":"Claude's context window is large — Claude 3.5 Sonnet supports around 200,000 tokens — which means it can comfortably read tens of thousands of words in a single session. For most personal wikis (up to a few hundred focused notes), this is more than enough. You'll only need semantic search or RAG if your wiki grows very large, or if you need faster response times on a huge corpus."}},{"@type":"Question","name":"Is Obsidian required, or can I use a different editor?","acceptedAnswer":{"@type":"Answer","text":"Obsidian isn't required. It's just a convenient front-end for reading and writing markdown files. You could use VS Code, Typora, iA Writer, Zed, Vim, or any text editor. The wiki is just a folder of .md files. Obsidian is recommended because its graph view, backlinks, and plugin ecosystem are useful for managing a growing knowledge base — but Claude Code doesn't care what editor you use."}},{"@type":"Question","name":"Can I use this workflow with other AI models besides Claude?","acceptedAnswer":{"@type":"Answer","text":"Yes. The markdown wiki pattern works with any model that can read files. Claude Code is the most natural interface because it's built to work directly with your local filesystem. GPT-4 via the OpenAI API, Gemini, or any other capable model can also be pointed at markdown files through similar agent frameworks. Claude tends to perform well for document synthesis tasks, which is why it's the common recommendation for this use case."}}]}</script><link rel="preconnect" href="https://api.fontshare.com" crossorigin> <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap"> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"> <link rel="stylesheet" href="/_astro/Base.D29xoVwj.css">
+<link rel="stylesheet" href="/_astro/_..BrpdlF6R.css">
+<link rel="stylesheet" href="/_astro/utilities.CpBby9LH.css"></head> <body class="flex min-h-screen flex-col"> <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white focus:shadow-lg">
+Skip to main content
+</a> <!-- GTM noscript fallback --> <noscript> <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGRB9WXW" height="0" width="0" style="display:none;visibility:hidden"></iframe> </noscript> <header class="sticky top-0 z-50 w-full border-b border-neutral-200 bg-neutral-50/80 backdrop-blur-lg"> <nav class="mx-auto flex max-w-content items-center justify-between px-6 py-2.5"> <a href="/" class="inline-flex items-center"> <img src="/MindStudio-lockup-blk.svg" alt="MindStudio" width="140" height="17"> </a> <div class="hidden items-center gap-8 md:flex"> <div class="relative flex items-center" data-dropdown> <button type="button" aria-expanded="false" aria-haspopup="true" class="inline-flex items-center gap-1 text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors" data-dropdown-toggle>
+Product
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform" data-dropdown-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-2" data-dropdown-menu> <div class="w-56 rounded-card border border-neutral-200 bg-white py-1 shadow-lg"> <a href="/models" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">AI Models</a> <a href="/product/ai-media-workbench" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">AI Media Workbench</a> <a href="/product/agent-skills-plugin" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Agent Skills Plugin</a> <a href="/capabilities" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Workflow Capabilities</a> </div> </div> </div> <a href="/pricing" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">Pricing</a> <div class="relative flex items-center" data-dropdown> <button type="button" aria-expanded="false" aria-haspopup="true" class="inline-flex items-center gap-1 text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors" data-dropdown-toggle>
+Learn
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform" data-dropdown-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-2" data-dropdown-menu> <div class="w-48 rounded-card border border-neutral-200 bg-white py-1 shadow-lg"> <a href="https://university.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">University</a> <a href="/bootcamps/catch-up-on-ai/2" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Bootcamps</a> <a href="https://docs.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Documentation</a> </div> </div> </div> <a href="/blog" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">Blog</a> <a href="/about" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">About</a> </div> <div class="hidden items-center gap-4 md:flex"> <div visibility="signed-out" class="mindstudio-hidden"> <div class="flex items-center gap-4"> <a href="https://app.mindstudio.ai/login" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">Log in</a> <a href="/pricing" class="inline-flex items-center rounded-xl bg-brand-500 px-3.5 py-1.5 text-body-sm font-medium text-white hover:bg-brand-600 transition-colors" data-cta="get-started" data-cta-location="header">
+Get Started
+</a> </div> </div> <a visibility="signed-in" href="https://app.mindstudio.ai" class="mindstudio-hidden inline-flex items-center rounded-xl bg-neutral-950 px-3.5 py-1.5 text-body-sm font-medium text-white hover:bg-neutral-800 transition-colors" data-cta="my-workspace" data-cta-location="header">
+My Workspace
+</a> </div> <button class="md:hidden text-neutral-700" aria-label="Open menu" aria-expanded="false" data-mobile-menu-toggle> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 6l16 0" />
+  <path d="M4 12l16 0" />
+  <path d="M4 18l16 0" /></svg> </button> </nav> </header> <!-- Mobile drawer backdrop --> <div class="fixed inset-0 z-60 bg-neutral-950/40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-backdrop></div> <!-- Mobile drawer --> <div class="fixed top-0 right-0 z-70 h-full w-72 translate-x-full bg-neutral-50 shadow-xl transition-transform duration-300 ease-in-out md:hidden" data-mobile-drawer> <div class="flex items-center justify-between border-b border-neutral-200 px-6 py-3"> <a href="/" class="inline-flex items-center"> <img src="/MindStudio-lockup-blk.svg" alt="MindStudio" width="120" height="15"> </a> <button class="text-neutral-700" aria-label="Close menu" data-mobile-drawer-close> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" /></svg> </button> </div> <div class="flex flex-col gap-1 px-6 py-4"> <div data-mobile-accordion> <button type="button" aria-expanded="false" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950" data-mobile-accordion-toggle>
+Product
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-200" data-mobile-accordion-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="hidden" data-mobile-accordion-content> <a href="/models" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">AI Models</a> <a href="/product/ai-media-workbench" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">AI Media Workbench</a> <a href="/product/agent-skills-plugin" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Agent Skills Plugin</a> <a href="/capabilities" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Workflow Capabilities</a> </div> </div> <a href="/pricing" class="block rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Pricing</a> <div data-mobile-accordion> <button type="button" aria-expanded="false" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950" data-mobile-accordion-toggle>
+Learn
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-200" data-mobile-accordion-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="hidden" data-mobile-accordion-content> <a href="https://university.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">University</a> <a href="/bootcamps/catch-up-on-ai/2" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Bootcamps</a> <a href="https://docs.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Documentation</a> </div> </div> <a href="/blog" class="block rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Blog</a> <a href="/about" class="block rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">About</a> </div> <div class="mt-auto border-t border-neutral-200 px-6 py-4 space-y-3"> <div visibility="signed-out" class="mindstudio-hidden"> <div class="space-y-3"> <a href="https://app.mindstudio.ai/login" class="block rounded-lg px-3 py-2.5 text-center text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Log in</a> <a href="/pricing" class="block rounded-xl bg-brand-500 px-3 py-2.5 text-center text-body-sm font-medium text-white hover:bg-brand-600 transition-colors" data-cta="get-started" data-cta-location="header-mobile">Get Started</a> </div> </div> <a visibility="signed-in" href="https://app.mindstudio.ai" class="mindstudio-hidden block rounded-xl bg-neutral-950 px-3 py-2.5 text-center text-body-sm font-medium text-white hover:bg-neutral-800 transition-colors" data-cta="my-workspace" data-cta-location="header-mobile">My Workspace</a> </div> </div> <script>
+ document.addEventListener('DOMContentLoaded', () => {
+ // Mobile drawer
+ const toggle = document.querySelector('[data-mobile-menu-toggle]');
+ const drawer = document.querySelector('[data-mobile-drawer]');
+ const backdrop = document.querySelector('[data-mobile-backdrop]');
+ const closeBtn = document.querySelector('[data-mobile-drawer-close]');
+
+ function openDrawer() {
+ if (!drawer || !backdrop) return;
+ drawer.classList.remove('translate-x-full');
+ drawer.classList.add('translate-x-0');
+ backdrop.classList.remove('opacity-0', 'pointer-events-none');
+ backdrop.classList.add('opacity-100', 'pointer-events-auto');
+ document.body.classList.add('overflow-hidden');
+ if (toggle) toggle.setAttribute('aria-expanded', 'true');
+ }
+
+ function closeDrawer() {
+ if (!drawer || !backdrop) return;
+ drawer.classList.remove('translate-x-0');
+ drawer.classList.add('translate-x-full');
+ backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+ backdrop.classList.add('opacity-0', 'pointer-events-none');
+ document.body.classList.remove('overflow-hidden');
+ if (toggle) toggle.setAttribute('aria-expanded', 'false');
+ }
+
+ if (toggle) toggle.addEventListener('click', openDrawer);
+ if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+ if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+ // Close drawer on Escape key
+ document.addEventListener('keydown', (e) => {
+ if (e.key === 'Escape' && toggle && toggle.getAttribute('aria-expanded') === 'true') {
+ closeDrawer();
+ }
+ });
+
+ // Mobile accordion (Learn dropdown in drawer)
+ document.querySelectorAll('[data-mobile-accordion]').forEach((acc) => {
+ const btn = acc.querySelector('[data-mobile-accordion-toggle]');
+ const content = acc.querySelector('[data-mobile-accordion-content]');
+ const chevron = acc.querySelector('[data-mobile-accordion-chevron]');
+ if (!btn || !content) return;
+
+ btn.addEventListener('click', () => {
+ const isOpen = !content.classList.contains('hidden');
+ content.classList.toggle('hidden', isOpen);
+ btn.setAttribute('aria-expanded', String(!isOpen));
+ if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+ });
+ });
+
+ // Dropdown menus
+ document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
+ const btn = dropdown.querySelector('[data-dropdown-toggle]');
+ const menu = dropdown.querySelector('[data-dropdown-menu]');
+ const chevron = dropdown.querySelector('[data-dropdown-chevron]');
+ if (!btn || !menu) return;
+
+ btn.addEventListener('click', () => {
+ const open = !menu.classList.contains('hidden');
+ menu.classList.toggle('hidden', open);
+ btn.setAttribute('aria-expanded', String(!open));
+ if (chevron) chevron.style.transform = open ? '' : 'rotate(180deg)';
+ });
+
+ document.addEventListener('click', (e) => {
+ if (!dropdown.contains(e.target)) {
+ menu.classList.add('hidden');
+ btn.setAttribute('aria-expanded', 'false');
+ if (chevron) chevron.style.transform = '';
+ }
+ });
+ });
+ });
+</script> <main id="main-content" class="flex-1">   <div class="ms-page"> <article class="ms-blog-article"> <nav class="ms-blog-breadcrumb" aria-label="Breadcrumb"> <a href="/blog">Blog</a> <span aria-hidden="true">/</span> <span>What Is Andrej Karpathy&#39;s LLM Wiki? How to Build a Personal Knowledge Base With Claude Code</span> </nav> <header class="ms-blog-header"> <div class="ms-blog-keywords"> <a href="/blog/tag/claude" class="ms-badge ms-badge-sm ms-badge-blue hover:opacity-80 transition-opacity"> Claude </a><a href="/blog/tag/workflows" class="ms-badge ms-badge-sm ms-badge-blue hover:opacity-80 transition-opacity"> Workflows </a><a href="/blog/tag/productivity" class="ms-badge ms-badge-sm ms-badge-blue hover:opacity-80 transition-opacity"> Productivity </a> </div> <h1>What Is Andrej Karpathy&#39;s LLM Wiki? How to Build a Personal Knowledge Base With Claude Code</h1> <p class="ms-blog-header-desc">Karpathy&#39;s LLM wiki turns raw documents into a structured markdown knowledge base Claude can query. Here&#39;s how to set it up in 5 minutes with Obsidian.</p> <div class="ms-blog-header-meta"> <span>MindStudio Team</span> <span aria-hidden="true">&middot;</span> <time datetime="2026-04-06T00:00:00.000Z"> April 6, 2026 </time> <span aria-hidden="true">&middot;</span> <a href="/rss.xml" class="ms-blog-rss-link"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" /></svg>
+RSS
+</a> </div> </header> <img src="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/1081916b-7b01-435a-8c1f-c853fc4c894b.png?fm=auto&#38;w=1200&#38;fit=cover?fm=auto&#38;w=1200&#38;fit=cover" alt="What Is Andrej Karpathy's LLM Wiki? How to Build a Personal Knowledge Base With Claude Code" class="ms-blog-hero-img" width="1200" height="675" loading="eager"> <div class="prose prose-lg max-w-none ms-blog-content">  <h2 id="the-idea-behind-karpathys-llm-wiki">The Idea Behind Karpathy’s LLM Wiki</h2>
+<p>Andrej Karpathy — co-founder of OpenAI, former Tesla AI director, and one of the clearest explainers of machine learning concepts working today — has talked publicly about a deceptively simple idea: your personal notes and documents, organized in plain markdown, can become a knowledge base that an LLM can actually reason over.</p>
+<p>He calls it an LLM wiki. The concept is straightforward. Instead of scattering knowledge across Notion, Google Docs, browser bookmarks, and sticky notes, you keep everything as structured markdown files. Then you point Claude Code (or any capable coding agent) at that folder and ask it questions. The LLM reads your files, finds what’s relevant, and gives you grounded answers drawn from your own knowledge — not the general internet.</p>
+<p>This isn’t a product. It’s a workflow pattern. And it’s one of the most practical applications of Claude Code that most people haven’t tried yet.</p>
+<p>This guide explains how Karpathy’s LLM wiki works, why markdown is the right format for it, and how to get a working version running with Obsidian in about five minutes.</p>
+<p><em>Last updated: 2026-05-11 — added related Claude Code workflow links and second-brain comparisons.</em></p>
+<hr>
+<h2 id="what-makes-this-different-from-a-normal-notes-app">What Makes This Different From a Normal Notes App</h2>
+<p>Most note-taking apps are built for human reading. You browse, search, click. They’re optimized for you to find things manually.</p>
+<p>An LLM wiki is optimized for the model to read on your behalf. That shift changes everything about how you structure information.</p>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc5" data-v3-angle="reframe"><div class="gc5">
+    <div class="gc5-chart">
+      <div class="gc5-title">TIME SPENT BUILDING REAL SOFTWARE</div>
+      <div class="gc5-bar">
+        <div class="gc5-seg gc5-seg-tiny"><span class="gc5-seg-num">5%</span></div>
+        <div class="gc5-seg gc5-seg-real"><span class="gc5-seg-num">95%</span></div>
+      </div>
+      <div class="gc5-key">
+        <div class="gc5-key-row">
+          <span class="gc5-swatch gc5-sw-tiny"></span>
+          <span class="gc5-key-pct">5%</span>
+          <span class="gc5-key-text">Typing the code</span>
+        </div>
+        <div class="gc5-key-row">
+          <span class="gc5-swatch gc5-sw-real"></span>
+          <span class="gc5-key-pct">95%</span>
+          <span class="gc5-key-text">Knowing what to build · Coordinating agents · Debugging + integrating · Shipping to production</span>
+        </div>
+      </div>
+    </div>
+    <div class="gc5-msg">
+      <h2 class="gc5-headline">
+        <span class="gc5-line">Coding agents automate the 5%.</span>
+        <span class="gc5-line gc5-accent">Remy runs the 95%.</span>
+      </h2>
+      <p class="gc5-body">The bottleneck was never typing the code. It was knowing what to build.</p>
+    </div>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-05" data-cta-angle="reframe" data-cta-copy-index="0" data-cta-variant-id="b02-05">Try Remy today</a></div></div></div>
+<p>Here’s the core distinction:</p>
+<ul>
+<li><strong>Traditional notes app</strong>: You remember where something is and navigate to it</li>
+<li><strong>LLM wiki</strong>: You describe what you need in plain language, and Claude finds and synthesizes it across your entire knowledge base</li>
+</ul>
+<p>The model doesn’t care about your folder hierarchy or tags. It reads text. So plain markdown — which is just text with minimal syntax — is the ideal format. No proprietary encoding, no locked databases, no export friction.</p>
+<p>Claude Code specifically is well-suited to this because it can read files directly from your local filesystem. You don’t need to paste content into a chat window. You just tell it where your notes live and ask your question.</p>
+<hr>
+<h2 id="why-markdown-is-the-right-foundation">Why Markdown Is the Right Foundation</h2>
+<p>Before getting into setup, it’s worth understanding why Karpathy’s approach centers on markdown rather than any other format.</p>
+<h3 id="markdown-is-portable-and-future-proof">Markdown Is Portable and Future-Proof</h3>
+<p>A <code>.md</code> file is a text file. It opens in any editor, on any operating system, forever. You’re not dependent on a company staying in business or an app maintaining backward compatibility.</p>
+<h3 id="llms-read-markdown-natively">LLMs Read Markdown Natively</h3>
+<p>Models like Claude are trained on enormous amounts of markdown content — GitHub READMEs, documentation sites, forums. The syntax is part of their understanding. Headers, bullet points, code blocks, bold text — Claude interprets all of it as structure, not noise.</p>
+<h3 id="it-forces-clarity">It Forces Clarity</h3>
+<p>Writing in markdown discourages the kind of half-finished, poorly organized notes that accumulate in most people’s knowledge systems. Headers require you to name sections. Lists require you to separate items. The format nudges you toward clarity.</p>
+<h3 id="plain-text-means-no-lock-in">Plain Text Means No Lock-In</h3>
+<p>You can sync it with git, open it in VS Code, view it in Obsidian, push it to a private GitHub repo, or read it in a terminal. The knowledge is yours in the most literal sense.</p>
+<hr>
+<h2 id="how-karpathys-llm-wiki-actually-works">How Karpathy’s LLM Wiki Actually Works</h2>
+<p>The architecture is minimal. There are three components:</p>
+<p><strong>1. A folder of markdown files</strong>
+This is your knowledge base. It can contain anything: research notes, meeting summaries, project documentation, book notes, personal reference material, code snippets with explanations.</p>
+<p><strong>2. A consistent structure within each file</strong>
+Good LLM wikis use a consistent internal format — a title, a brief summary, tagged topics, and then the content. The model uses this structure to locate relevant information faster.</p>
+<p><strong>3. Claude Code as the query interface</strong>
+You open a terminal, navigate to your wiki folder, launch Claude Code, and ask it a question. Claude reads the files it needs, synthesizes an answer, and can even update or add notes when you ask it to.</p>
+<p>That’s it. No database. No vector embeddings (though you can add them later). No server. Just files and a capable model.</p>
+<h3 id="the-role-of-claude-code">The Role of Claude Code</h3>
+<p>Claude Code is Anthropic’s terminal-based coding agent. Unlike Claude in a browser, Claude Code runs in your local environment and has direct access to your filesystem. It can:</p>
+<ul>
+<li>Read specific files or entire directories</li>
+<li>Search across files for relevant content</li>
+<li>Create new files or update existing ones</li>
+<li>Execute shell commands to search, filter, or organize your notes</li>
+</ul>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc14" data-v3-angle="educational"><div class="gc14">
+    <div class="gc14-top">
+      <h2 class="gc14-headline">
+        <span class="gc14-line">Remy doesn't write the code.</span>
+        <span class="gc14-line gc14-accent">It manages the agents who do.</span>
+      </h2>
+    </div>
+    <div class="gc14-section-label">AGENTS ASSIGNED TO THIS BUILD</div>
+    <div class="gc14-foreman">
+      <div class="gc14-favatar">R</div>
+      <div class="gc14-fblock">
+        <div class="gc14-fname">Remy</div>
+        <div class="gc14-ftitle">Product Manager Agent</div>
+      </div>
+      <div class="gc14-fstatus"><span class="gc14-fdot"></span>Leading</div>
+    </div>
+    <svg class="gc14-tree" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="200" y1="0" x2="200" y2="11" stroke="rgba(26,31,42,.28)" stroke-width="1"></line>
+      <line x1="50" y1="11" x2="350" y2="11" stroke="rgba(26,31,42,.28)" stroke-width="1"></line>
+      <line x1="50" y1="11" x2="50" y2="22" stroke="rgba(26,31,42,.28)" stroke-width="1"></line>
+      <line x1="150" y1="11" x2="150" y2="22" stroke="rgba(26,31,42,.28)" stroke-width="1"></line>
+      <line x1="250" y1="11" x2="250" y2="22" stroke="rgba(26,31,42,.28)" stroke-width="1"></line>
+      <line x1="350" y1="11" x2="350" y2="22" stroke="rgba(26,31,42,.28)" stroke-width="1"></line>
+    </svg>
+    <div class="gc14-row">
+      <div class="gc14-member">
+        <div class="gc14-mavatar gc14-ma-d">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 1 0 -18a9 8 0 0 1 9 8a4.5 4 0 0 1 -4.5 4h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"></path><circle cx="7.5" cy="10.5" r="1" fill="currentColor"></circle><circle cx="12" cy="7.5" r="1" fill="currentColor"></circle><circle cx="16.5" cy="10.5" r="1" fill="currentColor"></circle></svg>
+        </div>
+        <div class="gc14-mname">Design</div>
+      </div>
+      <div class="gc14-member">
+        <div class="gc14-mavatar gc14-ma-e">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="7 8 3 12 7 16"></polyline><polyline points="17 8 21 12 17 16"></polyline><line x1="14" y1="4" x2="10" y2="20"></line></svg>
+        </div>
+        <div class="gc14-mname">Engineer</div>
+      </div>
+      <div class="gc14-member">
+        <div class="gc14-mavatar gc14-ma-q">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9 12l2 2l4 -4"></path></svg>
+        </div>
+        <div class="gc14-mname">QA</div>
+      </div>
+      <div class="gc14-member">
+        <div class="gc14-mavatar gc14-ma-s">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"></path><polyline points="9 15 12 12 15 15"></polyline><line x1="12" y1="12" x2="12" y2="21"></line></svg>
+        </div>
+        <div class="gc14-mname">Deploy</div>
+      </div>
+    </div>
+    <p class="gc14-closing">Remy runs the project. The specialists do the work. You work with the PM, not the implementers.</p>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-14" data-cta-angle="educational" data-cta-copy-index="0" data-cta-variant-id="b02-14">Try Remy today</a></div></div></div>
+<p>This makes it genuinely useful as a knowledge base interface. You’re not copy-pasting chunks of text into a chat window — the model is working directly with your files. If you want to extend the interaction patterns further, <a href="https://www.mindstudio.ai/blog/what-is-superpowers-plugin-claude-code">the Superpowers plugin for Claude Code</a> packages reusable skills — including note triage and summarization patterns — that map naturally onto a wiki workflow.</p>
+<hr>
+<h2 id="set-up-your-llm-wiki-in-obsidian-step-by-step">Set Up Your LLM Wiki in Obsidian (Step-by-Step)</h2>
+<p>Obsidian is the recommended front-end for this workflow. It’s a local-first markdown editor with a strong plugin ecosystem and a clean interface. Your files stay on your disk — Obsidian is just how you read and write them.</p>
+<h3 id="step-1-install-obsidian-and-create-a-vault">Step 1: Install Obsidian and Create a Vault</h3>
+<p>Download Obsidian from <a href="https://obsidian.md">the official Obsidian site</a>. Create a new vault in a folder you’ll remember — something like <code>~/wiki</code> or <code>~/Documents/llm-wiki</code>.</p>
+<p>A “vault” in Obsidian is just a folder. Everything in it is plain markdown.</p>
+<h3 id="step-2-define-a-note-template">Step 2: Define a Note Template</h3>
+<p>Consistency is what makes your wiki queryable. Create a template file at <code>_templates/note.md</code>:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#005CC5;font-weight:bold"># undefined</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;font-weight:bold">**Summary**</span><span style="color:#24292E">: One sentence describing this note.</span></span>
+<span class="line"><span style="color:#24292E;font-weight:bold">**Tags**</span><span style="color:#24292E">: #topic1 #topic2</span></span>
+<span class="line"><span style="color:#24292E;font-weight:bold">**Created**</span><span style="color:#24292E">: 2026-04-06T00:00:00+00:00</span></span>
+<span class="line"><span style="color:#24292E;font-weight:bold">**Last Updated**</span><span style="color:#24292E">: 2026-04-06T00:00:00+00:00</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## Content</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E">Write the main content here.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#005CC5;font-weight:bold">## Related Notes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E36209">-</span><span style="color:#24292E"> [[Note Title]]</span></span></code></pre>
+<p>You don’t need to follow this exactly. The key is that every note has a summary line and tags. These give Claude quick signals about relevance without reading the full file.</p>
+<h3 id="step-3-organize-into-broad-topic-folders">Step 3: Organize Into Broad Topic Folders</h3>
+<p>Don’t over-engineer this. Start with four or five top-level folders:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>wiki/</span></span>
+<span class="line"><span>├── _templates/</span></span>
+<span class="line"><span>├── projects/</span></span>
+<span class="line"><span>├── research/</span></span>
+<span class="line"><span>├── reference/</span></span>
+<span class="line"><span>├── meetings/</span></span>
+<span class="line"><span>└── inbox/</span></span></code></pre>
+<p>The <code>inbox/</code> folder is for rough notes that haven’t been organized yet. Claude can help you triage these later.</p>
+<h3 id="step-4-write-your-first-notes">Step 4: Write Your First Notes</h3>
+<p>Migrate whatever knowledge matters most to you. Start with things you look up repeatedly — processes you’ve documented, concepts you’ve researched, decisions you’ve made and why.</p>
+<p>Don’t try to import everything at once. The wiki grows most naturally when you add notes as you encounter new information.</p>
+<h3 id="step-5-install-claude-code">Step 5: Install Claude Code</h3>
+<p>You’ll need Node.js installed. Then run:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1">npm</span><span style="color:#032F62"> install</span><span style="color:#005CC5"> -g</span><span style="color:#032F62"> @anthropic-ai/claude-code</span></span></code></pre>
+<p>Authenticate with your Anthropic account and you’re ready.</p>
+<h3 id="step-6-query-your-wiki">Step 6: Query Your Wiki</h3>
+<p>Open a terminal and navigate to your wiki folder:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#005CC5">cd</span><span style="color:#032F62"> ~/wiki</span></span>
+<span class="line"><span style="color:#6F42C1">claude</span></span></code></pre>
+<p>Now ask questions:</p>
+<ul>
+<li><em>“What notes do I have about machine learning interpretability?”</em></li>
+<li><em>“Summarize everything in my research folder related to RAG systems.”</em></li>
+<li><em>“I’m writing a proposal on X — what relevant notes do I have?”</em></li>
+<li><em>“Find any notes where I mentioned the vendor Acme Corp and summarize the key points.”</em></li>
+</ul>
+<p>Claude will read through your markdown files, identify what’s relevant, and give you a grounded answer. It’ll cite which files it drew from so you can verify and dig deeper.</p>
+<p>If you want a more opinionated walkthrough of this exact pattern — including specific Obsidian plugins and Claude Code commands — <a href="https://www.mindstudio.ai/blog/build-ai-second-brain-claude-code-obsidian">How to build an AI second brain with Claude Code and Obsidian</a> covers the operational details Karpathy’s high-level idea skips.</p>
+<hr>
+<h2 id="best-practices-for-a-queryable-knowledge-base">Best Practices for a Queryable Knowledge Base</h2>
+<p>A few structural habits make a significant difference in how well Claude can work with your wiki.</p>
+<h3 id="write-summaries-not-just-content">Write Summaries, Not Just Content</h3>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc17" data-v3-angle="provocation"><div class="gc17">
+    <div class="gc17-border">
+      <h2 class="gc17-headline">
+        <span class="gc17-line">Hire a contractor.</span>
+        <span class="gc17-line gc17-accent">Not another power tool.</span>
+      </h2>
+      <p class="gc17-sub">Cursor, Bolt, Lovable, v0 are tools. You still run the project.<br><span class="gc17-sub-emphasis">With Remy, the project runs itself.</span></p>
+    </div>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-17" data-cta-angle="provocation" data-cta-copy-index="0" data-cta-variant-id="b02-17">Try Remy today</a></div></div></div>
+<p>The one-line summary at the top of each note is surprisingly important. Claude reads it to decide whether the full note is relevant. A good summary costs you ten seconds and saves the model from reading files that don’t apply.</p>
+<h3 id="use-consistent-terminology">Use Consistent Terminology</h3>
+<p>If you write “RAG” in some notes and “retrieval augmented generation” in others, Claude can still connect them — but you’ll get cleaner results if you pick one term and use it consistently. Add a brief alias line if a concept has multiple names.</p>
+<h3 id="link-notes-to-each-other">Link Notes to Each Other</h3>
+<p>Obsidian’s <code>[[wiki links]]</code> format creates connections between notes. Claude can follow these connections, which means a well-linked wiki gives the model a richer graph to reason over than a flat collection of isolated files. For a deeper look at this same idea applied to large codebases, <a href="https://www.mindstudio.ai/blog/graphify-claude-code-knowledge-graph-large-codebase-70x">Graphify’s knowledge-graph approach for Claude Code</a> compresses huge repositories into navigable mental models — the same principle that makes a well-linked wiki outperform a flat folder.</p>
+<h3 id="keep-notes-focused">Keep Notes Focused</h3>
+<p>A 10,000-word catch-all document is harder to query than ten focused 1,000-word notes. If a note is covering multiple distinct topics, split it. The more specific each file, the more precisely Claude can locate and apply it.</p>
+<h3 id="use-a-inbox-pattern-for-capture">Use a <code>/inbox</code> Pattern for Capture</h3>
+<p>Don’t let perfect be the enemy of useful. Dump rough notes into <code>/inbox</code>, then periodically ask Claude to help you clean them up and move them to the right place:</p>
+<p><em>“Look at my inbox folder and suggest where each note should be filed and what tags it should get.”</em></p>
+<hr>
+<h2 id="advanced-adding-semantic-search">Advanced: Adding Semantic Search</h2>
+<p>The basic setup — Claude reading files directly — works well for wikis up to a few hundred notes. At larger scale, you’ll want to add a semantic search layer so Claude can narrow candidates before reading full files.</p>
+<p>This is where RAG (Retrieval Augmented Generation) comes in. Tools like <a href="https://www.llamaindex.ai">LlamaIndex</a> let you build a vector index over your markdown files, which Claude can query to retrieve the most semantically relevant chunks before synthesizing an answer.</p>
+<p>Another path: package the wiki-querying logic as a reusable <a href="https://www.mindstudio.ai/blog/5-claude-code-skills-cut-token-costs-70-percent-benchmarked">Claude Code skill</a>. A well-designed skill can pre-filter notes, summarize subsections, and route queries — cutting the token cost of every question you ask the wiki by a meaningful margin once it grows past a few hundred notes.</p>
+<p>For most people starting out, this is overkill. The direct file-reading approach scales further than you’d expect, especially on a focused personal knowledge base. Add semantic search when you notice Claude struggling to find things that you know are in your wiki.</p>
+<hr>
+<h2 id="where-mindstudio-fits-this-workflow">Where MindStudio Fits This Workflow</h2>
+<p>If you want to take your personal knowledge base further — beyond your local machine, or into something a team can use — MindStudio is worth looking at.</p>
+<p>MindStudio is a no-code platform for building AI agents and workflows. One natural application: wrap your markdown wiki in a MindStudio agent that anyone on your team can query through a clean web interface, without needing to touch Claude Code or a terminal.</p>
+<p>You can build a knowledge base agent that:</p>
+<ul>
+<li>Accepts natural language questions through a custom UI</li>
+<li>Searches your wiki files (synced to Google Drive, Notion, or any connected storage)</li>
+<li>Returns cited, grounded answers</li>
+<li>Logs queries so you can see what people are looking for — and what your wiki is missing</li>
+</ul>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc13" data-v3-angle="outcome"><div class="gc13">
+    <div class="gc13-top">
+      <h2 class="gc13-headline">
+        <span class="gc13-line">Day one: idea.</span>
+        <span class="gc13-line gc13-accent">Day one: app.</span>
+      </h2>
+    </div>
+    <div class="gc13-cal">
+      <div class="gc13-rings"><span></span><span></span><span></span><span></span></div>
+      <div class="gc13-month">DAY</div>
+      <div class="gc13-num">1</div>
+      <div class="gc13-stamp">DELIVERED</div>
+    </div>
+    <p class="gc13-closing">Not a sprint plan. Not a quarterly OKR. A finished product by end of day.</p>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-13" data-cta-angle="outcome" data-cta-copy-index="0" data-cta-variant-id="b02-13">Try Remy today</a></div></div></div>
+<p>MindStudio gives you access to Claude, GPT, Gemini, and 200+ other models out of the box, so you’re not locked into any single provider. And with 1,000+ pre-built integrations, connecting your wiki to Slack, email, or your project management tools takes minutes rather than a full engineering sprint.</p>
+<p>If you’re building this kind of knowledge infrastructure for a small team, it’s a much faster path than standing up your own RAG pipeline. You can <a href="https://mindstudio.ai">try MindStudio free at mindstudio.ai</a>.</p>
+<p>For individual workflows — just you and your local files — Claude Code direct is the simpler approach. For anything shared or team-facing, MindStudio handles the infrastructure so you can focus on the knowledge itself. If you want to take the pattern further and let Claude Code orchestrate multiple knowledge sources at once, <a href="https://www.mindstudio.ai/blog/how-to-build-agentic-operating-system-claude-code">building an agentic operating system on Claude Code</a> walks through how to layer skills, hooks, and routing on top of a base workflow like this one.</p>
+<hr>
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+<h3 id="what-exactly-is-karpathys-llm-wiki">What exactly is Karpathy’s LLM wiki?</h3>
+<p>It’s a personal knowledge management system built on plain markdown files, designed to be queried by an LLM rather than browsed manually. Andrej Karpathy has advocated for storing notes in a structured, LLM-readable format so that coding agents like Claude Code can answer questions, synthesize information, and help manage the knowledge base directly. The core insight is that organizing information for a model to read is different — and in many ways simpler — than organizing it for human navigation.</p>
+<h3 id="how-is-this-different-from-just-using-notion-ai-or-chatgpt">How is this different from just using Notion AI or ChatGPT?</h3>
+<p>The key difference is that your knowledge lives in files you control, not in a proprietary system. With a local markdown wiki and Claude Code, the model reads your actual files. You’re not uploading data to a third-party knowledge base, and you’re not dependent on one company’s AI staying useful or affordable. You also get much more precise answers because Claude is reading <em>your</em> specific notes, not doing a web search or drawing on general training data.</p>
+<h3 id="do-i-need-to-know-how-to-code-to-use-claude-code">Do I need to know how to code to use Claude Code?</h3>
+<p>No. Claude Code runs in a terminal and you interact with it through natural language. You type questions; it responds and reads your files. The “code” in the name refers to its ability to write and edit code — but for a personal wiki use case, you’re mostly asking questions and getting answers. If you’re comfortable opening a terminal and running one install command, you can use it.</p>
+<h3 id="how-many-notes-can-claude-code-handle-at-once">How many notes can Claude Code handle at once?</h3>
+<p>Claude’s context window is large — Claude 3.5 Sonnet supports around 200,000 tokens — which means it can comfortably read tens of thousands of words in a single session. For most personal wikis (up to a few hundred focused notes), this is more than enough. You’ll only need semantic search or RAG if your wiki grows very large, or if you need faster response times on a huge corpus.</p>
+<h3 id="is-obsidian-required-or-can-i-use-a-different-editor">Is Obsidian required, or can I use a different editor?</h3>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc2" data-v3-angle="outcome"><div class="gc2">
+    <div class="gc2-compare">
+      <div class="gc2-card gc2-bad">
+        <div class="gc2-card-head">
+          <span class="gc2-card-icon">✗</span>
+          <span class="gc2-card-label">VIBE-CODED APP</span>
+        </div>
+        <div class="gc2-card-body">
+          <svg class="gc2-tangle" viewBox="0 0 200 200" aria-hidden="true">
+            <g fill="none" stroke="#F08A6E" stroke-width="1.8" stroke-linecap="round" opacity="0.9">
+              <path d="M30,40 C70,80 130,30 170,90 C150,140 90,160 50,150"></path>
+              <path d="M40,160 C20,100 90,80 60,30 C90,60 150,80 150,140"></path>
+              <path d="M20,90 C80,130 80,30 180,40 C140,90 60,170 100,180"></path>
+              <path d="M170,30 C130,90 30,110 80,180 C140,170 180,140 160,90"></path>
+              <path d="M50,170 C100,90 60,40 130,90 C150,140 100,180 30,120"></path>
+              <path d="M180,170 C120,150 110,80 30,60 C70,30 140,40 175,100"></path>
+            </g>
+            <g fill="#F08A6E">
+              <circle cx="30" cy="40" r="2.6"></circle>
+              <circle cx="50" cy="150" r="2.6"></circle>
+              <circle cx="40" cy="160" r="2.6"></circle>
+              <circle cx="170" cy="30" r="2.6"></circle>
+              <circle cx="180" cy="40" r="2.6"></circle>
+              <circle cx="50" cy="170" r="2.6"></circle>
+              <circle cx="180" cy="170" r="2.6"></circle>
+            </g>
+          </svg>
+        </div>
+        <div class="gc2-card-foot">Tangled. Half-built. Brittle.</div>
+      </div>
+      <div class="gc2-card gc2-good">
+        <div class="gc2-card-head">
+          <span class="gc2-card-icon">✓</span>
+          <span class="gc2-card-label">AN APP, MANAGED BY REMY</span>
+        </div>
+        <div class="gc2-card-body">
+          <div class="gc2-stack">
+            <div class="gc2-node"><span class="gc2-node-name">UI</span><span class="gc2-node-tech">React + Tailwind</span><span class="gc2-node-check">✓</span></div>
+            <div class="gc2-node"><span class="gc2-node-name">API</span><span class="gc2-node-tech">Validated routes</span><span class="gc2-node-check">✓</span></div>
+            <div class="gc2-node"><span class="gc2-node-name">DB</span><span class="gc2-node-tech">Postgres + auth</span><span class="gc2-node-check">✓</span></div>
+            <div class="gc2-node"><span class="gc2-node-name">DEPLOY</span><span class="gc2-node-tech">Production-ready</span><span class="gc2-node-check">✓</span></div>
+          </div>
+        </div>
+        <div class="gc2-card-foot">Architected. End to end.</div>
+      </div>
+    </div>
+    <div class="gc2-msg">
+      <h3 class="gc2-headline">Built like a system. Not vibe-coded.</h3>
+      <p class="gc2-sub">Remy manages the project — every layer architected, not stitched together at the last second.</p>
+    </div>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-02" data-cta-angle="outcome" data-cta-copy-index="0" data-cta-variant-id="b02-02">Try Remy today</a></div></div></div>
+<p>Obsidian isn’t required. It’s just a convenient front-end for reading and writing markdown files. You could use VS Code, Typora, iA Writer, Zed, Vim, or any text editor. The wiki is just a folder of <code>.md</code> files. Obsidian is recommended because its graph view, backlinks, and plugin ecosystem are useful for managing a growing knowledge base — but Claude Code doesn’t care what editor you use.</p>
+<h3 id="can-i-use-this-workflow-with-other-ai-models-besides-claude">Can I use this workflow with other AI models besides Claude?</h3>
+<p>Yes. The markdown wiki pattern works with any model that can read files. Claude Code is the most natural interface because it’s built to work directly with your local filesystem. GPT-4 via the OpenAI API, Gemini, or any other capable model can also be pointed at markdown files through similar agent frameworks. Claude tends to perform well for document synthesis tasks, which is why it’s the common recommendation for this use case.</p>
+<hr>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li>Karpathy’s LLM wiki is a simple pattern: structured markdown files, queried by Claude Code through natural language</li>
+<li>Plain markdown is the right format because it’s portable, future-proof, and something LLMs read natively</li>
+<li>Obsidian is the best front-end for managing the files — your data stays local and file-based</li>
+<li>Claude Code connects to your local filesystem directly, no copy-pasting required</li>
+<li>A summary line and consistent tags on each note dramatically improve query quality</li>
+<li>For team-facing or scaled knowledge bases, MindStudio can wrap the same concept in a shareable, no-code agent with a proper UI</li>
+</ul>
+<p>The best knowledge management system is one you’ll actually use. A folder of markdown files is about as low-friction as it gets — and pointing Claude at it takes five minutes. Start small, keep notes focused, and let the system grow with you.</p>  </div> </article> <section class="py-section-sm" aria-label="Related articles"><div class="mx-auto max-w-content px-6"><h2 class="text-heading font-semibold text-neutral-950 dark:text-neutral-50 mb-8">
+Related Articles
+</h2><div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"><a href="/blog/karpathy-llm-wiki-knowledge-base-pattern" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/5de43b2b-287a-4ebf-b285-894e06dbb107.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-04-11T00:00:00.000Z" class="text-caption text-neutral-500"> April 11, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> What Is the Karpathy LLM Wiki Pattern? How to Build a Personal Knowledge Base With Claude </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> Andrej Karpathy&#39;s LLM Wiki uses plain text files instead of vector databases and is reportedly 70x more efficient than RAG. Here&#39;s how to build one. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> AI Concepts </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Workflows </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Productivity </span> </div> </div> </a><a href="/blog/claude-code-source-code-leak-8-hidden-features" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/a44b122a-1fac-4a4d-888a-16d58ece8afd.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-04-01T00:00:00.000Z" class="text-caption text-neutral-500"> April 1, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> Claude Code Source Code Leak: 8 Hidden Features You Can Use Right Now </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> Anthropic accidentally leaked Claude Code&#39;s source code. Here are 8 practical insights from the leak that will change how you use Claude Code today. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Workflows </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> AI Concepts </span> </div> </div> </a><a href="/blog/what-is-claude-cowork-projects" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/25a8de47-59a9-4a2b-8240-1c925644dd5d.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-03-27T00:00:00.000Z" class="text-caption text-neutral-500"> March 27, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> What Is Claude Co-work Projects? How to Organize AI Agent Tasks by Context </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> Claude Co-work&#39;s Projects feature lets you separate personal, work, and side-project contexts so your AI agent always has the right information. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Workflows </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Productivity </span> </div> </div> </a><a href="/blog/what-is-gstack-gary-tan-claude-code-framework" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/978def76-49ce-4733-ab9e-fb4eb6215ba2.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-03-27T00:00:00.000Z" class="text-caption text-neutral-500"> March 27, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> What Is GStack? Gary Tan&#39;s Open-Source Startup Framework for Claude Code </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> GStack is an open-source framework by Y Combinator&#39;s Gary Tan that gives solo developers the power of a full startup team using Claude Code skills. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Workflows </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Productivity </span> </div> </div> </a></div></div></section> <dialog id="ms-newsletter-popup" class="ms-newsletter-dialog" data-form-id="bd8f1e3f-11fb-4619-a593-cb9ce6bb5be1" aria-labelledby="ms-newsletter-title" data-astro-cid-xawie52d> <div class="ms-newsletter-inner" data-astro-cid-xawie52d> <button class="ms-newsletter-close" aria-label="Close newsletter signup" data-cta="newsletter-dismiss" data-cta-location="newsletter-popup" data-astro-cid-xawie52d> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-astro-cid-xawie52d> <line x1="18" y1="6" x2="6" y2="18" data-astro-cid-xawie52d></line> <line x1="6" y1="6" x2="18" y2="18" data-astro-cid-xawie52d></line> </svg> </button> <div id="ms-newsletter-content" data-astro-cid-xawie52d> <p class="ms-newsletter-presented" data-astro-cid-xawie52d>Presented by MindStudio</p> <h2 id="ms-newsletter-title" class="ms-newsletter-headline" data-astro-cid-xawie52d></h2> <p class="ms-newsletter-subheading" data-astro-cid-xawie52d></p> <form id="ms-newsletter-form" class="ms-newsletter-form" novalidate data-astro-cid-xawie52d> <div class="ms-newsletter-field-row" data-astro-cid-xawie52d> <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" class="ms-newsletter-input" aria-label="Email address" data-astro-cid-xawie52d> <button type="submit" class="ms-newsletter-submit" data-cta="newsletter-subscribe" data-cta-location="newsletter-popup" data-astro-cid-xawie52d></button> </div> <p id="ms-newsletter-error" class="ms-newsletter-error" role="alert" aria-live="assertive" hidden data-astro-cid-xawie52d></p> </form> <p class="ms-newsletter-privacy" data-astro-cid-xawie52d>No spam. Unsubscribe anytime.</p> </div> <div id="ms-newsletter-success" class="ms-newsletter-success" hidden data-astro-cid-xawie52d> <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-xawie52d> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" data-astro-cid-xawie52d></path> <polyline points="22 4 12 14.01 9 11.01" data-astro-cid-xawie52d></polyline> </svg> <p class="ms-newsletter-success-text" data-astro-cid-xawie52d>You're in! Check your inbox.</p> </div> </div> </dialog> <div id="ms-newsletter-bar" class="ms-newsletter-bar" hidden role="complementary" aria-label="Newsletter signup" data-astro-cid-xawie52d> <div class="ms-newsletter-bar-inner" data-astro-cid-xawie52d> <p class="ms-newsletter-bar-text" data-astro-cid-xawie52d> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-xawie52d> <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-astro-cid-xawie52d></path> <polyline points="22,6 12,13 2,6" data-astro-cid-xawie52d></polyline> </svg>
+Get weekly AI insights from MindStudio
+</p> <button class="ms-newsletter-bar-btn" data-cta="newsletter-bar-subscribe" data-cta-location="newsletter-bar" data-astro-cid-xawie52d>Subscribe</button> </div> </div>  <script>
+(function () {
+  var dialog = document.getElementById('ms-newsletter-popup');
+  var bar = document.getElementById('ms-newsletter-bar');
+  if (!dialog || !bar) return;
+
+  var variant = {
+    headline: "The AI builder's briefing",
+    subheading: 'New models, automation patterns, and what actually works in production \u2014 delivered weekly to your inbox.',
+    cta: 'Get the briefing'
+  };
+  var variantSlug = 'the-ai-builders-briefing';
+
+  // Populate content
+  dialog.querySelector('#ms-newsletter-title').textContent = variant.headline;
+  dialog.querySelector('.ms-newsletter-subheading').textContent = variant.subheading;
+  dialog.querySelector('.ms-newsletter-submit').textContent = variant.cta;
+
+  // Frequency cap check
+  var STORAGE_KEY = 'mindstudio_newsletter_popup';
+  var COOLDOWN_MS = 5 * 24 * 60 * 60 * 1000; // 5 days
+  var wasDismissed = false;
+  try {
+    var stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (stored) {
+      if (stored.subscribed) return;
+      if (stored.dismissed && (Date.now() - stored.dismissed) < COOLDOWN_MS) {
+        wasDismissed = true;
+      }
+    }
+  } catch (e) { /* ignore parse errors */ }
+
+  // If previously dismissed within cooldown, show the sticky bar instead of the popup
+  // (showBar is defined below, so we defer this with a minimal timeout)
+  if (wasDismissed) {
+    setTimeout(function () { showBar(); }, 500);
+  } else {
+    // Scroll trigger — only if not already dismissed
+    var triggered = false;
+    var pageLoadTime = Date.now();
+
+    function onScroll() {
+      if (triggered) return;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+      var pct = (window.scrollY / docHeight) * 100;
+      if (pct >= 35 && (Date.now() - pageLoadTime) >= 5000) {
+        triggered = true;
+        window.removeEventListener('scroll', onScroll);
+        showPopup();
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  function track(eventName, extraProps) {
+    if (typeof window.plausible === 'function') {
+      var props = { variant: variantSlug, page: window.location.pathname };
+      if (extraProps) {
+        for (var k in extraProps) props[k] = extraProps[k];
+      }
+      window.plausible(eventName, { props: props });
+    }
+  }
+
+  function lockScroll() {
+    document.body.style.overflow = 'hidden';
+  }
+  function unlockScroll() {
+    document.body.style.overflow = '';
+  }
+
+  function showPopup() {
+    dialog.showModal();
+    lockScroll();
+    dialog.querySelector('input[name="email"]').focus();
+    track('Newsletter Popup View');
+  }
+
+  // Sticky bar helpers
+  function showBar() {
+    bar.hidden = false;
+    // Force reflow before adding attribute for transition
+    bar.offsetHeight;
+    bar.setAttribute('data-visible', '');
+    track('Newsletter Bar View');
+  }
+
+  function hideBar() {
+    bar.removeAttribute('data-visible');
+    bar.addEventListener('transitionend', function handler() {
+      bar.hidden = true;
+      bar.removeEventListener('transitionend', handler);
+    });
+  }
+
+  // Dismiss handling
+  function recordDismiss(method) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ dismissed: Date.now(), subscribed: false }));
+    } catch (e) { /* ignore storage errors */ }
+    track('Newsletter Popup Dismiss', { method: method });
+    showBar();
+  }
+
+  dialog.querySelector('.ms-newsletter-close').addEventListener('click', function () {
+    dialog.close();
+    unlockScroll();
+    recordDismiss('close-button');
+  });
+
+  dialog.addEventListener('cancel', function () {
+    unlockScroll();
+    recordDismiss('escape');
+  });
+
+  dialog.addEventListener('click', function (e) {
+    if (e.target === dialog) {
+      dialog.close();
+      unlockScroll();
+      recordDismiss('backdrop');
+    }
+  });
+
+  // Bar interactions
+  bar.querySelector('.ms-newsletter-bar-btn').addEventListener('click', function () {
+    hideBar();
+    // Reset popup form state in case it was previously errored
+    dialog.querySelector('#ms-newsletter-content').hidden = false;
+    dialog.querySelector('#ms-newsletter-success').hidden = true;
+    dialog.querySelector('#ms-newsletter-error').hidden = true;
+    var emailInput = dialog.querySelector('input[name="email"]');
+    emailInput.value = '';
+    var btn = dialog.querySelector('.ms-newsletter-submit');
+    btn.disabled = false;
+    btn.textContent = variant.cta;
+    showPopup();
+  });
+
+
+  // Form submission
+  var form = dialog.querySelector('#ms-newsletter-form');
+  var submitBtn = dialog.querySelector('.ms-newsletter-submit');
+  var errorEl = dialog.querySelector('#ms-newsletter-error');
+  var formId = dialog.getAttribute('data-form-id');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var emailInput = form.querySelector('input[name="email"]');
+    var email = emailInput.value.trim();
+
+    if (!email || !emailInput.validity.valid) {
+      emailInput.reportValidity();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing\u2026';
+    errorEl.hidden = true;
+
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/46257612/' + formId, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [{ objectTypeId: '0-1', name: 'email', value: email }],
+        context: { pageUri: window.location.href, pageName: document.title }
+      })
+    }).then(function (res) {
+      if (res.ok) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribed: true }));
+        } catch (e) { /* ignore */ }
+        dialog.querySelector('#ms-newsletter-content').hidden = true;
+        dialog.querySelector('#ms-newsletter-success').hidden = false;
+        track('Newsletter Popup Signup');
+        setTimeout(function () { dialog.close(); unlockScroll(); hideBar(); }, 2000);
+      } else {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = variant.cta;
+      }
+    }).catch(function () {
+      errorEl.textContent = 'Network error. Please try again.';
+      errorEl.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = variant.cta;
+    });
+  });
+})();
+</script> </div> <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var blocks = document.querySelectorAll('.ms-blog-content pre');
+      blocks.forEach(function (pre) {
+        var code = pre.querySelector('code');
+        if (!code) return;
+
+        var lang = pre.getAttribute('data-language') || '';
+        if (!lang) {
+          var match = (code.className || '').match(/language-(\w+)/);
+          if (match) lang = match[1];
+        }
+
+        var header = document.createElement('div');
+        header.className = 'ms-blog-code-header';
+
+        var langEl = document.createElement('span');
+        langEl.className = 'ms-blog-code-lang';
+        langEl.textContent = lang || 'code';
+
+        var btn = document.createElement('button');
+        btn.className = 'ms-code-copy';
+        btn.setAttribute('aria-label', 'Copy code to clipboard');
+        btn.innerHTML =
+          '<svg class="ms-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+          '<svg class="ms-icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
+          '<span class="ms-copy-label">Copy</span>' +
+          '<span class="ms-copy-label-copied">Copied!</span>';
+
+        btn.addEventListener('click', function () {
+          navigator.clipboard.writeText(code.textContent);
+          btn.classList.add('copied');
+          setTimeout(function () { btn.classList.remove('copied'); }, 2000);
+        });
+
+        header.appendChild(langEl);
+        header.appendChild(btn);
+        pre.insertBefore(header, pre.firstChild);
+      });
+    });
+  </script> <script>
+    (function () {
+      // Parse a plain-text spec into segments: each segment becomes a DOM
+      // element (heading or paragraph). Paragraph breaks are \n\n.
+      function parseSpec(spec) {
+        return spec.split(/\n\n+/).map(function (para) {
+          para = para.trim();
+          if (/^#+\s/.test(para)) {
+            return { tag: 'h3', text: para.replace(/^#+\s+/, '') };
+          }
+          return { tag: 'p', text: para };
+        }).filter(function (seg) { return seg.text.length > 0; });
+      }
+
+      function renderStatic(stream, spec) {
+        var segs = parseSpec(spec);
+        segs.forEach(function (seg) {
+          var el = document.createElement(seg.tag);
+          el.className = 'remy-typewriter-' + (seg.tag === 'h3' ? 'heading' : 'paragraph');
+          el.textContent = seg.text;
+          stream.appendChild(el);
+        });
+      }
+
+      function start(viewport) {
+        // Idempotency: guard against double-start (HMR reloads, repeat intersects).
+        if (viewport.__remyStarted) return;
+        viewport.__remyStarted = true;
+
+        var stream = viewport.querySelector('.remy-typewriter-stream');
+        var specs;
+        try { specs = JSON.parse(viewport.getAttribute('data-remy-specs') || '[]'); } catch (e) { return; }
+        if (!stream || !specs.length) return;
+
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) {
+          renderStatic(stream, specs[Math.floor(Math.random() * specs.length)]);
+          viewport.scrollTop = 0;
+          return;
+        }
+
+        // Shuffle per-viewport so different placements on the page start
+        // with different specs and cycle in different orders.
+        function shuffle(arr) {
+          var a = arr.slice();
+          for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+          }
+          return a;
+        }
+        var order = shuffle(specs);
+
+        var specIdx = 0;
+        var segs = parseSpec(order[0]);
+        var segIdx = 0;
+        var charIdx = 0;
+        var currentEl = null;
+        var running = true;
+        var pendingTimer = null;
+
+        // Pause when the viewport leaves the screen; cancel any queued step
+        // so it doesn't fire during the pause, and resume cleanly.
+        var pauseObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            var nowRunning = e.isIntersecting;
+            if (!nowRunning && pendingTimer !== null) { clearTimeout(pendingTimer); pendingTimer = null; }
+            running = nowRunning;
+            if (running && pendingTimer === null) schedule(0);
+          });
+        }, { threshold: 0 });
+        pauseObserver.observe(viewport);
+
+        // Single-flight scheduler — always cancels the previous timer so
+        // we never get two step() loops racing into the same element.
+        function schedule(delay) {
+          if (!running) return;
+          if (pendingTimer !== null) clearTimeout(pendingTimer);
+          pendingTimer = setTimeout(function () { pendingTimer = null; step(); }, delay);
+        }
+
+        function ensureCurrentEl() {
+          if (currentEl) return;
+          var seg = segs[segIdx];
+          currentEl = document.createElement(seg.tag);
+          currentEl.className = 'remy-typewriter-' + (seg.tag === 'h3' ? 'heading' : 'paragraph') + ' is-typing';
+          stream.appendChild(currentEl);
+        }
+
+        function step() {
+          if (!running) return;
+          var seg = segs[segIdx];
+          if (charIdx < seg.text.length) {
+            ensureCurrentEl();
+            var ch = seg.text.charAt(charIdx);
+            currentEl.appendChild(document.createTextNode(ch));
+            charIdx++;
+            var delay;
+            if (ch === '.' || ch === '!' || ch === '?') delay = 240;
+            else if (ch === ',' || ch === ';' || ch === ':') delay = 100;
+            else delay = 18 + Math.random() * 30;
+            schedule(delay);
+          } else if (segIdx < segs.length - 1) {
+            // Next segment in the current spec.
+            if (currentEl) { currentEl.classList.remove('is-typing'); currentEl = null; }
+            segIdx++;
+            charIdx = 0;
+            schedule(220);
+          } else {
+            // Full spec done. Pause to let the reader absorb, then fade the
+            // whole stream out, clear it, and start the next spec fresh.
+            if (currentEl) { currentEl.classList.remove('is-typing'); currentEl = null; }
+            if (pendingTimer !== null) clearTimeout(pendingTimer);
+            pendingTimer = setTimeout(function () {
+              pendingTimer = null;
+              if (!running) return;
+              stream.classList.add('is-fading');
+              pendingTimer = setTimeout(function () {
+                pendingTimer = null;
+                if (!running) return;
+                while (stream.firstChild) stream.removeChild(stream.firstChild);
+                stream.classList.remove('is-fading');
+                specIdx++;
+                // End of the shuffled cycle — re-shuffle so the next round
+                // plays in a different order. The last spec of the previous
+                // cycle won't repeat as the first of the next one.
+                if (specIdx >= order.length) {
+                  var last = order[order.length - 1];
+                  do { order = shuffle(specs); } while (order.length > 1 && order[0] === last);
+                  specIdx = 0;
+                }
+                segs = parseSpec(order[specIdx]);
+                segIdx = 0;
+                charIdx = 0;
+                schedule(350);
+              }, 700);
+            }, 2200);
+          }
+        }
+        schedule(400);
+      }
+
+      function init() {
+        var viewports = document.querySelectorAll('.remy-typewriter-viewport');
+        if (!viewports.length) return;
+        if (!('IntersectionObserver' in window)) {
+          viewports.forEach(start);
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              start(entry.target);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.25 });
+        viewports.forEach(function (v) { io.observe(v); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script> <script>
+    (function () {
+      function fireView(anchor) {
+        if (!anchor || typeof window.plausible !== 'function') return;
+        var ctaName = anchor.getAttribute('data-cta');
+        if (!ctaName) return;
+        var props = {
+          cta_name: ctaName,
+          cta_location: anchor.getAttribute('data-cta-location') || 'unknown',
+          page: window.location.pathname,
+        };
+        var fmt = anchor.getAttribute('data-cta-format');
+        if (fmt) props.cta_format = fmt;
+        var ang = anchor.getAttribute('data-cta-angle');
+        if (ang) props.cta_angle = ang;
+        var vid = anchor.getAttribute('data-cta-variant-id');
+        if (vid) props.cta_variant_id = vid;
+        var cidx = anchor.getAttribute('data-cta-copy-index');
+        if (cidx) props.cta_copy_index = cidx;
+        var sidx = anchor.getAttribute('data-cta-slot-index');
+        if (sidx) props.cta_slot_index = sidx;
+        if (window.__msExperiments) {
+          Object.keys(window.__msExperiments).forEach(function (expId) {
+            props['exp_' + expId.replace(/-/g, '_')] = window.__msExperiments[expId];
+          });
+        }
+        window.plausible('CTA View', { props: props });
+      }
+
+      function init() {
+        // Legacy template variants render as <aside aria-label="Remy">; v3
+        // (b02-*) prebaked variants render as <div class="v3-frame">. Both
+        // need view tracking — same selector pair as the click-forward script
+        // below.
+        var nodes = document.querySelectorAll('aside[aria-label="Remy"], .v3-frame');
+        if (!nodes.length) return;
+        if (!('IntersectionObserver' in window)) {
+          nodes.forEach(function (n) { fireView(n.querySelector('a[data-cta]')); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              fireView(entry.target.querySelector('a[data-cta]'));
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        nodes.forEach(function (n) { io.observe(n); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script> <script>
+    document.addEventListener('click', function (e) {
+      var frame = e.target.closest('.v3-frame, .remy-v3-wrap');
+      if (!frame) return;
+      if (e.target.closest('a, button, input, textarea, select, label')) return;
+      if (window.getSelection && window.getSelection().toString()) return;
+      var cta = frame.querySelector('a.v3-cta');
+      if (cta) cta.click();
+    });
+  </script>  </main> <footer class="border-t border-neutral-800 bg-neutral-950 text-neutral-50"> <div class="mx-auto max-w-content px-6 py-section-sm"> <div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5"> <div> <h3 class="text-body-sm font-semibold text-neutral-50">Compare</h3> <ul class="mt-3 space-y-2"> <li> <a href="/blog/mindstudio-vs-n8n" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> n8n vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-make" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Make vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-zapier" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Zapier vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-botpress" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Botpress vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-langchain" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> LangChain vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-crewai" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> CrewAI vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-retool" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Retool vs MindStudio </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">Use Cases</h3> <ul class="mt-3 space-y-2"> <li> <a href="/blog/ai-agents-for-product-managers" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Product Management </a> </li><li> <a href="/blog/ai-agents-for-marketing-teams" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Marketing </a> </li><li> <a href="/blog/ai-agents-for-sales-teams" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Sales </a> </li><li> <a href="/blog/ai-agents-for-customer-success" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Customer Success </a> </li><li> <a href="/blog/ai-agents-for-hr-teams" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Human Resources </a> </li><li> <a href="/blog/ai-agents-for-legal-professionals" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Legal </a> </li><li> <a href="/blog/ai-agents-lead-generation" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Lead Generation </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">Capabilities</h3> <ul class="mt-3 space-y-2"> <li> <a href="/blog/how-to-generate-ai-images-in-mindstudio" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Image Generation </a> </li><li> <a href="/blog/prompt-engineering-ai-agents" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Prompt Engineering </a> </li><li> <a href="/blog/what-is-rag" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> RAG </a> </li><li> <a href="/blog/human-in-the-loop-ai" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Human-in-the-Loop </a> </li><li> <a href="/blog/what-are-mcp-servers" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> MCP Servers </a> </li><li> <a href="/blog/multi-step-reasoning" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Multi-Step Reasoning </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">MindStudio</h3> <ul class="mt-3 space-y-2"> <li> <a href="/about" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> About </a> </li><li> <a href="/pricing" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Pricing </a> </li><li> <a href="/blog" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Blog </a> </li><li> <a href="/newsroom" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Newsroom </a> </li><li> <a href="/contact" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Contact </a> </li><li> <a href="https://trust.mindstudio.ai/" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Trust Center </a> </li><li> <a href="https://community.mindstudio.ai/" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Community </a> </li><li> <a href="https://university.mindstudio.ai/" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Documentation </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">Programs</h3> <ul class="mt-3 space-y-2"> <li> <a href="https://university.mindstudio.ai/programs/mindstudio-for-enterprises" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Enterprise </a> </li><li> <a href="https://university.mindstudio.ai/programs/mindstudio-for-developers" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Developers </a> </li><li> <a href="https://university.mindstudio.ai/programs/mindstudio-solutions-partners" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Partners </a> </li><li> <a href="https://university.mindstudio.ai/programs/referral-program" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Referral Program </a> </li><li> <a href="https://mindstudio-academy.circle.so/c/events-bootcamps?topics=338932" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> AI Agent Bootcamp </a> </li> </ul> </div> </div> <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 md:flex-row"> <div class="flex items-center gap-6"> <a href="/" class="text-heading-sm font-bold text-neutral-50">MindStudio</a> <div class="flex items-center gap-4"> <a href="https://www.youtube.com/@MindStudio_ai" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="text-neutral-500 hover:text-neutral-300 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 3a5 5 0 0 1 5 5v8a5 5 0 0 1 -5 5h-12a5 5 0 0 1 -5 -5v-8a5 5 0 0 1 5 -5zm-9 6v6a1 1 0 0 0 1.514 .857l5 -3a1 1 0 0 0 0 -1.714l-5 -3a1 1 0 0 0 -1.514 .857z" /></svg> </a><a href="https://www.linkedin.com/company/mindstudioai" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-neutral-500 hover:text-neutral-300 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M17 2a5 5 0 0 1 5 5v10a5 5 0 0 1 -5 5h-10a5 5 0 0 1 -5 -5v-10a5 5 0 0 1 5 -5zm-9 8a1 1 0 0 0 -1 1v5a1 1 0 0 0 2 0v-5a1 1 0 0 0 -1 -1m6 0a3 3 0 0 0 -1.168 .236l-.125 .057a1 1 0 0 0 -1.707 .707v5a1 1 0 0 0 2 0v-3a1 1 0 0 1 2 0v3a1 1 0 0 0 2 0v-3a3 3 0 0 0 -3 -3m-6 -3a1 1 0 0 0 -.993 .883l-.007 .127a1 1 0 0 0 1.993 .117l.007 -.127a1 1 0 0 0 -1 -1" /></svg> </a> </div> </div> <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-caption text-neutral-500"> <a href="/legal/terms-of-use" class="hover:text-neutral-300 transition-colors">Terms of Use</a> <a href="/legal/privacy-policy" class="hover:text-neutral-300 transition-colors">Privacy Policy</a> <span>&copy; 2026 MindStudio (GoMeta, Inc.). All rights reserved.</span> </div> </div> </div> </footer> <!-- HubSpot --> <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46257612.js"></script> <!-- Auth Detection --> <script>
+      var getAuthData = function () {
+        var cookies = Object.fromEntries(document.cookie.split(/; */).map(function(c) {
+          var index = c.indexOf("=");
+          var key   = c.slice(0, index);
+          var value = c.slice(index + 1);
+          return [ decodeURIComponent(key), decodeURIComponent(value) ];
+        }));
+        var userData = false;
+        for (var key in cookies) {
+          if (key.startsWith('CognitoIdentityServiceProvider') && (key.endsWith('.idToken') || key.endsWith('.accessToken'))) {
+            userData = true;
+          }
+        }
+        return userData;
+      };
+      try {
+        window.__mindstudioWebflowAuthData = getAuthData();
+      } catch (e) {}
+    </script> <!-- Signed-in / Signed-out Visibility --> <script>
+      function updateElementVisibility() {
+        var isLoggedIn = !!window.__mindstudioWebflowAuthData;
+        var elements = document.querySelectorAll('[visibility]');
+        elements.forEach(function (element) {
+          var value = element.getAttribute('visibility');
+          if (isLoggedIn) {
+            if (value === 'signed-out') element.classList.add('mindstudio-hidden');
+            if (value === 'signed-in') element.classList.remove('mindstudio-hidden');
+          } else {
+            if (value === 'signed-out') element.classList.remove('mindstudio-hidden');
+            if (value === 'signed-in') element.classList.add('mindstudio-hidden');
+          }
+        });
+      }
+      updateElementVisibility();
+      document.addEventListener('DOMContentLoaded', updateElementVisibility);
+    </script> <!-- Attribution Data --> <script>
+      var localStorageKey = 'mindstudio_attributionData';
+      var cookieKey = 'mindstudio_attributionData';
+
+      function setAttrCookie(name, value, days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        var expires = 'expires=' + date.toUTCString();
+        document.cookie = name + '=' + encodeURIComponent(JSON.stringify(value)) + ';' + expires + ';path=/;domain=.mindstudio.ai;Secure;SameSite=Lax';
+      }
+
+      function getAttrCookie(name, jsonParse) {
+        var nameEQ = name + '=';
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var c = cookies[i];
+          while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) === 0) {
+            var contents = decodeURIComponent(c.substring(nameEQ.length, c.length));
+            return jsonParse ? JSON.parse(contents) : contents;
+          }
+        }
+        return null;
+      }
+
+      function setAttrLocalStorage(name, value) {
+        localStorage.setItem(name, JSON.stringify(value));
+      }
+
+      function getAttrLocalStorage(name) {
+        var item = localStorage.getItem(name);
+        return item ? JSON.parse(item) : null;
+      }
+
+      function isConsentToAnalytics() {
+        var consentCookie = getAttrCookie('cookieyes-consent');
+        if (!consentCookie) return false;
+        return consentCookie.includes('analytics:yes');
+      }
+
+      function storeAttributionData() {
+        var params = new URL(window.document.location.href).searchParams;
+        var utmSource = params.get('utm-source') || params.get('utm_source') || '';
+        var inviteCode = params.get('invite-code') || '';
+        var partnerStackId = params.get('ps_xid') || '';
+        var partnerStackKey = params.get('ps_partner_key') || '';
+        var partnerStackCoupon = params.get('ps_coupon') || '';
+        var referrer = window.document.location.href;
+
+        var conversionParams = {
+          facebook: { fbclid: params.get('fbclid') || '' },
+          google: { gclid: params.get('gclid') || '', wbraid: params.get('wbraid') || '', gbraid: params.get('gbraid') || '' },
+          linkedin: { li_fat_id: params.get('li_fat_id') || '' },
+          reddit: { rdt_cid: params.get('rdt_cid') || '' }
+        };
+
+        var existingAttribution = isConsentToAnalytics()
+          ? getAttrCookie(cookieKey, true)
+          : getAttrLocalStorage(localStorageKey);
+
+        function mergeConversionParams(existing, incoming) {
+          var merged = {};
+          var allKeys = new Set([].concat(Object.keys(existing || {}), Object.keys(incoming || {})));
+          allKeys.forEach(function (platform) {
+            merged[platform] = {};
+            var existPlatform = (existing && existing[platform]) || {};
+            var incomingPlatform = (incoming && incoming[platform]) || {};
+            var paramKeys = new Set([].concat(Object.keys(existPlatform), Object.keys(incomingPlatform)));
+            paramKeys.forEach(function (key) {
+              merged[platform][key] = incomingPlatform[key] || existPlatform[key] || '';
+            });
+          });
+          return merged;
+        }
+
+        var attributionData;
+        if (existingAttribution) {
+          attributionData = Object.assign({}, existingAttribution, {
+            referrer: referrer || existingAttribution.referrer,
+            inviteCode: inviteCode || existingAttribution.inviteCode,
+            partnerStackId: partnerStackId || existingAttribution.partnerStackId,
+            partnerStackKey: partnerStackKey || existingAttribution.partnerStackKey,
+            partnerStackCoupon: partnerStackCoupon || existingAttribution.partnerStackCoupon,
+            conversionParams: mergeConversionParams(existingAttribution.conversionParams, conversionParams)
+          });
+        } else {
+          attributionData = {
+            utmSource: utmSource,
+            inviteCode: inviteCode,
+            partnerStackId: partnerStackId,
+            partnerStackKey: partnerStackKey,
+            partnerStackCoupon: partnerStackCoupon,
+            referrer: referrer,
+            initialLandingPage: window.document.location.href,
+            initialReferrer: window.document.referrer,
+            conversionParams: conversionParams,
+            trialIntent: false
+          };
+        }
+
+        if (isConsentToAnalytics()) {
+          setAttrCookie(cookieKey, attributionData, 30);
+        } else {
+          setAttrLocalStorage(localStorageKey, attributionData);
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        try { storeAttributionData(); } catch (e) { console.log(e); }
+      });
+
+      document.addEventListener('cookieyes_consent_update', function (eventData) {
+        try {
+          if (eventData.detail.accepted.includes('analytics')) {
+            var attributionData = getAttrLocalStorage(localStorageKey);
+            if (attributionData) {
+              setAttrCookie(cookieKey, attributionData, 30);
+              localStorage.removeItem(localStorageKey);
+            }
+          }
+        } catch (e) { console.log(e); }
+      });
+    </script> <!-- Persist Query Params Across Links --> <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var search = window.location.search;
+        if (!search) return;
+
+        var params = new URLSearchParams(search);
+        if (!params.toString()) return;
+
+        var links = document.querySelectorAll('a[href]');
+        links.forEach(function (link) {
+          var href = link.getAttribute('href');
+          if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+
+          try {
+            var url = new URL(href, window.location.origin);
+            params.forEach(function (value, key) {
+              if (!url.searchParams.has(key)) {
+                url.searchParams.set(key, value);
+              }
+            });
+
+            if (href.startsWith('/') || href.startsWith('./') || href.startsWith('../') || !href.includes('://')) {
+              link.setAttribute('href', url.pathname + url.search + url.hash);
+            } else {
+              link.setAttribute('href', url.toString());
+            }
+          } catch (e) {}
+        });
+      });
+    </script> <!-- A/B Testing: Inject experiment assignments --> <script>(function(){const experimentAssignments = "{}";
+
+      window.__msExperiments = JSON.parse(experimentAssignments);
+    })();</script> <!-- A/B Testing: Fire Experiment View events --> <script>
+      if (window.__msExperiments && typeof window.plausible === 'function') {
+        Object.keys(window.__msExperiments).forEach(function (expId) {
+          window.plausible('Experiment View', {
+            props: {
+              experiment: expId,
+              variant: window.__msExperiments[expId],
+              page: window.location.pathname,
+            },
+          });
+        });
+      }
+    </script> <!-- Plausible Custom Events: CTA Clicks + Scroll Depth --> <script>
+      (function () {
+        // CTA Click tracking — fires on elements with data-cta attribute
+        document.addEventListener('click', function (e) {
+          var el = e.target.closest('[data-cta]');
+          if (!el || typeof window.plausible !== 'function') return;
+          var ctaName = el.getAttribute('data-cta');
+          if (!ctaName) return;
+          var ctaProps = {
+            cta_name: ctaName,
+            cta_location: el.getAttribute('data-cta-location') || 'unknown',
+            page: window.location.pathname,
+          };
+          var ctaFormat = el.getAttribute('data-cta-format');
+          if (ctaFormat) ctaProps.cta_format = ctaFormat;
+          var ctaAngle = el.getAttribute('data-cta-angle');
+          if (ctaAngle) ctaProps.cta_angle = ctaAngle;
+          var ctaVariantId = el.getAttribute('data-cta-variant-id');
+          if (ctaVariantId) ctaProps.cta_variant_id = ctaVariantId;
+          var ctaCopyIndex = el.getAttribute('data-cta-copy-index');
+          if (ctaCopyIndex) ctaProps.cta_copy_index = ctaCopyIndex;
+          var ctaSlotIndex = el.getAttribute('data-cta-slot-index');
+          if (ctaSlotIndex) ctaProps.cta_slot_index = ctaSlotIndex;
+          if (window.__msExperiments) {
+            Object.keys(window.__msExperiments).forEach(function (expId) {
+              ctaProps['exp_' + expId.replace(/-/g, '_')] = window.__msExperiments[expId];
+            });
+          }
+          window.plausible('CTA Click', { props: ctaProps });
+        });
+
+        // Scroll Depth tracking — fires at 25%, 50%, 75%, 100% milestones
+        var fired = {};
+        var thresholds = [25, 50, 75, 100];
+        function checkScroll() {
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (docHeight <= 0) return;
+          var pct = Math.round((window.scrollY / docHeight) * 100);
+          for (var i = 0; i < thresholds.length; i++) {
+            var t = thresholds[i];
+            if (pct >= t && !fired[t] && typeof window.plausible === 'function') {
+              fired[t] = true;
+              window.plausible('Scroll Depth', {
+                props: { depth: t + '%', page: window.location.pathname },
+              });
+            }
+          }
+        }
+        window.addEventListener('scroll', checkScroll, { passive: true });
+        // Check once on load for short pages
+        window.addEventListener('load', checkScroll);
+      })();
+    </script> <!-- Vercel Web Analytics --> <script defer src="/_vercel/insights/script.js"></script> </body> </html>
