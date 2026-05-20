@@ -1,0 +1,4 @@
+"% 
+% Method",F1$$,B1$$,"J$$ % 
+% PPO w/o Memory Distillation",40.95,34.37,60.14 % PPO w. Memory Distillation,45.02,37.51,62.74 % GRPO w/o Memory Distillation,40.95,34.37,60.14 % GRPO w. Memory Distillation,45.02,37.51,"62.74 % 
+%"

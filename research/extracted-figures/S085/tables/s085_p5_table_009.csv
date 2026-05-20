@@ -1,0 +1,3 @@
+Toggle,Effect
+observeMe,Honcho builds a representation of this peer from its own messages
+observeOthers,This peer observes the other peer's messages (feeds cross-peer reasoning)

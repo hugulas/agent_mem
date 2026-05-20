@@ -1,0 +1,3 @@
+🧠 Mem0 Apache 2.0 · mem0ai/mem0 · 51.4K ⭐ Hybrid triple-store: vector + key-value +,,,,🔬 Hindsight MIT · vectorize-io/hindsight · 2.4K ⭐ TEMPR architecture: four parallel retrieval,,
+,,,,,,
+"knowledge graph. An LLM pass extracts structured facts from conversations and stores them across all three layers. Most widely integrated option — first-class Python, TypeScript, and OpenAI-compatible SDKs.",,,,"strategies — temporal, entity, metadata, and BM25 for exact keyword matches. Strong at structured technical recall: port numbers, error codes, service names, deployment configs. Three-stage pipeline: retain (ingest) → recall",,

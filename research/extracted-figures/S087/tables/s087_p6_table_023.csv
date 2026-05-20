@@ -1,0 +1,1 @@
+pnpm install cp .env.example .env # edit DATABASE_URL cd packages/server pnpm db:push # apply schema to your local Postgres pnpm dev # start the server with hot reload,

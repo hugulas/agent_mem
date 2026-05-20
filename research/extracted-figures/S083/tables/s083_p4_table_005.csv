@@ -1,0 +1,3 @@
+""
+"├── FTS5 匹配分 × 0.4 ├── Jaccard 词重叠 × 0.3 └── HRR 向量相似度 × 0.3 │ ▼ Stage 3: Trust Score 加权 │ final_score = relevance × trust_score ▼ 返回 Top-K 结果 这个设计很聪明：FTS5 保证关键词精确匹配，Jaccard 处理同义词覆盖，HRR 捕捉语义相近但词 ⾯不同的情况。三路互补，没有任何单⼀⽅法能独⽴做到这个效果。 信任评分：让记忆⾃我进化 每条事实默认 。每次被检索和使⽤后，可以通过 ⼯具给反 trust_score = 0.5 fact_feedback 馈： 标记 helpful → trust_score += 0.05 标记 unhelpful → trust_score -= 0.10 分值范围限制在 [0.0, 1.0]，检索时默认过滤 的事实。 trust_score < 0.3 效果：准确的记忆不断被强化，过时或错误的记忆逐渐沉底，最终⾃动被过滤掉。这是⼀个简洁但 有效的⾃我进化机制。 与 Hermes 的集成⽅式 Holographic 通过 接⼝挂⼊ Hermes 的会话⽣命周期： MemoryProvider Session 开始 → MemoryManager 加载 HolographicMemoryProvider → 注册两个新⼯具到对话： • fact_store (9种操作) • fact_feedback (训练 trust score)"
+""

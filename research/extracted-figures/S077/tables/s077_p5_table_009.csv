@@ -1,0 +1,4 @@
+"Multi-Channel Invocation Surface (webhooks: Slack, Linear, GitHub) #63 — Multi-Channel Invocation (user_id mapping across platforms) References Honcho: Personalization infrastructure for AI agents Hermes implementation: tools/honcho_tools.py (~300 lines) Hermes gateway integration: gateway/run.py — session-to-Honcho mapping"
+adtyavrdhn added enhancement capability source: hermes on Mar 26
+Sign up for free to join this conversation on GitHub. Already have an account? Sign in to comment
+""

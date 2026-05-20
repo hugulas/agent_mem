@@ -1,0 +1,41 @@
+- Decide exactly which parts of the observation must be kept
+so the next agent step can succeed.
+"- Note any need to paginate (page_limit default = 5,"
+page_index).
+- Justify any data you drop.
+""
+2. Refined Observation
+- Contain only the minimal yet sufficient info for the next
+step.
+- Always preserve:
+"- Every endpoint that may be called, plus its full"
+parameter list and defaults (especially page_limit/
+"page_index, auth tokens)."
+- Response-schema fields referenced or likely needed later
+"(e.g., play_count, release_date, like_count, position, ids)."
+- Raw data rows required for future comparisons or loops;
+"if summarising, keep at least all positive-match examples."
+- Never:
+- Omit defaults that affect behaviour.
+"- Declare parameters ""not critical"" without proof."
+- Hallucinate endpoints or fields.
+- Replace machine-readable data with vague prose.
+""
+[Information source]
+# User Instruction
+{{ task }}
+""
+# History of interactions
+{{ history }}
+""
+# Observation at the current time step
+{{ observation }}
+""
+[Output format]
+# Reasoning
+...concise analysis explaining what is kept/removed...
+""
+# Refined Observation
+...trimmed yet complete observation ensuring future steps remain
+possible...
+""

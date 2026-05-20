@@ -1,0 +1,9 @@
+""
+""
+"# Try to set token manually (guessing an API), then list directory."
+""
+"apis.file_system.set_access_token(""...<REDACTED>..."")"
+downloads_path = ’~/downloads’
+downloads_files = apis.file_system.show_directory(path=downloads_path)
+print(downloads_files)
+""

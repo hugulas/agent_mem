@@ -1,0 +1,12 @@
+""
+"# To find the artist least recommended to Timothy, I will count how"
+many times each artist appears in the recommendations. The artist
+with the fewest appearances is the least recommended.
+from collections import Counter
+""
+"artist_names = [a[""name""] for r in recommendations_page_0 for a in r["""
+"artists""]]"
+artist_counts = Counter(artist_names)
+"least_recommended_artist = min(artist_counts, key=artist_counts.get)"
+print(least_recommended_artist)
+""

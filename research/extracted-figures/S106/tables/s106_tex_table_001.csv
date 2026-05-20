@@ -1,0 +1,2 @@
+{Method},{Build Time (h)},{Tokens/Query (k)},{Latency (s)} %,(min),(k),"(s) 
+Full Context",N/A,8.53,1.74 A-MEM,1.01,2.62,2.26 MemoryOS,0.91,4.76,32.68 Nemori,0.29,3.46,2.59 MAGMA,0.39,3.37,1.47

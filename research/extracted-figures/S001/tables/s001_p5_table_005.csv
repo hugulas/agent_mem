@@ -1,0 +1,3 @@
+,"recall, auto- capture, and local Ollama",
+,embedding support.,
+"Knowledge wiki layer Memory Wiki Compiles durable memory into a provenance-rich wiki vault with claims, dashboards, bridge mode, and Obsidian-friendly workflows. Automatic memory flush Before compaction summarizes your conversation, OpenClaw runs a silent turn that reminds the agent to save important context to memory files. This is on by default — you do not need to configure anything. To keep that housekeeping turn on a local model, set an exact memory- flush model override:",,

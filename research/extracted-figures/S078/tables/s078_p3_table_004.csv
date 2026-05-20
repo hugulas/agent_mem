@@ -1,0 +1,6 @@
+Metric,What it measures
+BLEU score,Token-level similarity to ground truth
+F1 score,Precision and recall over response tokens
+LLM score,Binary correctness from an LLM judge
+Token consumption,Total tokens required per query
+Latency,Wall-clock time during search and response generation

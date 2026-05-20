@@ -1,0 +1,6 @@
+"% 
+% Method",Base Model,General,Install,G.Apps,Single,WebShop,"Overall % 
+% [gray]{0.9}
+% In-Domain Setting % ChatGPT-CoT",--,5.9,4.4,10.5,9.4,8.4,7.7  % PaLM2-CoT,--,--,--,--,--,--,39.6 % OmniParser,--,48.3,57.8,51.6,77.4,52.9,"57.7 % 
+% SeeClick",Qwen-VL-7B,54.0,66.4,54.9,63.5,57.6,"59.3  
+% Qwen-VL-2B",{*}{[c]{@{}l@{}}Qwen2-VL-2B

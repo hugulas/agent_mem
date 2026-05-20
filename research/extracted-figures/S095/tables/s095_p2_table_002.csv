@@ -1,0 +1,7 @@
+Factor,Mem0,Supermemory
+Architecture,Vector + knowledge graph,Hybrid RAG with fact extraction
+LongMemEval*,49%,85.2%
+Deployment,Cloud or self-hosted (Apache 2.0),Cloud API only
+Pricing,Free / $19 / $249 / Enterprise,Not publicly disclosed
+GitHub Stars,52.8K,21.7K
+Funding,$24M Series A,$2.6M seed

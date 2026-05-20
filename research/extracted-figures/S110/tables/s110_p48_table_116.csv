@@ -1,0 +1,25 @@
+1. REASONING
+I identified voice messages from the day before yesterday
+(2023-05-16) containing Splitwise group invitations. To follow
+"instructions, I need to check if the senders’ phone numbers are"
+in Sierra’s contact book before accepting or deleting these
+messages.
+""
+2. VARS
+"access_token=<token>, splitwise_invite_voice_ids"
+"=[17022,17036,17028,17034], sender_numbers"
+"=[’9595488531’,’7375474944’,’2123782445’,’3808719492’]"
+""
+3. TODO
+- Search Sierra’s contact book for sender_numbers.
+- Accept Splitwise invitations from contacts found.
+- Delete voice messages from non-contacts.
+""
+4. COMPLETED
+- Logged in to phone app and obtained access_token.
+- Retrieved voice messages from 2023-05-16.
+- Identified Splitwise invitation messages and sender numbers.
+""
+5. GUARDRAILS
+Only process Splitwise invitations from contacts; delete others.
+""

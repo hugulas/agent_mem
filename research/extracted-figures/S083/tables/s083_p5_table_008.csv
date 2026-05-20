@@ -1,0 +1,3 @@
+""
+"对话中 → AI 可调⽤ fact_store(action=""add"") 主动存⼊事实 → 调⽤ fact_store(action=""probe"", entity=""KEN"") 取回某⼈所有相关事实 → 调⽤ fact_store(action=""reason"", entities=[""KEN"",""K8s""]) 多实体组合查询 Session 结束 (on_session_end hook) → auto_extract=true 时，⾃动从对话提取值得记住的事实 → 写⼊ memory_store.db ⽀持的 9 种操作覆盖了完整的知识管理需求： fact_store 操作 ⽤途 存⼊⼀条新事实 add 关键词混合检索 search 取回某实体的所有相关事实 probe 查找与某实体结构上相邻的事实 related 多实体组合推理查询 reason 查找互相⽭盾的事实（记忆卫⽣） contradict 更新已有事实 update 删除事实 remove 枚举所有事实 list 实际效果：测试验证 在我的环境中，整个链路的测试结果如下："
+""

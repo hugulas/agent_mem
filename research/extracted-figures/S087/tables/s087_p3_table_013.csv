@@ -1,0 +1,1 @@
+"import { withRetainDB } from ""@retaindb/sdk/ai-sdk""; const { context } = await db.query({ project: ""my-agent"", query: userMessage, user_id }); const result = await streamText({ model: openai(""gpt-4o""), system: `You are a helpful assistant.\n\n${context}`, messages, });",

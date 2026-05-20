@@ -1,0 +1,8 @@
+,,,"+ params.textWeight * entry.textScore; return { ...entry, score }; }); return merged.toSorted((a, b) => b.score - a.score); }",,,,,,,
+,,,0,,,,,,,
+,,,,,,,,,,
+,,,"// src/memory/hybrid.ts, lines 36-39 export function bm25RankToScore(rank: number): number { const normalized = Number.isFinite(rank) ? Math.max(0, rank) : 999; return 1 / (1 + normalized); // Rank 0 → 1.0, Rank 1 → 0.5, Rank 9 }",,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,"The formula creates smooth decay—top results dominate, but lower ranks still contribute.","The formula creates smooth decay—top results dominate, but lower ranks still contribute.",,,,,,,
+,,,,,,,,,,

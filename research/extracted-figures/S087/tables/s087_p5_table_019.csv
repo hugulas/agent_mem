@@ -1,0 +1,12 @@
+Connector,Type
+GitHub,"Repos, code, issues"
+Web / Sitemap,"Docs sites, pages"
+PDF,Local or remote
+Notion,Pages and databases
+Confluence,Spaces and pages
+Slack,Channel history
+Discord,Server history
+arXiv,Papers
+npm / PyPI,Package docs
+HuggingFace,Model cards
+Plain text,Inline content

@@ -1,0 +1,6 @@
+"{@{} >{}p{1.8cm} X X >{}p{3.2cm} @{}}
+
+Zone",AI Counterpart,Cartographic Function,"Failure Mode 
+Black Fog $$","Tool use, search, code execution~","Reconnaissance, surveying","Hallucination~ [4pt]
+Gray Fog $$","Structured memory, vector DBs~, persisted state","Archival mapping, state tracking","Drift, staleness, bloat~ [4pt]
+Visible Field $$","Active context window, prompt assembly~",Tactical projection surface,"Overload, attention dilution~"

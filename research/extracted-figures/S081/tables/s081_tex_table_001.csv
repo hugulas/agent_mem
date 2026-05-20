@@ -1,0 +1,2 @@
+Statistic,LongMemEval,"LoCoMo 
+Number of conversations",Varies (S/M),50 Questions,500,Varies Avg. turns per conversation,--,304.9 Avg. tokens per conversation,"115k (S), 1.5M (M)","9,209.2 Avg. sessions per conversation","~50 (S), ~500 (M)",19.3 Max sessions,~500,35 Multimodal,No,Yes (images) Core abilities tested,"5 (IE, MR, TR, KU, ABS)",Memory recall

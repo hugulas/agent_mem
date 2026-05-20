@@ -1,0 +1,3 @@
+// Max concurrent embedding requests (default: 10)
+// Text file vectorization source: content_only|summary_first|summary_only
+// Max estimated raw text tokens sent to embedding

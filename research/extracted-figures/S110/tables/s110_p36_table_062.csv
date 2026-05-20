@@ -1,0 +1,8 @@
+""
+# I need Timothy’s Spotify account password to log in. Let’s get it
+from supervisor.
+spotify_passwords = apis.supervisor.show_account_passwords()
+"spotify_password = next((acc[""password""] for acc in spotify_passwords"
+"if acc[""account_name""]==""spotify""), None)"
+print(spotify_password)
+""

@@ -1,0 +1,3 @@
+Knob,Controls,Default
+dialecticCadence,Turns between peer.chat() LLM calls (dialectic layer refresh),2 (recommended 1–5)
+dialecticDepth,Number of .chat() passes per dialectic invocation (1–3),1

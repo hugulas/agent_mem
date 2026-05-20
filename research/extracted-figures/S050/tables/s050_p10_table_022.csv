@@ -1,0 +1,6 @@
+PROVIDER,MAX CONTEXT,ARCHITECTURE,SELF-HOST OPTION
+Gemini 2.5 Pro,2M tokens,MoE + retrieval fusion,No
+Claude Sonnet 4,1M tokens,Dense transformer,No
+Qwen2.5-1M,1M tokens,Dense + DCA,Yes
+MiniMax-M1,1M tokens,MoE,Yes
+Gradient Llama,1M tokens,Dense + distributed attention,Yes

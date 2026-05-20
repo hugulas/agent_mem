@@ -1,0 +1,5 @@
+Tool,Purpose
+honcho_profile,"Read or update peer card — pass card (list of facts) to update, omit to read"
+honcho_search,"Semantic search over context — raw excerpts, no LLM synthesis"
+honcho_context,"Full session context — summary, representation, card, recent messages"
+honcho_reasoning,Synthesized answer from Honcho's LLM — pass reasoning_level (minimal/low/medium/high/max) to control depth

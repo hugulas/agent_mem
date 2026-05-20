@@ -1,0 +1,2 @@
+OS Concept,"Context Window Equivalent 
+Physical memory",Context window (200K tokens) Virtual memory,"Persistent state (disk, databases) Page table","Retrieval handles (UUIDs, anchors) Page fault",Model re-requests evicted content MMU,Proxy layer between client and API Working set,Currently relevant context subset Demand paging,Load tool definitions on first use Thrashing,Evict/fault cycle exceeding useful work Pinning,Fault history prevents re-eviction

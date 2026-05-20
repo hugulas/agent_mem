@@ -1,0 +1,5 @@
+Concept,What it is
+Workspace,Shared environment. All Hermes profiles under one workspace see the same user identity.
+User peer (peerName),The human. Shared across profiles in the workspace.
+AI peer (aiPeer),One per Hermes profile. Host key hermes → default; hermes. <profile> for others.
+Observation,"Per-peer toggles controlling what Honcho models from whose messages. directional (default, all four on) or unified (single- observer pool)."

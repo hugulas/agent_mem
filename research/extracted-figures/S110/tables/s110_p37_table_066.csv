@@ -1,0 +1,7 @@
+""
+# Now get the first page of personalized song recommendations.
+recommendations_page_0 = apis.spotify.show_recommendations(
+"access_token=access_token, page_index=0, page_limit=20"
+)
+print(recommendations_page_0[:4]) # show a few items only
+""

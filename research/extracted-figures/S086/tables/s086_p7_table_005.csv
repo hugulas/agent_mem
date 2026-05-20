@@ -1,0 +1,3 @@
+Enable with compression_strategy: 'delta'
+"MCP SERVER Native Claude Desktop integration 15+ MCP tools give Claude Desktop direct access to your context, memory, and knowledge graphs. Works with any MCP-compatible AI assistant. 15+ MCP Tools Context retrieval, memory storage, oracle research, and knowledge graph navigation One Config File Claude Desktop instantly gets context awareness and long-term memory View MCP docs"
+"~/.config/claude/mcp.json { ""mcpServers"": { ""retaindb-context"": { ""command"": ""npx"", ""args"": [ ""@retaindb/mcp-server"" ], ""env"": {"

@@ -1,0 +1,6 @@
+""
+You are evaluating whether a candidate compacted summary is consistent
+with the agent’s speculative steps -- the actions the agent took on
+"the original, uncompacted context while compaction ran asynchronously."
+""
+The agent’s new context after adoption will be:

@@ -1,0 +1,2 @@
+Key,Default,Description
+container_tag,hermes,Container tag used for search and writes. Supports {identity} template for profile-scoped tags.

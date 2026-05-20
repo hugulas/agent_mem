@@ -1,0 +1,1 @@
+"npm install -g @mem0/cli # or: pip install mem0-cli mem0 init mem0 add ""Prefers dark mode and vim keybindings"" --user-id alice mem0 search ""What does Alice prefer?"" --user-id alice",

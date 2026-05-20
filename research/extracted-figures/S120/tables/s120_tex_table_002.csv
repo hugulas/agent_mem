@@ -1,0 +1,4 @@
+Stage,"Operation and Key Parameters     
+    1. Recall Planner (1 LLM call)","Predicts complexity $c,,$ $$ and extracts keywords $K$ to set level-specific budgets and search scope $(c)$.     
+    2. Hierarchical Recall (no LLM calls)     Leaf Activation","Score $L_1$ leaves by $s(m,q,K)=s_{}+(1-)s_{}$ with $0.9$ (cosine similarity + BM25), then select top-$k_1{=}20$.     Ancestor Collection","For each activated leaf, collect ancestors whose levels satisfy $(m)(c)$ (deterministic traversal).     Budgeting","Keep up to: Simple ($L_1{:}20$, $L_2{:}4$, $L_5{:}1$); Hybrid ($L_1{:}20$, $L_2{:}4$, $L_3{:}2$, $L_5{:}1$); Complex ($L_1{:}20$, $L_2{:}8$, $L_3{:}4$, $L_4{:}2$, $L_5{:}1$).     Pruning / Early Stop","If candidates exceed per-level budgets, prune by similarity scores; if fewer ancestors exist, terminate early.     
+    3. Recall Gating (1 LLM call)","Prompt an LLM to retain/drop each candidate memory conditioned on $(q,c)$, producing the final memory set $_{}$."

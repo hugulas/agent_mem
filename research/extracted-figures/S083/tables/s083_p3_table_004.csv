@@ -1,0 +1,2 @@
+输⼊ Query │ ▼ Stage 1: FTS5 全⽂搜索 (SQLite 原⽣) │ 取 limit×3 个候选 ▼ Stage 2: 三路重排序
+""

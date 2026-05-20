@@ -1,0 +1,20 @@
+""
+[
+"{""name"":""show_account"",""description"":""Show your account"
+"information. Unlike show_profile, this includes private"
+"information.""},"
+"{""name"":""signup"",""description"":""Sign up to create account.""},"
+"{""name"":""delete_account"",""description"":""Delete your account.""},"
+"{""name"":""update_account_name"",""description"":""Update your first or"
+"last name in the account profile.""},"
+...
+"{""name"":""copy_directory"",""description"":""Copy a directory to"
+"another location.""},"
+"{""name"":""move_directory"",""description"":""Move a directory to"
+"another location.""},"
+"{""name"":""compress_directory"",""description"":""Compress a directory"
+".""},"
+"{""name"":""decompress_file"",""description"":""Decompress a compressed"
+"file.""}"
+]
+""

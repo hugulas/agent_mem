@@ -1,0 +1,63 @@
+"},"
+{
+"""name"": ""like_song"","
+"""description"": ""Like a song."""
+"},"
+{
+"""name"": ""unlike_song"","
+"""description"": ""Unlike a song."""
+"},"
+{
+"""name"": ""show_liked_songs"","
+"""description"": ""Get a list of songs you have liked."""
+"},"
+{
+"""name"": ""search_albums"","
+"""description"": ""Search for albums with a query."""
+"},"
+{
+"""name"": ""show_album"","
+"""description"": ""Get details of a specific album."""
+"},"
+{
+"""name"": ""show_album_privates"","
+"""description"": ""Show information about the album that is private"
+"to the user."""
+"},"
+{
+"""name"": ""like_album"","
+"""description"": ""Like a album."""
+"},"
+{
+"""name"": ""unlike_album"","
+"""description"": ""Unlike a album."""
+"},"
+{
+"""name"": ""show_liked_albums"","
+"""description"": ""Get a list of albums you have liked."""
+"},"
+{
+"""name"": ""show_playlist_library"","
+"""description"": ""Get a list of playlists in the user’s playlist"
+"library."""
+"},"
+{
+"""name"": ""search_playlists"","
+"""description"": ""Search for playlists with a query. It will search"
+"over all public playlists and your own private playlists."""
+"},"
+{
+"""name"": ""create_playlist"","
+"""description"": ""Create a new playlist."""
+"},"
+{
+"""name"": ""show_playlist"","
+"""description"": ""Get detailed information about a specific"
+playlist. You can view your own playlists or others’ playlists
+"if they are public."""
+"},"
+{
+"""name"": ""delete_playlist"","
+"""description"": ""Delete a playlist."""
+"},"
+{

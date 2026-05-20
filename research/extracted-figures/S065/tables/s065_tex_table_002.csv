@@ -1,0 +1,22 @@
+"{@{} >{}p{2.0cm}
+  >{}p{2.7cm}
+  l l
+  X @{}}
+
+Cartographic Op.",Classical Function,Context Op.,Corr.,"Notes 
+Selection / elimination",Filter features by relevance,$$,Iso.,"Both filter known inventory by task criteria [3pt]
+Simplification",Reduce geometric complexity,$$,Ana.,"Cartographic: vertex count; Context: token count [3pt]
+Aggregation",Merge similar features,$$,Iso.,"Both fuse proximate items into composites [3pt]
+Typification",Replace dense set with representatives,$$ (mode),Sub.,"Pattern-preserving sampling; a selection
+    strategy [3pt]
+Displacement",Resolve visual conflicts,$$,Ana.,"Cartographic: 2D overlap; Context: 1D salience [3pt]
+Collapse",Reduce dimensionality,$$ (param.),Sub.,"Dimensionality reduction within projection
+    schema [3pt]
+Symbolization",Assign typed visual categories,$$,Iso.,"Both enforce semantic namespace separation [3pt]
+Map projection",Transform between coordinate systems,$$,Iso.,"Both transform representations with controlled
+    distortion [3pt]
+
+{@{}l}{Context operators without classical
+  cartographic generalization counterpart:} [3pt]
+Reconnaissance",(Field surveying / data acquisition),$$,---,"Precedes generalization; cartographic analogue
+    is survey planning"

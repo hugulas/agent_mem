@@ -1,0 +1,3 @@
+Method,Single-Hop,Multi-Hop,Open-Domain,Temporal,"Overall 
+HonCho",93.2,84.0,77.1,88.2,89.9 Hindsight,86.2,70.8,95.1,83.8,89.6 Memobase,70.9,46.9,77.2,85.1,75.8 Zep,74.1,66.0,67.7,79.8,75.1 Mem0,67.1,51.2,72.9,55.5,66.9 OpenAI Memory,63.8,42.9,62.3,21.7,"52.9 
+(ours)}",97.5,93.3,85.9,97.8,96.1

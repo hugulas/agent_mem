@@ -1,0 +1,2 @@
+{*}{Screenshots},Prefill Latency (ms),Decoding Latency (ms),Speedup         (lr){2-3} (lr){4-5} (lr){6-8},Full Cache,ST-Lite,Full Cache,ST-Lite,Prefill,Decoding,"End-to-End         
+        3",1656.4,1690.2,3888.8,3111.4,0.98,1.25,1.15         5,2516.4,2541.8,4063.8,2402.9,0.99,1.68,1.33         10,4685.3,4732.6,4501.1,1837.2,0.99,2.45,1.4

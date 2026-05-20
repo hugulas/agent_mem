@@ -1,0 +1,9 @@
+""
+""
+"# Call show_directory again, assuming session is persisted after login"
+.
+""
+downloads_path = ’~/downloads’
+downloads_files = apis.file_system.show_directory(path=downloads_path)
+print(downloads_files)
+""

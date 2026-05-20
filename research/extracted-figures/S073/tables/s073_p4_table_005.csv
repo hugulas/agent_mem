@@ -1,0 +1,1 @@
+openclaw honcho setup # Configure API key and migrate files openclaw honcho status # Check connection status openclaw honcho ask <question> # Query Honcho about the user openclaw honcho search <query> [-k N] [-d D] # Semantic search over memory,

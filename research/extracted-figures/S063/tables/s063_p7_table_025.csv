@@ -1,0 +1,5 @@
+Experimental Group,Task Completion Rate,Cost: Input Tokens (Total)
+OpenClaw(memory-core),35.65%,"24,611,530"
+OpenClaw + LanceDB (-memory-core),44.55%,"51,574,530"
+OpenClaw + OpenViking Plugin (-memory-core),52.08%,"4,264,396"
+OpenClaw + OpenViking Plugin (+memory-core),51.23%,"2,099,622"

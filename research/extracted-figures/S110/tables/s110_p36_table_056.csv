@@ -1,0 +1,5 @@
+""
+"# First, let’s check what APIs are available under the Spotify app to"
+see if there is an API related to recommendations or artists.
+print(apis.api_docs.show_api_descriptions(app_name=’spotify’))
+""

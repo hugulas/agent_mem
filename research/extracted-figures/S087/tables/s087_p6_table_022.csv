@@ -1,0 +1,4 @@
+Package,npm,Description
+packages/server,—,Self-hostable API server
+packages/sdk,@retaindb/sdk,TypeScript SDK
+packages/mcp,@retaindb/mcp,MCP server

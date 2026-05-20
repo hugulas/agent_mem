@@ -1,0 +1,3 @@
+Key,Default,Description
+retain_assistant_prefix,Assistant,Label used before assistant turns in auto-retained transcripts
+recall_tags,—,Tags to filter on recall

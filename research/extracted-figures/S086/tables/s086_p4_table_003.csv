@@ -1,0 +1,3 @@
+,View SDK docs,
+,"TypeScript SDK import { RetainDBClient } from '@retaindb/sdk' const client = new RetainDBClient({ apiKey: process.env.RETAINDB_API_KEY, orgId: process.env.RETAINDB_ORG_ID }) // Query with delta compression const result = await client.query({ project: 'my-app', query: 'How do we handle auth?', compress: true, compression_strategy: 'delta', include_memories: true }) // 50-90% token savings console.log(result.meta.tokens_used) // 1,500 tokens (was 15,000)",
+,SOTA MEMORY SYSTEM State-of-the-art memory,

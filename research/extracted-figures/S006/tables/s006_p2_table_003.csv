@@ -1,0 +1,5 @@
+,"The Problem Ask an LLM about the history of breakfast, and it will tell you a story that goes back thousands of years. Ask what it had for breakfast, and chances are that's ancient, long-discarded context. Every chat starts fresh—no state, no history, no memory of you. Memory systems fix this. They persist information across sessions without burning context window tokens. The hard part is retrieval: how do you find the right memories when you need them? OpenClaw's implementation is worth studying because it makes pragmatic tradeoffs that work: plain Markdown as source of truth, hybrid search combining vectors with keywords, and a clever pre-compaction flush that saves memories before context overflow. 1. Files as Source of Truth Most memory systems start with a database. OpenClaw starts with Markdown files. No proprietary format. No complex schema. Just text you can read, edit, and version control. Memory File Structure",,,,,
+,,Memory File Structure,,,,
+,,,,,,
+,,,"Curated Memory Stable facts, preferences, decisions",,,
+,MEMORY.md,MEMORY.md,MEMORY.md,,,

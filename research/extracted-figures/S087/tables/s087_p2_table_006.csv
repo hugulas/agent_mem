@@ -1,0 +1,1 @@
+git clone https://github.com/retaindb/retaindb cd retaindb cp .env.example packages/server/.env # Edit packages/server/.env and set DATABASE_URL if needed,

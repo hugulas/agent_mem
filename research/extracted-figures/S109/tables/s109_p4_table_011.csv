@@ -1,0 +1,2 @@
+➁ Corruptedcompaction: “Remove the function from everywhere.” Scopededitbecameaglobalone.
+➂ Post-compactionfailure:Removes the function everywhere; code breaks and tests fail.

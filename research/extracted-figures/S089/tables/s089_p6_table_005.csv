@@ -1,0 +1,5 @@
+Factor,Supermemory,RetainDB,Hypabase
+Extraction,"LLM-based, hybrid RAG","Turn-by-turn, atomic writes",AMR (formal linguistic framework)
+Representation,Facts + vector embeddings,Chronological memory dump,N-ary hyperedges
+LongMemEval*,85.2%,79%,87.4%
+Personalization,—,88% (preference recall),100%

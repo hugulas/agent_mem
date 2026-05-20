@@ -1,0 +1,8 @@
+Intent,,,Config,,,,
+Full observation (most users),,,"""observationMode"": ""directional""",,,,
+AI shouldn't re-model the user from its own replies,,,"""ai"": {""observeMe"": true,",,,,
+,,,,"""ai"": {""observeMe"": true,",,,
+,,,,"""observeOthers"": false}",,,
+Strong persona the AI peer shouldn't update from self-observation,,,"""ai"": {""observeMe"": false,",,,,
+,,,,"""ai"": {""observeMe"": false,",,,
+,tion,,,"""observeOthers"": true}",,,

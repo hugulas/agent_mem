@@ -1,0 +1,1 @@
+"const { context } = await db.query({ project: ""my-agent"", query: ""What are this user's preferences?"", user_id: ""user_123"", include_memories: true, }); // context is a pre-packed string — drop it straight into your system prompt",

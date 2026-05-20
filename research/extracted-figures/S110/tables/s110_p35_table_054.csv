@@ -1,0 +1,28 @@
+"- identifiers/fields needed for comparisons, loops, or API"
+"calls (ids, titles, counts, paths, etc.)"
+- Minimise length:
+- Delete unused fields and narrative text.
+"- Compress JSON/arrays (one object per line, no extra"
+spaces).
+- Summarise long uniform lists with a range/pattern when
+individual rows are not needed.
+"- Never invent, alter, or omit a required literal."
+"- Exclude history, prior summaries, and meta comments."
+""
+[Information source]
+# User Instruction
+{{ task }}
+""
+# History of interactions
+{{ history }}
+""
+# Observation at the current time step
+{{ observation }}
+""
+[Output format]
+# Reasoning
+...
+""
+# Refined Observation
+...
+""

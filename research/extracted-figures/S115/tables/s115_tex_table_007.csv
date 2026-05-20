@@ -1,0 +1,5 @@
+Base Model,Method,Overall F1 $$,Overall B1 $$,"Overall J $$ 
+{*}{LLaMA-3.1-8B}",LoCoMo (RAG),20.55,15.17,21.00,A-Mem,38.36,33.30,54.20,Mem0,31.41,21.69,41.20,Memory-SFT,43.89,36.72,54.80,Memory-R1-PPO,43.60,39.50,55.20,Memory-R1-GRPO,45.20,39.30,"55.40 
+
+
+{*}{Qwen-2.5-7B}",LoCoMo (RAG),18.27,14.57,22.20,A-Mem,41.55,36.58,54.80,Mem0,38.44,34.53,46.80,Memory-SFT,43.16,35.04,54.80,Memory-R1-PPO,40.30,35.50,47.40,Memory-R1-GRPO,46.70,41.10,57.80

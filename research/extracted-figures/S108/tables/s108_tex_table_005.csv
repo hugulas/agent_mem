@@ -1,0 +1,2 @@
+Guard,"Mechanism 
+Dry Run",Assessment-only mode Published Protect,Never deprecate ``published'' Circuit Breaker,Max 50% deprecation Error Isolate,Per-action try/except Audit Report,Markdown report artifact Cursor Persist,Resume from checkpoint

@@ -1,0 +1,5 @@
+,
+Best for,"Developers who want portable, local-first memory with a CLI"
+Requires,ByteRover CLI (npm install -g byterover-cli or install script)
+Data storage,Local (default) or ByteRover Cloud (optional sync)
+Cost,Free (local) or ByteRover pricing (cloud)

@@ -1,0 +1,8 @@
+Env var,Default,Description,
+DATABASE_URL,—,Postgres connection string (required),
+RETAINDB_API_KEY,unset,Auth key. Unset = open access (fine for localhost).,
+OPENAI_API_KEY,unset,"Enables OpenAI embeddings (text-embedding-3-small). Without it, a local BGE model is used.",
+EMBEDDING_MODE,auto,openai | local | hybrid,
+EXTRACTION_MODEL,gpt-4o- mini,LLM used to extract memories from conversations,
+PORT,3000,HTTP port,
+DISABLE_SCHEDULER,false,Disable background sync scheduler,

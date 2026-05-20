@@ -1,0 +1,5 @@
+,
+Best for,Knowledge graph-based recall with entity relationships
+Requires,"Cloud: API key from ui.hindsight.vectorize.io. Local: LLM API key (OpenAI, Groq, OpenRouter, etc.)"
+Data storage,Hindsight Cloud or local embedded PostgreSQL
+Cost,Hindsight pricing (cloud) or free (local)

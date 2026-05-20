@@ -1,0 +1,2 @@
+CompressionE.4: AppWorldObservationCompressionExample
+"task: I am going for a 15-minute drive without internet. Play an album from my Spotify library that already has enough downloaded songs for it, so I do not have to repeat. action: print(apis.api_docs.show_api_descriptions(app_name=’spotify ’)) ---------------------------------------- Raw Observation: [ { ""name"": ""show_account"","

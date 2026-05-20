@@ -1,0 +1,2 @@
+""
+"对话中 → AI 可调⽤ fact_store(action=""add"") 主动存⼊事实 → 调⽤ fact_store(action=""probe"", entity=""KEN"") 取回某⼈所有相关事实 → 调⽤ fact_store(action=""reason"", entities=[""KEN"",""K8s""]) 多实体组合查询 Session 结束 (on_session_end hook) → auto_extract=true 时，⾃动从对话提取值得记住的事实 → 写⼊ memory_store.db"

@@ -1,0 +1,4 @@
+"{>{}c >{}X >{}c}
+
+Approach",Mechanism,"Granularity 
+Simple truncation",Drop oldest messages,Coarse Sliding window,Fixed-size recent history,Medium RAG,Retrieve relevant snippets,Fine Single summarization,One-pass compress,Coarse Graduated compaction,Multi-layer pipeline,Very fine

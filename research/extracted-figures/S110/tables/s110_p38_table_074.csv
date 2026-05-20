@@ -1,0 +1,8 @@
+""
+""
+# List files in ~/downloads to find PDFs.
+""
+downloads_path = ’~/downloads’
+downloads_files = apis.file_system.show_directory(path=downloads_path)
+print(downloads_files)
+""

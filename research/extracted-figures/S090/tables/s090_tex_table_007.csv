@@ -1,0 +1,12 @@
+Module,Parameter,"Value 
+{*}{Search Index}",MiniSearch version,v7,Fields,"title ($5$), content ($1$), path ($1.5$)",Max retrieval results,32,Max content length,"8{,}000 chars 
+{*}{Search Config}",Fuzzy ratio,0.2,Prefix matching,enabled,Score normalization,"$s / (1 + s)$ 
+{*}{Direct Response}",High confidence threshold,0.93,Minimum score,0.85,Minimum gap (top vs 2),"0.08 
+{*}{OOD Detection}",Minimum relevance score,0.6,Unmatched term threshold,"0.85 
+{*}{Lifecycle}",Importance decay (daily),$0.995^{t}$,Recency decay,$e^{-t / 30}$,Maturity thresholds,"draft $<$ 35, core $$ 85 
+{*}{Curation}",Max files per operation,5,Max chars per file,"40,000 
+{*}{Compression}",Level 1 (LLM),Normal summarization,Level 2 (Aggressive),"$0.6$ token budget 
+{*}{Cache}",Query cache TTL,0 (disabled),Fingerprint cache TTL,"0 (disabled) 
+{*}{Inference}",LLM Backbone (curate/query),Gemini 3 Flash,Temperature,"0.0 
+{*}{Judge}",Model,Gemini 3 Flash,Max tokens,"8{,}192",Thinking budget,0 (disabled),Prompts,"Hindsight (verbatim) 
+{*}{Justifier}",Model,Gemini 3.1 Pro,Max tokens,"32{,}768",Thinking budget,low,Prompts,Hindsight (adapted for LongMemEval)

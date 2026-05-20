@@ -1,0 +1,2 @@
+Role,Model,Snapshot,Reasoning effort,Temp.,"maxtokens 
+Fact extractor",GPT-5-nano,low,—,— Memory reader,GPT-5-mini,medium,—,— Long-context LLM,GPT-5-mini,low,—,— Long-context LLM,GPT-OSS-120B,—,—,0,"2{,}000 Judge",GPT-5-mini,high,—,—

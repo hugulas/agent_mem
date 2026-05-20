@@ -1,0 +1,9 @@
+""
+""
+"# Retry: fresh login, try immediate call."
+""
+login_response = apis.file_system.login(
+"username=file_system_username, password=file_system_password)"
+"access_token = login_response.get(""access_token"")"
+print(access_token) # for debugging
+""

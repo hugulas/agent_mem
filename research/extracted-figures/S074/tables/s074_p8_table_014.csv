@@ -1,0 +1,3 @@
+Preset,User flags,AI flags,Semantics
+"""directional"" (default)","me: on, others: on","me: on, others: on","Full mutual observation. Enables cross- peer dialectic — ""what does the AI know about the user, based on what the user said and the AI replied."""
+"""unified""","me: on, others: off","me: off, others: on","Shared-pool semantics — the AI observes the user's messages only, the user peer only self-models. Single-observer pool."

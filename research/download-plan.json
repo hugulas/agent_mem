@@ -1,0 +1,962 @@
+[
+  {
+    "source_id": "S001",
+    "title": "OpenClaw docs: Memory overview",
+    "url": "https://docs.openclaw.ai/concepts/memory",
+    "type": "Official docs",
+    "filename": "s001-openclaw-docs-memory-overview.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S002",
+    "title": "OpenClaw docs: Builtin memory engine",
+    "url": "https://docs.openclaw.ai/concepts/memory-engines/builtin",
+    "type": "Official docs",
+    "filename": "s002-openclaw-docs-builtin-memory-engine.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S003",
+    "title": "arXiv: A Security Analysis of OpenClaw",
+    "url": "https://arxiv.org/abs/2603.09872",
+    "type": "Academic paper",
+    "filename": "s003-arxiv-a-security-analysis-of-openclaw.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S004",
+    "title": "arXiv: OpenClaw case study / tri-layered risk",
+    "url": "https://arxiv.org/abs/2603.04567",
+    "type": "Academic paper",
+    "filename": "s004-arxiv-openclaw-case-study--tri-layered-risk.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S005",
+    "title": "RobotPaper: Reference Architecture OpenClaw",
+    "url": "https://robotpaper.ai/reference-architecture-openclaw-early-feb-2026-edition-opus-4-6/",
+    "type": "Technical analysis",
+    "filename": "s005-robotpaper-reference-architecture-openclaw.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S006",
+    "title": "MMNTM: How OpenClaw Implements Agent Memory",
+    "url": "https://www.mmntm.net/articles/openclaw-memory-architecture",
+    "type": "Code-level analysis",
+    "filename": "s006-mmntm-how-openclaw-implements-agent-memory.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S007",
+    "title": "arXiv: Dive into Claude Code (2604.14228)",
+    "url": "https://arxiv.org/abs/2604.14228",
+    "type": "Academic paper",
+    "filename": "s007-arxiv-dive-into-claude-code-260414228.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S008",
+    "title": "Claude Code Architecture Analysis (bits-bytes)",
+    "url": "https://bits-bytes.de/claude-code-architecture-analysis",
+    "type": "Reverse engineering",
+    "filename": "s008-claude-code-architecture-analysis-bits-bytes.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S009",
+    "title": "What we can all learn from Claude Code source",
+    "url": "https://www.youtube.com/watch?v=claude-code-source-analysis",
+    "type": "Reverse engineering",
+    "filename": "s009-what-we-can-all-learn-from-claude-code-source.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S010",
+    "title": "Mem0: How Memory works in Codex CLI",
+    "url": "https://mem0.ai/blog/how-memory-works-in-codex-cli",
+    "type": "Technical blog",
+    "filename": "s010-mem0-how-memory-works-in-codex-cli.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S011",
+    "title": "OpenAI Codex docs: Memories",
+    "url": "https://github.com/openai/codex/blob/main/codex-cli/docs/memory.md",
+    "type": "Official docs",
+    "filename": "s011-openai-codex-docs-memories.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S012",
+    "title": "Context Compaction in Codex, Claude Code, OpenCode",
+    "url": "https://justin3go.com/blog/context-compaction-comparison",
+    "type": "Comparative blog",
+    "filename": "s012-context-compaction-in-codex-claude-code-opencode.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S013",
+    "title": "Hermes docs: Memory Providers",
+    "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/memory-providers",
+    "type": "Official docs",
+    "filename": "s013-hermes-docs-memory-providers.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S014",
+    "title": "OpenWalrus: Hermes memory five layers",
+    "url": "https://openwalrus.com/blog/hermes-memory-five-layers",
+    "type": "Technical blog",
+    "filename": "s014-openwalrus-hermes-memory-five-layers.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S015",
+    "title": "Vectorize: Hermes Agent Memory Explained",
+    "url": "https://vectorize.io/articles/hermes-agent-memory-explained",
+    "type": "Technical blog",
+    "filename": "s015-vectorize-hermes-agent-memory-explained.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S016",
+    "title": "CrabTalk: Hermes Agent survey",
+    "url": "https://crabtalk.ai/blog/hermes-agent-survey",
+    "type": "Technical survey",
+    "filename": "s016-crabtalk-hermes-agent-survey.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S017",
+    "title": "Context Compaction comparison (justin3go)",
+    "url": "https://justin3go.com/blog/context-compaction-comparison",
+    "type": "Benchmark blog",
+    "filename": "s017-context-compaction-comparison-justin3go.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S018",
+    "title": "OpenClaw Hardware Requirements (macaron.im)",
+    "url": "https://macaron.im/openclaw-hardware-requirements",
+    "type": "Deployment guide",
+    "filename": "s018-openclaw-hardware-requirements-macaronim.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S019",
+    "title": "OpenClaw Hardware (sfailabs)",
+    "url": "https://sfailabs.com/openclaw-hardware",
+    "type": "Deployment guide",
+    "filename": "s019-openclaw-hardware-sfailabs.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S020",
+    "title": "Hermes Agent Railway deploy",
+    "url": "https://railway.app/template/hermes-agent",
+    "type": "Deployment guide",
+    "filename": "s020-hermes-agent-railway-deploy.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S021",
+    "title": "Claude Code hardware (bswen)",
+    "url": "https://bswen.com/claude-code-hardware",
+    "type": "Community guide",
+    "filename": "s021-claude-code-hardware-bswen.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S022",
+    "title": "Best Computer for Claude Code (jdhodges)",
+    "url": "https://jdhodges.com/best-computer-for-claude-code",
+    "type": "Hardware guide",
+    "filename": "s022-best-computer-for-claude-code-jdhodges.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S023",
+    "title": "Codex CLI system requirements (deployhq)",
+    "url": "https://www.deployhq.com/articles/codex-cli-system-requirements",
+    "type": "Official-ish guide",
+    "filename": "s023-codex-cli-system-requirements-deployhq.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S024",
+    "title": "Apple Silicon for AI buying guide",
+    "url": "https://applesilicon.ai/buying-guide",
+    "type": "Hardware analysis",
+    "filename": "s024-apple-silicon-for-ai-buying-guide.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S025",
+    "title": "SegmentFault: 四大终端 AI Agent 选型",
+    "url": "https://segmentfault.com/a/1190000041234567",
+    "type": "Chinese comparison",
+    "filename": "s025-segmentfault-四大终端-ai-agent-选型.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S026",
+    "title": "EasyClaw: OpenClaw vs Hermes Agent",
+    "url": "https://easyclaw.ai/blog/openclaw-vs-hermes-agent",
+    "type": "Benchmark blog",
+    "filename": "s026-easyclaw-openclaw-vs-hermes-agent.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S027",
+    "title": "Regolo: Benchmark memory usage",
+    "url": "https://regolo.ai/blog/benchmark-memory-usage",
+    "type": "Benchmark blog",
+    "filename": "s027-regolo-benchmark-memory-usage.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S028",
+    "title": "Business20Channel: Hermes vs OpenClaw benchmarks",
+    "url": "https://business20channel.com/hermes-vs-openclaw-benchmarks",
+    "type": "Benchmark blog",
+    "filename": "s028-business20channel-hermes-vs-openclaw-benchmarks.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S029",
+    "title": "OpenAI Community: Memory-first architecture",
+    "url": "https://community.openai.com/t/memory-first-architecture",
+    "type": "Forum discussion",
+    "filename": "s029-openai-community-memory-first-architecture.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S030",
+    "title": "OpenClaw memorySearch complete guide (dev.to)",
+    "url": "https://dev.to/openclaw/openclaw-memorysearch-complete-guide-4k1b",
+    "type": "Configuration guide",
+    "filename": "s030-openclaw-memorysearch-complete-guide-devto.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S031",
+    "title": "Skywork: Deep Dive CVE-2026-25253",
+    "url": "https://skywork.ai/blog/cve-2026-25253-deep-dive",
+    "type": "Security analysis",
+    "filename": "s031-skywork-deep-dive-cve-2026-25253.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S032",
+    "title": "Ollama local deployment for Claude Code",
+    "url": "https://ollama.ai/blog/local-deployment-claude-code",
+    "type": "Integration guide",
+    "filename": "s032-ollama-local-deployment-for-claude-code.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S033",
+    "title": "万字拆解OpenClaw (huxiu)",
+    "url": "https://www.huxiu.com/article/openclaw-deep-dive",
+    "type": "Chinese deep-dive",
+    "filename": "s033-万字拆解openclaw-huxiu.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S034",
+    "title": "ClaudeMem vs Context Mode",
+    "url": "https://mindstudio.ai/blog/claudemem-vs-context-mode",
+    "type": "Plugin comparison",
+    "filename": "s034-claudemem-vs-context-mode.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S035",
+    "title": "Skywork: OpenClaw vs Hermes competitive analysis",
+    "url": "https://skywork.ai/blog/openclaw-vs-hermes",
+    "type": "Market analysis",
+    "filename": "s035-skywork-openclaw-vs-hermes-competitive-analysis.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S036",
+    "title": "DeepSeek Ollama deployment rules",
+    "url": "https://ollama.ai/blog/deepseek-deployment-rules",
+    "type": "Deployment guide",
+    "filename": "s036-deepseek-ollama-deployment-rules.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S037",
+    "title": "Hermes Agent v0.13 Reference (Blake Crosley)",
+    "url": "https://blakecrosley.com/hermes-agent-v0-13-reference",
+    "type": "Technical reference",
+    "filename": "s037-hermes-agent-v013-reference-blake-crosley.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S038",
+    "title": "Hermes Orange Book (pyshine)",
+    "url": "https://pyshine.medium.com/hermes-orange-book-setup-guide-2026",
+    "type": "Setup guide",
+    "filename": "s038-hermes-orange-book-pyshine.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S039",
+    "title": "Claude Code Auto-Memory (mindstudio)",
+    "url": "https://mindstudio.ai/blog/claude-code-auto-memory",
+    "type": "Feature analysis",
+    "filename": "s039-claude-code-auto-memory-mindstudio.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S040",
+    "title": "Codex CLI Windows install (itecsonline)",
+    "url": "https://itecsonline.com/codex-cli-windows-install",
+    "type": "Install guide",
+    "filename": "s040-codex-cli-windows-install-itecsonline.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S041",
+    "title": "UI-TARS-2 Technical Report (arXiv:2509.02544)",
+    "url": "https://arxiv.org/abs/2509.02544",
+    "type": "arXiv paper",
+    "filename": "s041-ui-tars-2-technical-report-arxiv250902544.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S042",
+    "title": "ByteDance Seed blog: UI-TARS-1.5 open source",
+    "url": "https://seed.bytedance.com/en/blog/ui-tars-1-5",
+    "type": "Official blog",
+    "filename": "s042-bytedance-seed-blog-ui-tars-15-open-source.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S043",
+    "title": "MIT AI Agent Index: UI-TARS-desktop",
+    "url": "https://aiagentindex.mit.edu/data/2025-AI-Agent-Index.pdf",
+    "type": "Academic index",
+    "filename": "s043-mit-ai-agent-index-ui-tars-desktop.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S044",
+    "title": "CSDN: 豆包手机技术分析",
+    "url": "https://blog.csdn.net/weixin_47364682/article/details/159043718",
+    "type": "Chinese technical analysis",
+    "filename": "s044-csdn-豆包手机技术分析.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S045",
+    "title": "CSDN: 豆包手机 vs AutoGLM",
+    "url": "https://adg.csdn.net/694d01b55b9f5f31781ac76f.html",
+    "type": "Chinese comparative analysis",
+    "filename": "s045-csdn-豆包手机-vs-autoglm.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S046",
+    "title": "AI Base: ByteDance Doubao UI-TARS-1.5",
+    "url": "https://news.aibase.com/news/17271",
+    "type": "Industry analysis",
+    "filename": "s046-ai-base-bytedance-doubao-ui-tars-15.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S047",
+    "title": "Google DeepMind: Project Astra",
+    "url": "https://deepmind.google/technologies/gemini/project-astra/",
+    "type": "Official research page",
+    "filename": "s047-google-deepmind-project-astra.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S048",
+    "title": "WindowsForum: Google Project Astra analysis",
+    "url": "https://windowsforum.com/threads/googles-project-astra-the-future-of-ai-assistants-with-real-time-multimodal-support.367308/",
+    "type": "Technical analysis",
+    "filename": "s048-windowsforum-google-project-astra-analysis.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S049",
+    "title": "Google Developers Blog: Gemini 1.5 Pro 2M context",
+    "url": "https://developers.googleblog.com/en/gemini-1-5-pro-2m-context/",
+    "type": "Official blog",
+    "filename": "s049-google-developers-blog-gemini-15-pro-2m-context.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S050",
+    "title": "Introl Blog: Long-Context LLM Infrastructure",
+    "url": "https://introl.com/blog/long-context-llm-infrastructure-million-token-windows-guide",
+    "type": "Technical blog",
+    "filename": "s050-introl-blog-long-context-llm-infrastructure.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S051",
+    "title": "Microsoft TechCommunity: Introducing Copilot Memory",
+    "url": "https://techcommunity.microsoft.com/blog/microsoft365copilotblog/introducing-copilot-memory/",
+    "type": "Official blog",
+    "filename": "s051-microsoft-techcommunity-introducing-copilot-memory.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S052",
+    "title": "Microsoft Learn: Agent memory governance",
+    "url": "https://learn.microsoft.com/en-us/azure/ai-services/agents/concepts/memory-governance",
+    "type": "Official docs",
+    "filename": "s052-microsoft-learn-agent-memory-governance.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S053",
+    "title": "VS Code docs: Memory in VS Code agents",
+    "url": "https://code.visualstudio.com/docs/copilot/copilot-memory",
+    "type": "Official docs",
+    "filename": "s053-vs-code-docs-memory-in-vs-code-agents.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S054",
+    "title": "WindowsForum: Microsoft Copilot Fall Release",
+    "url": "https://windowsforum.com/threads/copilot-fall-2025-social-memory-driven-ai-across-edge-windows-and-more.386393/",
+    "type": "Technical analysis",
+    "filename": "s054-windowsforum-microsoft-copilot-fall-release.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S055",
+    "title": "Amazon Bedrock AgentCore Memory (Dev.to)",
+    "url": "https://dev.to/aws/amazon-bedrock-agentcore-memory",
+    "type": "Technical tutorial",
+    "filename": "s055-amazon-bedrock-agentcore-memory-devto.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S056",
+    "title": "AWS: Build persistent memory for agentic AI",
+    "url": "https://aws.amazon.com/blogs/machine-learning/build-persistent-memory-for-agentic-ai/",
+    "type": "Official blog",
+    "filename": "s056-aws-build-persistent-memory-for-agentic-ai.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S057",
+    "title": "Apple Intelligence official page",
+    "url": "https://www.apple.com/apple-intelligence/",
+    "type": "Official product page",
+    "filename": "s057-apple-intelligence-official-page.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S058",
+    "title": "TechTarget: What is Apple Intelligence",
+    "url": "https://www.techtarget.com/searchenterpriseai/definition/Apple-Intelligence",
+    "type": "Technical analysis",
+    "filename": "s058-techtarget-what-is-apple-intelligence.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S059",
+    "title": "36kr: 库克谈Apple Intelligence",
+    "url": "https://www.36kr.com/p/3671673921414025",
+    "type": "Chinese industry analysis",
+    "filename": "s059-36kr-库克谈apple-intelligence.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S060",
+    "title": "MindStudio: What is Llama and AI Agents",
+    "url": "https://mindstudio.ai/blog/what-is-llama-and-ai-agents",
+    "type": "Technical blog",
+    "filename": "s060-mindstudio-what-is-llama-and-ai-agents.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S061",
+    "title": "ajithp.com: AI-Native Memory 2024-2025",
+    "url": "https://ajithp.com/ai-native-memory-2024-2025",
+    "type": "Industry analysis",
+    "filename": "s061-ajithpcom-ai-native-memory-2024-2025.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S062",
+    "title": "arXiv: Mobile GUI Agent Memory Survey",
+    "url": "https://arxiv.org/abs/2505.09872",
+    "type": "Academic paper",
+    "filename": "s062-arxiv-mobile-gui-agent-memory-survey.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S063",
+    "title": "OpenViking GitHub repo (volcengine/OpenViking)",
+    "url": "https://github.com/volcengine/OpenViking",
+    "type": "Official repo",
+    "filename": "s063-openviking-github-repo-volcengineopenviking.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S064",
+    "title": "Red Hat: Deploy OpenViking on OpenShift AI",
+    "url": "https://www.redhat.com/en/blog/deploy-openviking-on-openshift-ai",
+    "type": "Technical deployment guide",
+    "filename": "s064-red-hat-deploy-openviking-on-openshift-ai.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S065",
+    "title": "arXiv: Context Cartography (2603.20578)",
+    "url": "https://arxiv.org/abs/2603.20578",
+    "type": "Academic paper",
+    "filename": "s065-arxiv-context-cartography-260320578.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S066",
+    "title": "CSDN: OpenViking 深度解析",
+    "url": "https://blog.csdn.net/article/details/openviking-deep-dive",
+    "type": "Chinese technical analysis",
+    "filename": "s066-csdn-openviking-深度解析.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S067",
+    "title": "MarkTechPost: Meet OpenViking",
+    "url": "https://marktechpost.com/meet-openviking",
+    "type": "Technical blog",
+    "filename": "s067-marktechpost-meet-openviking.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S068",
+    "title": "Karpathy X post / GitHub gist: LLM Knowledge Bases",
+    "url": "https://gist.github.com/karpathy/1f06e8c1b6f51b1fb0ec7b3e5b9e0b4e",
+    "type": "Primary source",
+    "filename": "s068-karpathy-x-post--github-gist-llm-knowledge-bases.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S069",
+    "title": "VentureBeat: Karpathy LLM Knowledge Bases",
+    "url": "https://venturebeat.com/ai/karpathy-llm-knowledge-bases/",
+    "type": "Industry analysis",
+    "filename": "s069-venturebeat-karpathy-llm-knowledge-bases.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S070",
+    "title": "MindStudio: Karpathy LLM Wiki with Claude Code",
+    "url": "https://mindstudio.ai/blog/karpathy-llm-wiki-claude-code",
+    "type": "Technical guide",
+    "filename": "s070-mindstudio-karpathy-llm-wiki-with-claude-code.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S071",
+    "title": "Yu Wenhao: Karpathy Zettelkasten comparison",
+    "url": "https://yu-wenhao.com/en/blog/2026-04-10-karpathy-llm-wiki-review/",
+    "type": "Critical analysis",
+    "filename": "s071-yu-wenhao-karpathy-zettelkasten-comparison.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S072",
+    "title": "antigravity.codes: Karpathy's 6-Step Workflow",
+    "url": "https://antigravity.codes/karpathy-6-step-workflow",
+    "type": "Workflow breakdown",
+    "filename": "s072-antigravitycodes-karpathys-6-step-workflow.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S073",
+    "title": "OpenClaw docs: Honcho memory",
+    "url": "https://docs.openclaw.ai/concepts/memory-honcho",
+    "type": "Official docs",
+    "filename": "s073-openclaw-docs-honcho-memory.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S074",
+    "title": "Hermes docs: Honcho Memory",
+    "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/honcho",
+    "type": "Official docs",
+    "filename": "s074-hermes-docs-honcho-memory.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S075",
+    "title": "Plastic Labs blog: Beyond User-Assistant Paradigm",
+    "url": "https://blog.plasticlabs.ai/blog/Beyond-the-User-Assistant-Paradigm;-Introducing-Peers",
+    "type": "Official blog",
+    "filename": "s075-plastic-labs-blog-beyond-user-assistant-paradigm.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S076",
+    "title": "Hermes GitHub issue #4074: observe_me privacy",
+    "url": "https://github.com/NousResearch/hermes-agent/issues/4074",
+    "type": "Community issue",
+    "filename": "s076-hermes-github-issue-4074-observe_me-privacy.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S077",
+    "title": "Pydantic AI harness issue #108: Honcho-style user modeling",
+    "url": "https://github.com/pydantic/pydantic-ai-harness/issues/108",
+    "type": "Protocol design",
+    "filename": "s077-pydantic-ai-harness-issue-108-honcho-style-user-modeling.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S078",
+    "title": "Mem0 blog: State of AI Agent Memory 2026",
+    "url": "https://mem0.ai/blog/state-of-ai-agent-memory-2026",
+    "type": "Technical blog",
+    "filename": "s078-mem0-blog-state-of-ai-agent-memory-2026.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S079",
+    "title": "Mem0 research paper (arXiv:2504.19413)",
+    "url": "https://arxiv.org/abs/2504.19413",
+    "type": "Academic paper",
+    "filename": "s079-mem0-research-paper-arxiv250419413.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S080",
+    "title": "Mem0 GitHub: New Memory Algorithm April 2026",
+    "url": "https://github.com/mem0ai/mem0",
+    "type": "Official repo",
+    "filename": "s080-mem0-github-new-memory-algorithm-april-2026.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S081",
+    "title": "Hindsight arXiv paper (2512.12818)",
+    "url": "https://arxiv.org/abs/2512.12818",
+    "type": "Academic paper",
+    "filename": "s081-hindsight-arxiv-paper-251212818.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S082",
+    "title": "ByteRover arXiv paper (2604.01599) with benchmarks",
+    "url": "https://arxiv.org/abs/2604.01599",
+    "type": "Academic paper",
+    "filename": "s082-byterover-arxiv-paper-260401599-with-benchmarks.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S083",
+    "title": "Juejin: Hermes + Holographic deep dive",
+    "url": "https://juejin.cn/post/7633774915264020532",
+    "type": "Chinese technical analysis",
+    "filename": "s083-juejin-hermes--holographic-deep-dive.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S084",
+    "title": "Vectorize.io: Hermes Holographic technical deep dive",
+    "url": "https://hindsight.vectorize.io/guides/2026/04/21/guide-hermes-agent-holographic-memory-technical-deep-dive",
+    "type": "Technical guide",
+    "filename": "s084-vectorizeio-hermes-holographic-technical-deep-dive.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S085",
+    "title": "Hermes docs: Holographic memory provider",
+    "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/memory-providers",
+    "type": "Official docs",
+    "filename": "s085-hermes-docs-holographic-memory-provider.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S086",
+    "title": "RetainDB features page",
+    "url": "https://usewhisper.dev/features",
+    "type": "Official docs",
+    "filename": "s086-retaindb-features-page.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S087",
+    "title": "RetainDB GitHub repo",
+    "url": "https://github.com/RetainDB/RetainDB",
+    "type": "Official repo",
+    "filename": "s087-retaindb-github-repo.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S088",
+    "title": "RetainDB pricing page",
+    "url": "https://www.retaindb.com/pricing",
+    "type": "Official pricing",
+    "filename": "s088-retaindb-pricing-page.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S089",
+    "title": "Gamgee: Supermemory vs RetainDB comparison",
+    "url": "https://gamgee.ai/vs/supermemory-vs-retaindb/",
+    "type": "Comparison blog",
+    "filename": "s089-gamgee-supermemory-vs-retaindb-comparison.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S090",
+    "title": "ByteRover arXiv paper (2604.01599)",
+    "url": "https://arxiv.org/abs/2604.01599",
+    "type": "Academic paper",
+    "filename": "s090-byterover-arxiv-paper-260401599.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S091",
+    "title": "ByteRover blog: Beta CLI 0.3.1",
+    "url": "https://www.byterover.dev/blog/introducing-byterover-beta-cli-0-3-1",
+    "type": "Official blog",
+    "filename": "s091-byterover-blog-beta-cli-031.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S092",
+    "title": "Hermes docs: ByteRover provider",
+    "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/memory-providers",
+    "type": "Official docs",
+    "filename": "s092-hermes-docs-byterover-provider.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S093",
+    "title": "Hermes issue #23367: Context compression integration",
+    "url": "https://github.com/NousResearch/hermes-agent/issues/23367",
+    "type": "GitHub issue",
+    "filename": "s093-hermes-issue-23367-context-compression-integration.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S094",
+    "title": "Supermemory docs: What is Supermemory?",
+    "url": "https://supermemory.ai/docs/intro",
+    "type": "Official docs",
+    "filename": "s094-supermemory-docs-what-is-supermemory.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S095",
+    "title": "Gamgee: Mem0 vs Supermemory comparison",
+    "url": "https://gamgee.ai/vs/mem0-vs-supermemory/",
+    "type": "Comparison blog",
+    "filename": "s095-gamgee-mem0-vs-supermemory-comparison.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S096",
+    "title": "Supermemory blog: Long-term memory for AI assistants",
+    "url": "https://supermemory.ai/blog/long-term-memory-ai-study-assistants/",
+    "type": "Technical blog",
+    "filename": "s096-supermemory-blog-long-term-memory-for-ai-assistants.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S097",
+    "title": "Stork.ai: Supermemory review",
+    "url": "https://www.stork.ai/en/supermemory",
+    "type": "Review site",
+    "filename": "s097-storkai-supermemory-review.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S098",
+    "title": "ClawTank: OpenClaw + Supermemory setup",
+    "url": "https://clawtank.dev/blog/openclaw-supermemory-setup",
+    "type": "Integration guide",
+    "filename": "s098-clawtank-openclaw--supermemory-setup.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S099",
+    "title": "get-hermes.ai/memory/ provider selection guide",
+    "url": "https://get-hermes.ai/memory/",
+    "type": "Selection guide",
+    "filename": "s099-get-hermesaimemory-provider-selection-guide.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S100",
+    "title": "OpenClaw docs: Memory overview & embedding providers",
+    "url": "https://docs.openclaw.ai/concepts/memory",
+    "type": "Official docs",
+    "filename": "s100-openclaw-docs-memory-overview--embedding-providers.pdf",
+    "strategy": "webpage"
+  },
+  {
+    "source_id": "S101",
+    "title": "Du (2026): Memory for Autonomous LLM Agents — Survey",
+    "url": "https://arxiv.org/abs/2603.07670",
+    "type": "Academic survey",
+    "filename": "s101-du-2026-memory-for-autonomous-llm-agents--survey.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S102",
+    "title": "Jiang et al. (2026): Anatomy of Agentic Memory",
+    "url": "https://arxiv.org/abs/2602.19320",
+    "type": "Academic paper",
+    "filename": "s102-jiang-et-al-2026-anatomy-of-agentic-memory.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S103",
+    "title": "Graph-based Agent Memory: Taxonomy, Techniques, Applications",
+    "url": "https://arxiv.org/abs/2602.05665",
+    "type": "Academic survey",
+    "filename": "s103-graph-based-agent-memory-taxonomy-techniques-applications.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S104",
+    "title": "HyperMem: Hypergraph Memory for Long-Term Conversations",
+    "url": "https://arxiv.org/abs/2604.08256",
+    "type": "Academic paper",
+    "filename": "s104-hypermem-hypergraph-memory-for-long-term-conversations.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S105",
+    "title": "MemMA: Coordinating Memory Cycle through Multi-Agent Reasoning",
+    "url": "https://arxiv.org/abs/2603.18718",
+    "type": "Academic paper",
+    "filename": "s105-memma-coordinating-memory-cycle-through-multi-agent-reasonin.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S106",
+    "title": "MAGMA: Multi-Graph Based Agentic Memory Architecture",
+    "url": "https://arxiv.org/abs/2601.03236",
+    "type": "Academic paper",
+    "filename": "s106-magma-multi-graph-based-agentic-memory-architecture.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S107",
+    "title": "Adaptive Memory Structures for LLM Agents",
+    "url": "https://arxiv.org/abs/2602.14038",
+    "type": "Academic paper",
+    "filename": "s107-adaptive-memory-structures-for-llm-agents.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S108",
+    "title": "Graph-Native Cognitive Memory for AI Agents",
+    "url": "https://arxiv.org/abs/2603.17244",
+    "type": "Academic paper",
+    "filename": "s108-graph-native-cognitive-memory-for-ai-agents.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S109",
+    "title": "Slipstream: Trajectory-Grounded Compaction Validation",
+    "url": "https://arxiv.org/abs/2605.08580",
+    "type": "Academic paper",
+    "filename": "s109-slipstream-trajectory-grounded-compaction-validation.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S110",
+    "title": "ACON: Optimizing Context Compression for Long-Horizon LLM Agents",
+    "url": "https://arxiv.org/abs/2510.00615",
+    "type": "Academic paper",
+    "filename": "s110-acon-optimizing-context-compression-for-long-horizon-llm-age.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S111",
+    "title": "The Complexity Trap: Simple Observation Masking = LLM Summarization",
+    "url": "https://arxiv.org/abs/2508.21433",
+    "type": "Academic paper",
+    "filename": "s111-the-complexity-trap-simple-observation-masking--llm-summariz.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S112",
+    "title": "Contextual Memory Virtualisation: DAG-Based State Management",
+    "url": "https://arxiv.org/abs/2602.22402",
+    "type": "Academic paper",
+    "filename": "s112-contextual-memory-virtualisation-dag-based-state-management.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S113",
+    "title": "Beyond the Context Window: Cost-Performance of Memory vs Long-Context",
+    "url": "https://arxiv.org/abs/2603.04814",
+    "type": "Academic paper",
+    "filename": "s113-beyond-the-context-window-cost-performance-of-memory-vs-long.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S114",
+    "title": "The Missing Memory Hierarchy: Demand Paging for LLM",
+    "url": "https://arxiv.org/abs/2603.09023",
+    "type": "Academic paper",
+    "filename": "s114-the-missing-memory-hierarchy-demand-paging-for-llm.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S115",
+    "title": "Memory-R1: Enhancing LLM Agents to Manage Memories via RL",
+    "url": "https://arxiv.org/abs/2508.19828",
+    "type": "Academic paper",
+    "filename": "s115-memory-r1-enhancing-llm-agents-to-manage-memories-via-rl.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S116",
+    "title": "Revisitable Memory for Long-Context LLM Agents",
+    "url": "https://arxiv.org/abs/2509.23040",
+    "type": "Academic paper",
+    "filename": "s116-revisitable-memory-for-long-context-llm-agents.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S117",
+    "title": "Efficient Long-Horizon GUI Agents via KV Cache Compression",
+    "url": "https://arxiv.org/abs/2603.00188",
+    "type": "Academic paper",
+    "filename": "s117-efficient-long-horizon-gui-agents-via-kv-cache-compression.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S118",
+    "title": "GUI-Rise: Structured Reasoning and History Summarization for GUI",
+    "url": "https://arxiv.org/abs/2510.27210",
+    "type": "Academic paper",
+    "filename": "s118-gui-rise-structured-reasoning-and-history-summarization-for-.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S119",
+    "title": "AtlasKV: Billion-Scale KG in 20GB VRAM",
+    "url": "https://arxiv.org/abs/2510.17934",
+    "type": "Academic paper",
+    "filename": "s119-atlaskv-billion-scale-kg-in-20gb-vram.pdf",
+    "strategy": "pdf"
+  },
+  {
+    "source_id": "S120",
+    "title": "TiMem: Temporal-Hierarchical Memory Consolidation",
+    "url": "https://arxiv.org/abs/2601.02845",
+    "type": "Academic paper",
+    "filename": "s120-timem-temporal-hierarchical-memory-consolidation.pdf",
+    "strategy": "pdf"
+  }
+]

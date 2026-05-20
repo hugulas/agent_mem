@@ -1,0 +1,6 @@
+Framework,User modeling?,Details
+Hermes,Yes — via Honcho,"Profile, semantic search, dialectic Q&A, prefetch"
+Google ADK,Partial,"Scoped state per user, but no external modeling"
+Mastra,Partial,"Memory types include ""user memory"" but no external service"
+Claude Code,Partial,"Auto-memory for user preferences, but local only"
+Others,Generally no,Most have flat key-value memory

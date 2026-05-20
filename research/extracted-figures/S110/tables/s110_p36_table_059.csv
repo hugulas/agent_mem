@@ -1,0 +1,6 @@
+""
+% [fontsize=\footnotesize]
+"{""path"":""/recommendations"",""method"":""GET"",""parameters"":[{""name"":"""
+"access_token"",""required"":true}, {""name"":""page_index"",...},{"""
+"name"":""page_limit"",...}], ...}"
+""

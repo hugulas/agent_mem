@@ -1,0 +1,7 @@
+""
+# Now log in to get the access token.
+"spotify_login = apis.spotify.login(username=""timothy.whit@gmail.com"","
+"password=""<REDACTED>"")"
+"access_token = spotify_login.get(""access_token"")"
+print(access_token)
+""

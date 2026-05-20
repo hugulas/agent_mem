@@ -1,0 +1,11 @@
+""
+""
+# Try logout -> login -> call again.
+""
+apis.file_system.logout()
+login_response = apis.file_system.login(
+"username=file_system_username, password=file_system_password)"
+downloads_path = ’~/downloads’
+downloads_files = apis.file_system.show_directory(path=downloads_path)
+print(downloads_files)
+""

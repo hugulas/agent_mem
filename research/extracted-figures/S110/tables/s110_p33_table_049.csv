@@ -1,0 +1,18 @@
+One brief paragraph on key progress and rationale.
+""
+2. VARS
+"key=value pairs, comma-separated; only still-needed runtime"
+values.
+""
+3. TODO
+Bulleted next actions (<=5).
+""
+4. COMPLETED
+Bulleted finished subtasks (<=5).
+""
+5. GUARDRAILS
+"Single concise bullet, or omit if none."
+""
+Return only the <HISTORY_SUMMARY> block---no additional
+commentary or input echoes.
+""

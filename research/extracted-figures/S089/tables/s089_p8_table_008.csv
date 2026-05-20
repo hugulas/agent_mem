@@ -1,0 +1,3 @@
+Benefit,How AMR + Hyperedges Deliver It
+Affordable self- hosting,"Single SQLite file—no PostgreSQL required, simpler than RetainDB's infrastructure"
+Higher overall accuracy,87.4% LongMemEval vs RetainDB's 79%—better general retrieval alongside perfect personalization

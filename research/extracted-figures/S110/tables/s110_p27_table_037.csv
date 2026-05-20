@@ -1,0 +1,34 @@
+"""inefficiency_patterns"": [ {""pattern"": str, ""evidence_excerpt"
+""": str, ""excess_steps"": int, ""cause"": str, ""remediation"":"
+"str} ],"
+"""timeline_of_divergence"": [ {""phase"": str, ""optimized_excerpt"
+""": str, ""baseline_contrast"": str, ""effect"": str} ],"
+"""performance_regression"": bool,"
+"""baseline_env_steps"": int | null,"
+"""optimized_env_steps"": int | null,"
+"""step_ratio"": float | null,"
+"""remediation_recommendations"": [ str, ... ],"
+"""recovery_opportunities_missed"": [ {""optimized_excerpt"": str,"
+"""missed_fix_action"": str} ],"
+"""reliability_score"": float,"
+"""concise_failure_mechanism_summary"": str"
+}
+""
+"If some sections have no data, use an empty list. For non-"
+applicable numeric fields use null.
+Do NOT include any extra commentary outside JSON.
+""
+---
+BASELINE_HISTORY_START
+{{ baseline_history }}
+BASELINE_HISTORY_END
+""
+OPTIMIZED_MULTI_SESSION_HISTORY_START
+{{ optimized_history }}
+OPTIMIZED_MULTI_SESSION_HISTORY_END
+""
+Failure or performance report / metadata (may be null):
+{{ failure_report }}
+""
+Proceed with rigorous comparison.
+""

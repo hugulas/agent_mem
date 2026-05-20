@@ -1,0 +1,7 @@
+"{lX}
+
+Category","Examples 
+Always included","AgentTool, BashTool, FileReadTool, FileEditTool, FileWriteTool, SkillTool, WebFetchTool, WebSearchTool 
+Environment","GlobTool/GrepTool (unless embedded), ConfigTool (ant-only), PowerShellTool (Windows) 
+Feature flag","TaskCreate/Get/Update/List (), EnterWorktreeTool (), TeamTools (), ToolSearchTool 
+Null-checked","SuggestBackgroundPRTool, WebBrowserTool, RemoteTriggerTool, MonitorTool, SleepTool"

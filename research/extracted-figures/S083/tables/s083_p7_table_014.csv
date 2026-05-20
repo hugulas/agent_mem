@@ -1,0 +1,2 @@
+""
+temporal_decay_half_life: 0 # 时间衰减（0=关闭） hrr_dim: 1024 # 向量维度

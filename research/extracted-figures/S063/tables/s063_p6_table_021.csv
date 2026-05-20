@@ -1,0 +1,1 @@
+nohup openviking-server > /data/log/openviking.log 2>&1 &,

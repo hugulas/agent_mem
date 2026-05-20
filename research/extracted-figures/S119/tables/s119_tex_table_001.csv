@@ -1,0 +1,3 @@
+Method,Time Complexity,"Memory Complexity  
+        
+        ICL",$((teal{M}T + N)^2 D)$,$((teal{M}T + N) (teal{M}T + N + D) )$         RAG,$(teal{M}+teal{R}T+(teal{R}T+N)^2 D)$,$((teal{R}T+N) (teal{R}T+N + D) )$         CAG,$((teal{R}T + N)^2 D)$,$((teal{R}T + N)(N + D))$         KBLaM,$((teal{M}+N)N D)$,$((teal{M}+N)(N+D))$         AtlasKV,$((C_{t} [3]{teal{M}} + N) N D)$,$((C_{m}[3]{teal{M}} + N)(N+D))$

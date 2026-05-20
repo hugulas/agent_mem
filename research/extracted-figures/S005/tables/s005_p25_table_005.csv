@@ -1,0 +1,8 @@
+CONCEPT,IMPLEMENTATION,WHY IT MATTE
+Persistence,Markdown files + JSONL transcripts,Human-read
+Memory,File layers + vector search + flush,Stateless mo
+Context Management,Compaction + pruning + lazy skills,Efficient use
+Concurrency,Lane-based command queue,Safe serializa
+Extensibility,Hooks + plugins + skills,Modify beha
+Security,7-layer model (auth → sandbox),Defense in d
+Multi-channel,Bridge pattern + session routing,"One agent, m"

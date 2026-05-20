@@ -1,0 +1,6 @@
+Capability,Built-in Memory,Honcho
+Cross-session persistence,✔ File-based MEMORY.md/USER.md,✔ Server-side with API
+User profile,✔ Manual agent curation,✔ Automatic dialectic reasoning
+Session summary,—,✔ Session-scoped context injection
+Multi-agent isolation,—,✔ Per-peer profile separation
+Observation modes,—,✔ Unified or directional observation

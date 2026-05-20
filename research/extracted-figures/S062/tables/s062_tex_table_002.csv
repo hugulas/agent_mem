@@ -1,0 +1,4 @@
+"% 
+% Pair",Paired Comparison,Upper,t,df,"One-Sided p % 
+% Pair 1",B-Hub/AI - B-Hub/NoAI,2.011,4.551,25,$<$ .001 % Pair 2,Q-Lib/AI - Q-Lib/NoAI,2.124,5.415,25,$<$ .001 % Pair 3,B-Hub/AI - Q-Lib/AI,.606,.700,25,.245 % Pair 4,B-Hub/NoAI - Q-Lib/NoAI,1.055,.848,25,".202 % 
+%"

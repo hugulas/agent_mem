@@ -1,0 +1,8 @@
+DIMENSION,HERMES HOLOGRAPHIC,HINDSIGHT
+Core idea,HRR-style algebraic memory,structured fact memory
+Storage default,local SQLite,local or cloud
+Extraction style,not positioned around LLM fact extraction,structured extraction at retain time
+Retrieval emphasis,very fast local recall,semantic + keyword + graph + temporal
+Trust model,explicit trust scoring,"evolving facts, entities, and observations"
+Shared memory across tools,not the main story,first-class fit
+Best fit,local lightweight memory,durable cross-session agent memory

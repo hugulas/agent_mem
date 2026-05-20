@@ -1,0 +1,6 @@
+,Library,Self-Hosted Server,Cloud Platform
+Best for,"Testing, prototyping",Teams running on their own infrastructure,Zero-ops production use
+Setup,pip install mem0ai,docker compose up,Sign up at app.mem0.ai
+Dashboard,--,Yes,Yes
+Auth & API Keys,--,Yes,Yes
+Advanced Features,--,Teasers,All included

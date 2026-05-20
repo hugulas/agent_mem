@@ -1,0 +1,8 @@
+"% 列格式：Method(l)+Base Model(l)+竖线+5任务列(c)+竖线+Overall(c)
+
+% 表头：对应原格式的列结构
+Method",Base Model,General,Install,G.Apps,Single,WebShop,"Overall 
+% 灰色背景行：标注实验设置（替换原Zero-Shot为SFT，匹配数据逻辑）
+[gray]{0.9}
+In-Domain Setting % 第一行数据：Baseline（Qwen2.5-VL-7B (SFT)）
+Qwen2.5-VL-7B",{*}{[c]{@{}l@{}}Qwen2.5-  VL-7B

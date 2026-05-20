@@ -1,0 +1,15 @@
+""
+# The show_directory API requires the access_token as a parameter.
+""
+"# List files in ""~/downloads"" using the token."
+""
+"downloads_path = ""~/downloads"""
+"file_system_access_token = ""eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+"sBA8nTOB..."""
+""
+print(apis.file_system.show_directory(
+"access_token=file_system_access_token,"
+"directory_path=downloads_path,"
+"entry_type=""files"","
+recursive=False))
+""

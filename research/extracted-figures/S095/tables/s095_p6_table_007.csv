@@ -1,0 +1,5 @@
+Factor,Mem0,Supermemory,Hypabase
+Extraction,"LLM-based, ad- hoc",Hybrid RAG + fact extraction,AMR (formal linguistic framework)
+Representation,Triples,Vector + extracted facts,N-ary hyperedges
+LongMemEval*,49%,85.2%,87.4%
+Personalization,—,—,100%

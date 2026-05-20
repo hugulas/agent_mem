@@ -1,0 +1,6 @@
+Module,Parameter,"Value/Range 
+{*}{Embedding}",Model (Default),Model (Optional),Dimension,"384 / 1536 
+{*}{Inference}",LLM Backbone,Temperature,"0.0 
+{*}{Retrieval (Phase 1)}",RRF Constant ($k$),60,Vector Top-K,20,$w_{keyword}$ (Fusion),2.0 -- 5.0,Sim. Threshold,"0.10--0.30 
+{*}{Traversal (Phase 2)}",Max Depth,5 hops,Max Nodes,200,Drop Threshold,"0.15 
+{*}{[l]{Adaptive Weights}}",$_{1}$ (Structure Coef.),1.0 (Base),$_{2}$ (Semantic Coef.),0.3 -- 0.7 (l){2-3},$w_{entity}$ (in $_{T_q}$),2.5 -- 6.0,$w_{temporal}$ (in $_{T_q}$),0.5 -- 4.0,$w_{causal}$ (in $_{T_q}$),3.0 -- 5.0,$w_{phrase}$ (in $_{T_q}$),2.5 -- 5.0

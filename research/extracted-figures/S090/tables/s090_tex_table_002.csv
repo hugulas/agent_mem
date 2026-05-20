@@ -1,0 +1,2 @@
+Tier,Mechanism,Latency,"Condition 
+0",Exact cache hit,$$0ms,Hash match + valid fingerprint 1,Fuzzy cache (Jaccard),$$50ms,Jaccard $_{}$ 2,Direct MiniSearch,$$100ms,"BM25 score $_{}$, sufficient gap 3",Optimized LLM call,$<$5s,BM25 score $_{}$ 4,Full agentic loop,8--15s,All other queries

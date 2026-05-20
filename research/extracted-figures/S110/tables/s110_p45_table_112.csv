@@ -1,0 +1,14 @@
+""
+""
+# Delete each PDF using the access_token.
+""
+delete_results = []
+for pdf in pdf_files:
+res = apis.file_system.delete_file(
+"file_path=pdf, access_token=file_system_access_token)"
+delete_results.append(res)
+""
+# Mark task complete.
+""
+apis.supervisor.complete_task()
+""

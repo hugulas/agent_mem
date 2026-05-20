@@ -1,0 +1,36 @@
+{% for s in samples %}
+===== SAMPLE {{ loop.index0 }} =====
+- Task/Session: {{ s.task_label }} / {{ s.session or ’unknown-
+session’ }}
+- Analysis Overview:
+{% if s.overview %}
+"{% for k, v in s.overview.items() %} - {{ k }}: {{ v }}"
+{% endfor %}
+{% else %} - (none provided)
+{% endif %}
+""
+- Removals (patterns -> action):
+{% for r in s.removals %} - [{{ r.category | default(’unknown’)
+}}] {{ r.pattern | default(’’) }} -> {{ r.action | default
+(’drop’) }}
+{% endfor %}
+""
+- KEEP examples (evidence-driven essentials):
+{% for k in s.keeps %} - Reason: {{ k.reason | default(’’) }} |
+Evidence: {{ k.evidence_spans | default([]) | join(’; ’) }}
+{% endfor %}
+""
+- Summary Rules:
+{% for rule in s.rules %} - {{ rule }}
+{% endfor %}
+""
+{% endfor %}
+""
+Original Prompt Template (verbatim between markers):
+<<<ORIGINAL_PROMPT>>>
+{{ original_prompt }}
+<<<ORIGINAL_PROMPT>>>
+""
+"Output only the improved prompt template text, ready to be used"
+as a Jinja template.
+""

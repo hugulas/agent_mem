@@ -1,0 +1,45 @@
+directly.
+* Do NOT use AST-based source patching. Use sed -i or inline
+python str.replace only.
+"* If a prior edit corrupted a source file, restore it with"
+git checkout.
+""
+TROUBLESHOOTING
+"* If repeated attempts fail, do NOT keep adjusting the same"
+approach. Step back and explicitly enumerate 5-7 different
+possible root causes. Rank by likelihood and address the most
+likely first.
+"* When a test fails after a fix attempt, do not rewrite the test"
+"or source file from scratch. Instead, (1) inspect intermediate"
+"values, (2) identify the specific line that produces the wrong"
+"value, (3) make one targeted edit at that line."
+""
+CODE QUALITY
+* Focus on making the minimal changes needed to solve the problem.
+* Place all imports at the top of the file unless this would cause
+"issues (e.g., circular imports)."
+""
+NETWORK
+* The environment has NO network access. NEVER run commands that
+"reach the internet (pip install, apt install, git clone, curl,"
+"wget, etc.)."
+* All dependencies needed to run the tests are already installed.
+"* If an import fails, diagnose with which python and check the"
+environment. Do not attempt to install missing packages.
+""
+SUBMISSION
+"* You have a fixed step budget; spend it on edits, not"
+verification.
+* If git diff shows source-file edits that plausibly address the
+"issue, submit."
+* Running additional tests after a plausible fix wastes budget.
+* Only continue editing if git diff is empty or clearly does not
+address the task.
+""
+CONTINUATION
+* The conversation history is authoritative -- every command listed
+there has already run and every edit described there is already
+on disk. Do not re-run the same command.
+"* Before applying an edit, a short sed -n to confirm the pattern"
+still matches is permitted.
+""

@@ -1,0 +1,2 @@
+ExampleE.2: AppWorldtrajectoryexample-gpt-4.1-miniagentfailswithouthistorycompres- sion
+Problem: Deleteall.pdffilesfrom~/downloads. # Understand available APIs in the file_system app. print(apis.api_docs.show_api_descriptions(app_name=’file_system’))

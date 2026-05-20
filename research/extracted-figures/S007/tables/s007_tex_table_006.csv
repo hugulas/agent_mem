@@ -1,0 +1,8 @@
+"{@{}ccX@{}}
+
+Value Pair",Tension,"Evidence 
+Authority $$ Safety",Approval fatigue vs.protection,"93% approval rate undermines human vigilance~; safety must compensate via classifier and sandboxing  
+Safety $$ Capability",Performance vs.defense depth,"$>$50-subcommand fallback skips per-subcommand deny checks due to parsing overhead~; safety layers share performance constraints  
+Adaptability $$ Safety",Extensibility vs.attack surface,"Multiple CVEs exploit pre-trust initialization of hooks and MCP servers~  
+Capability $$ Adaptability",Proactivity vs.disruption,"12 to 18% more tasks but preference drops at high frequencies~  
+Capability $$ Reliability",Velocity vs.coherence,Bounded context prevents full codebase awareness (); subagent isolation limits cross-agent consistency (); complexity increases observed in adjacent tools~

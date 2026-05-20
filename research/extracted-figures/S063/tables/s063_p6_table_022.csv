@@ -1,0 +1,1 @@
+"ov status ov add-resource https://github.com/volcengine/OpenViking # --wait ov ls viking://resources/ ov tree viking://resources/volcengine -L 2 # wait some time for semantic processing if not --wait ov find ""what is openviking"" ov grep ""openviking"" --uri viking://resources/volcengine/OpenViking/docs/zh",

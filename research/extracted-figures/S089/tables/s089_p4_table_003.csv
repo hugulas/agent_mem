@@ -1,0 +1,4 @@
+Benchmark,Supermemory,RetainDB
+LongMemEval*,85.2%,79%
+Preference Recall,—,88% (SOTA)
+Hallucination Rate,—,0% claimed

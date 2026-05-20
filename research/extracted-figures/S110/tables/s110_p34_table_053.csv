@@ -1,0 +1,16 @@
+""
+"Your task: create two sections---""Reasoning"" and ""Refined"
+"Observation""."
+""
+1. Reasoning (<=40 words)
+- Briefly state what was kept and why; note dropped
+categories and any pagination needs.
+""
+2. Refined Observation (use ONLY the current observation)
+- Keep strictly necessary data for the next step.
+"- Always preserve, when present:"
+- access_token or other auth values
+"- page_limit, page_index and other defaults that affect"
+calls
+- every endpoint name; include parameters only if required;
+description <= 4 words

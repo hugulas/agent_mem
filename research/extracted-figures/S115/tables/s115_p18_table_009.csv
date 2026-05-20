@@ -1,0 +1,7 @@
+Method,,,
+LoCoMo(RAG) A-Mem Mem0 Memory-SFT,,,
+Memory-R1-PPO,43.60,39.50,55.20
+Memory-R1-GRPO,45.20,39.30,55.40
+LoCoMo(RAG) A-Mem Mem0 Memory-SFT,,,
+Memory-R1-PPO,40.30,35.50,47.40
+Memory-R1-GRPO,46.70,41.10,57.80

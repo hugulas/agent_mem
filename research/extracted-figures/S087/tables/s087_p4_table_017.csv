@@ -1,0 +1,11 @@
+Method,Path,Description
+POST,/v1/memory,Store a memory
+GET,/v1/memory/profile/:userId,List memories for a user
+POST,/v1/memory/search,Semantic search over memories
+POST,/v1/memory/ingest/session,Extract + store memories from a conversation
+PUT,/v1/memory/:id,Update a memory
+DELETE,/v1/memory/:id,Delete a memory
+POST,/v1/context/query,Retrieve packed context for an agent turn
+GET,/v1/projects,List projects
+POST,/v1/projects/:id/sources,Connect a knowledge source
+POST,/v1/sources/:id/sync,Trigger a sync

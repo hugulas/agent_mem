@@ -1,0 +1,4 @@
+"% 
+% Symbol","Description % 
+% $G = (V, E)$",Graph with vertices $V$ and edges $E$ % $_G$,Graph-based memory system % $_{}$,LLM with parameters $$ % $o_t$,Observation at time $t$ % $a_t$,Action at time $t$ % $r_t$,Reward/feedback at time $t$ % $c_t$,Retrieved memory context at time $t$ % $$,Knowledge graph % $$,Set of entities % $$,Set of relations % $$,"Set of triples (facts) % $_V, _E$",Node and edge attribute functions % $$,Temporal function % $N_k(v)$,"$k$-hop neighborhood of node $v$ % $(, )$","Similarity function % $d(u, v)$","Distance between nodes $u$ and $v$ % 
+%"

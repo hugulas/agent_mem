@@ -1,0 +1,4 @@
+Key,Default,Description
+db_path,$HERMES_HOME/memory_store.db,SQLite database path
+auto_extract,false,Auto-extract facts at session end
+default_trust,0.5,Default trust score (0.0–1.0)

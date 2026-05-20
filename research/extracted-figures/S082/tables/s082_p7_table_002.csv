@@ -1,0 +1,10 @@
+""
+{
+"""applied"": ["
+"{""type"": ""UPSERT"", ""path"": ""analysis/semi"", ""status"": ""success""},"
+"{""type"": ""MERGE"", ""path"": ""analysis/energy"", ""status"": ""failed"","
+"""message"": ""Source file not found""}"
+"],"
+"""summary"": {""added"": 0, ""deleted"": 0, ""updated"": 1, ""merged"": 0, ""failed"": 1}"
+}
+""

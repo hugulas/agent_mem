@@ -1,0 +1,16 @@
+""
+[
+"{""name"":""show_active_task"",""description"":""Show the currently"
+"active task assigned to you by the supervisor.""},"
+"{""name"":""complete_task"",""description"":""Mark the currently active"
+"task as complete with the given answer.""},"
+"{""name"":""show_profile"",""description"":""Show your supervisor’s"
+"profile information.""},"
+"{""name"":""show_addresses"",""description"":""Show your supervisor’s"
+"addresses.""},"
+"{""name"":""show_payment_cards"",""description"":""Show your supervisor’"
+"s payment_cards.""},"
+"{""name"":""show_account_passwords"",""description"":""Show your"
+"supervisor’s app account passwords.""}"
+]
+""

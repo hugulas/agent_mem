@@ -1,0 +1,1 @@
+"{ ""mcpServers"": { ""retaindb"": { ""command"": ""npx"", ""args"": [""@retaindb/mcp""], ""env"": { ""RETAINDB_BASE_URL"": ""http://localhost:3000"" } } } }",

@@ -1,0 +1,52 @@
+[candidate compacted summary] + [speculative trajectory appended verbatim]
+""
+Judge consistency on TWO criteria using ONLY the candidate compacted
+summary and the speculative trajectory provided below.
+""
+---
+CANDIDATE COMPACTED STATE:
+{summary_handover}
+""
+---
+SPECULATIVE TRAJECTORY (reasoning + tool calls taken during async compaction):
+{spec_actions}
+""
+---
+CRITERIA:
+""
+1. PLAN ALIGNMENT
+"The compacted state contains open/pending items (marked [PENDING],"
+"[OPEN], or described as unresolved/unconfirmed). Does the next-k"
+trajectory pursue these open items with the same forward intent?
+- 10: Trajectory directly targets the most critical open item(s)
+"- 7-9: Trajectory targets an open item, but not the most critical"
+- 4-6: Trajectory is topically related but takes an indirect path
+- 1-3: Trajectory addresses something not listed as open/pending
+"- 0: Trajectory is unrelated to any compacted-state content,"
+OR compacted state has no open items but trajectory
+continues searching instead of finishing
+""
+2. INFORMATION PRESERVATION
+The speculative trajectory’s reasoning may reference prior context
+"(entities, partial findings, verified facts, tool observations)."
+Are those concrete facts preserved in the candidate compacted state?
+- 10: Every entity/fact the trajectory relies on appears in the
+compacted state
+- 7-9: Most referenced information is present; minor details
+missing but reconstructable from context
+"- 4-6: Some key information the trajectory depends on is missing,"
+which could cause confusion after adoption
+- 1-3: Trajectory relies heavily on information not in the
+compacted state
+- 0: Trajectory references a completely different task state
+than what the compacted state describes
+""
+"Respond with JSON only (no markdown, no extra text):"
+"{""plan_alignment"": <int 0-10>,"
+"""information_preservation"": <int 0-10>,"
+"""score"": <int 0-10>,"
+"""reasoning"": ""<one sentence on the key strength or weakness>""}"
+""
+The overall score must equal:
+round(0.5 * plan_alignment + 0.5 * information_preservation)
+""

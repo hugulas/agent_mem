@@ -1,0 +1,22 @@
+""
+{
+"""app_name"":""file_system"","
+"""api_name"":""delete_file"","
+"""path"":""/file"","
+"""method"":""DELETE"","
+"""description"":""Delete a file."","
+"""parameters"":["
+"{""name"":""file_path"",""type"":""string"",""required"":true,"
+"""description"":""Path of the file. Path can be absolute, starting"
+"with ’/’, or relative to the user’s home directory, starting"
+"with ’~/’.""},"
+"{""name"":""access_token"",""type"":""string"",""required"":true,"
+"""description"":""Access token obtained from file_system app login"
+".""}"
+"],"
+"""response_schemas"":{"
+"""success"":{""message"":""string"",""file_path"":""string""},"
+"""failure"":{""message"":""string""}"
+}
+}
+""

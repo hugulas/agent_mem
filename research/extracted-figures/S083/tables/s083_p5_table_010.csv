@@ -1,0 +1,10 @@
+操作,⽤途
+存⼊⼀条新事实 add,
+search,关键词混合检索
+取回某实体的所有相关事实 probe,
+related,查找与某实体结构上相邻的事实
+多实体组合推理查询 reason,
+contradict,查找互相⽭盾的事实（记忆卫⽣）
+更新已有事实 update,
+remove,删除事实
+枚举所有事实 list,

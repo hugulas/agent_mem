@@ -1,0 +1,6 @@
+Provider,Description,Setup
+volcengine,Volcengine Doubao Models,Volcengine Console
+openai,OpenAI Official API,OpenAI Platform
+openai-codex,Codex VLM,Use openviking-server init
+kimi,Kimi Code Membership,Use openviking-server init
+glm,GLM Coding Plan,Use openviking-server init

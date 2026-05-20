@@ -1,0 +1,6 @@
+HEARTBEAT,,,CRON,,
+Batch multiple checks,,,Exact timing needed,,
+Needs main session context,,,Needs isolation,,
+Timing can drift,,,Different model/thinkin,,
+Reduce API calls,,,One-shot reminders,,
+,,,,,

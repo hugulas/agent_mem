@@ -1,0 +1,4 @@
+Option,Best for,Setup time
+Mem0 managed cloud,"Fast integration, no infra overhead",2 minutes
+Self-hosted OSS,"Full data control, cost at scale",20 minutes
+OpenMemory MCP,"Local memory across dev tools (Claude, Cursor, Windsurf)",5 minutes

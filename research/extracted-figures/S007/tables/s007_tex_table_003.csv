@@ -1,0 +1,2 @@
+Mechanism,Unique Capability,Context Cost,"Insertion Point     
+    MCP servers",External service integration (multi-transport),High (tool schemas),:tool pool     Plugins,Multi-component packaging + distribution,Medium (varies),All three points     Skills,Domain-specific instructions + meta-tool invocation,Low (descriptions only),:context injection     Hooks,Lifecycle interception + event-driven automation,Zero by default,:pre/post tool

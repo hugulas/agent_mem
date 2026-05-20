@@ -1,0 +1,7 @@
+""
+Execution failed. Traceback:
+...
+Exception: Response status code is 422:
+"{""message"":""Validation error. Reason: \nusername: Field required"
+"""}"
+""

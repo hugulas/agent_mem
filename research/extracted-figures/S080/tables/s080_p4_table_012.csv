@@ -1,0 +1,1 @@
+"# Recommended: one command — start the stack, create an admin, issue the first API key. cd server && make bootstrap # Manual: start the stack and finish setup via the browser wizard. cd server && docker compose up -d # http://localhost:3000",

@@ -1,0 +1,63 @@
+"""description"": ""Remove a song from a playlist."""
+"},"
+{
+"""name"": ""show_downloaded_songs"","
+"""description"": ""Get a list of downloaded songs."""
+"},"
+{
+"""name"": ""download_song"","
+"""description"": ""Download a song."""
+"},"
+{
+"""name"": ""remove_downloaded_song"","
+"""description"": ""Remove a song from downloads."""
+"},"
+{
+"""name"": ""show_following_artists"","
+"""description"": ""Get a list of artists the user is following."""
+"},"
+{
+"""name"": ""follow_artist"","
+"""description"": ""Follow an artist."""
+"},"
+{
+"""name"": ""unfollow_artist"","
+"""description"": ""Unfollow an artist."""
+"},"
+{
+"""name"": ""show_song_reviews"","
+"""description"": ""Get a list of reviews for a song."""
+"},"
+{
+"""name"": ""review_song"","
+"""description"": ""Rate or review a song."""
+"},"
+{
+"""name"": ""show_song_review"","
+"""description"": ""Show a song review."""
+"},"
+{
+"""name"": ""delete_song_review"","
+"""description"": ""Delete a song review."""
+"},"
+{
+"""name"": ""update_song_review"","
+"""description"": ""Update a song review."""
+"},"
+{
+"""name"": ""show_album_reviews"","
+"""description"": ""Get a list of reviews for an album."""
+"},"
+{
+"""name"": ""review_album"","
+"""description"": ""Rate or review an album."""
+"},"
+{
+"""name"": ""show_album_review"","
+"""description"": ""Show an album review."""
+"},"
+{
+"""name"": ""delete_album_review"","
+"""description"": ""Delete an album review."""
+"},"
+{

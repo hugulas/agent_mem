@@ -1,0 +1,2 @@
+plugins: hermes-memory-store: auto_extract: true default_trust: 0.5 # 新事实初始信任分 min_trust_threshold: 0.3 # 检索时过滤阈值
+""

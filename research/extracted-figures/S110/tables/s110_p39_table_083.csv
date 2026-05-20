@@ -1,0 +1,13 @@
+""
+""
+# Attempt login with email as username.
+""
+"file_system_username = ""[susanmiller@gmail.com](mailto:"
+"susanmiller@gmail.com)"""
+"file_system_password = [a[""password""] for a in apis.supervisor."
+show_account_passwords()
+"if a[""account_name""] == ""file_system""][0]"
+file_system_login_response = apis.file_system.login(
+"username=file_system_username, password=file_system_password)"
+print(file_system_login_response)
+""

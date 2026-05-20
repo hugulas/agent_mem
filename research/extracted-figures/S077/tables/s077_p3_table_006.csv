@@ -1,0 +1,7 @@
+Aspect,Memory (#30),User Modeling
+Scope,Task/content facts,User identity & preferences
+Tools,"save_memory , search_memories","get_profile , search_context , ask_about_user"
+Persistence,Within agent's storage,External service (survives agent resets)
+Intelligence,Keyword/vector search,Dialectic Q&A (LLM-powered synthesis)
+Multi-agent,Per-agent memory,Shared across all agents serving the same user
+Update trigger,Agent explicitly saves,Automatic from conversation analysis

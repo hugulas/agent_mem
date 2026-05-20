@@ -1,0 +1,1 @@
+Operation,Behavior,Create new entry; auto-generate  at each hierarchy level,Replace content of an existing entry,"Add if new, update if exists (reduces pre-check overhead)",Combine two entries intelligently; delete the source,Remove a single entry or an entire subtree

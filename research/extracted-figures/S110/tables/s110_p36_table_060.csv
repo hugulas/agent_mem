@@ -1,0 +1,7 @@
+""
+"% [fontsize=\small,breaklines,breakanywhere]"
+"# To call ‘show_recommendations‘, I need an access token. Check the"
+login spec.
+"print(apis.api_docs.show_api_doc(app_name=’spotify’, api_name=’login’)"
+)
+""

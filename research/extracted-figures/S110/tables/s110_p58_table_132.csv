@@ -1,0 +1,62 @@
+"""description"": ""Show your premium subscription history."""
+"},"
+{
+"""name"": ""subscribe_premium"","
+"""description"": ""Subscribe to premium membership."""
+"},"
+{
+"""name"": ""download_premium_subscription_receipt"","
+"""description"": ""Download the receipt for a premium subscription."""
+}
+]
+""
+----------------------------------------
+""
+Obs. Compression (Prompting baseline):
+""
+The Spotify API provides:
+- show_album_library: get user’s album library.
+- show_downloaded_songs: get list of downloaded songs.
+- show_album: get details of a specific album.
+""
+----------------------------------------
+""
+Obs. Compression (ACON (utility step)):
+[
+{
+"""name"": ""show_album_library"","
+"""description"": ""Get a list of albums in the user’s album"
+"library."""
+"},"
+{
+"""name"": ""show_downloaded_songs"","
+"""description"": ""Get a list of downloaded songs."""
+"},"
+{
+"""name"": ""show_album"","
+"""description"": ""Get details of a specific album."""
+"},"
+{
+"""name"": ""play_music"","
+"""description"": ""Play music based on various criteria. You can"
+"pass, at most, any one of queue_position, song_id, album_id or"
+"playlist_id. If one of song_id, album_id or playlist_id is"
+"passed, that song, album or playlist will be added to the queue"
+"and played. Otherwise, the queue will remain unchanged. If"
+"queue_position is passed, the song at that position in the"
+"queue will be played. If none is passed, the current song in"
+"the queue will be played."""
+}
+]
+""
+""
+----------------------------------------
+""
+History Compression (ACON (utility step + compression step)):
+""
+"[{""name"":""show_album_library"",""description"":""Get user’s album"
+"library.""},{""name"":""show_downloaded_songs"",""description"":""Get"
+"downloaded songs.""},{""name"":""show_album_privates"",""description"
+""":""Show album private info.""},{""name"":""play_music"",""description"
+""":""Play music; album_id allowed.""}]"
+""

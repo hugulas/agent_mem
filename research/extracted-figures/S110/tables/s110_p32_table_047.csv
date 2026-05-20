@@ -1,0 +1,19 @@
+""
+4. COMPLETED
+Bullet list of finished subtasks with brief results.
+""
+5. GUARDRAILS
+"Short reminders that prevent repeat errors, e.g."
+- Memory resets; re-create VARS before use.
+- Paginate until empty page.
+- Validate API parameters against spec.
+- Avoid redundant logins or doc look-ups.
+""
+Requirements:
+- Be concise-bullets and tables preferred; no extraneous prose.
+"- Preserve all essential facts, parameters, and artifacts; omit"
+nothing critical.
+- Include errors only if they inform future avoidance.
+- Do not output the input or any commentary-return only <
+HISTORY_SUMMARY>.
+""

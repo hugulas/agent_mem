@@ -1,0 +1,7 @@
+Benefit,,,How AMR + Hyperedges Deliver It,,
+,,,Query by role: + returns her meetings; add,,
+,,Precise retrieval,:agent Sarah schedule,,
+,,,to filter :recipient team,,
+No fragmentation,,,"The meeting's organizer, attendees, and time are stored as one atomic hyperedge",,
+Consistent extraction,,,6 karaka roles map all semantic relationships—no invented relation types per fact,,
+Parseable output,,,PENMAN notation has a defined grammar; broken extractions are caught at parse time,,

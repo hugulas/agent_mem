@@ -1,0 +1,2 @@
+Level,Contents,Eviction,"Fault 
+L1",Generation window,---,--- L2,Working set (pinned),Pressure-based,Re-read L3,Session history,Age-based,Summary expansion L4,Cross-session memory,LRU / relevance,Retrieval query Storage,Full corpus,None,Search + ingest

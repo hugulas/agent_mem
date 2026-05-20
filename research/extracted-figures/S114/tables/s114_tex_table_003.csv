@@ -1,0 +1,4 @@
+Metric,Baseline,"Treatment 
+Judges preferring",15 (28%),20 (37%) Ties,"19 (35%) 
+Mean correctness",3.89,3.74 Mean completeness,3.59,3.59 Mean coherence,3.74,3.69 Max score $$,"0.15 
+Detection rate","57% ($p = 0.14$, n.s.)"

@@ -1,0 +1,5 @@
+,
+Best for,"Local-only memory with advanced retrieval, no external dependencies"
+Requires,Nothing (SQLite is always available). NumPy optional for HRR algebra.
+Data storage,Local SQLite
+Cost,Free

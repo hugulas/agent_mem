@@ -1,0 +1,1 @@
+npm install -g pnpm pnpm install pnpm --filter @retaindb/server run db:push # apply schema pnpm dev:server # start the server # Server ready at http://localhost:3000,

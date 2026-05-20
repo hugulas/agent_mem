@@ -1,0 +1,5 @@
+# Supervisor cannot manage files; mark task failed due to
+authorization issues.
+""
+print(apis.api_docs.show_api_descriptions(app_name=’supervisor’))
+""

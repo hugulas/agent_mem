@@ -1,0 +1,3 @@
+""
+"Holographic 是 Hermes 的⼀个本地记忆扩展插件，名字来源于认知科学中的 HRR（Holographic Reduced Representations，全息降维表⽰） 理论（Plate, 1995）。 核⼼特点： 📦 纯本地 ― 基于 SQLite，零依赖，不需要任何外部 API 或云服务 🧮 向量化存储 ― 每条事实都有对应的 HRR 相位向量 🔍 三路混合检索 ― FTS5 全⽂搜索 + Jaccard 词重叠 + HRR 向量相似度 📊 信任评分系统 ― 每条记忆有动态 trust score，可通过反馈训练 🏷 实体关联 ― ⾃动提取命名实体，⽀持多实体组合推理 架构：两层记忆并⾏⼯作 启⽤ Holographic 后，Hermes 实际上运⾏着两套互补的记忆系统： Hermes Agent ├── 内置 Memory (MEMORY.md / USER.md) │ ├── 形式：Markdown ⽂本 │ ├── 适合：⽤⼾偏好、环境配置等轻量信息 │ └── 机制：每次对话全量注⼊ prompt │ └── Holographic (memory_store.db) ├── 形式：结构化 facts + HRR 向量 ├── 适合：项⽬知识、复杂关联、可推理的事实 └── 机制：按需检索，trust score 过滤 两个层级同时⼯作，互补⽽不替代。 HRR：向量符号架构的核⼼原理 HRR 是 Holographic 最独特的部分，值得深⼊理解。 基本思想"
+""

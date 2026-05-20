@@ -1,0 +1,3 @@
+Metric,LoCoMo,"LongMemEval-S 
+Context tree size",272 docs,"23{,}867 docs Total queries","1{,}982","500 
+Cold query latency p50",1.2s,1.6s Cold query latency p95,1.4s,2.3s Cold query latency p99,1.7s,2.5s

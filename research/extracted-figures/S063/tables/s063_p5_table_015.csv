@@ -1,0 +1,5 @@
+// API endpoint address
+// Model service API Key (optional for openai-codex)
+"// Provider type (volcengine, openai, openai-codex, kimi, glm, etc.)"
+"// VLM model name (e.g., doubao-seed-2-0-pro-260215 or gpt-4-vision-preview)"
+// Max concurrent LLM calls for semantic processing (default: 100)

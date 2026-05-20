@@ -1,0 +1,3 @@
+Metric,Baseline,Trimmed,"Compact+Trim 
+API calls",3,4,3 Effective input tokens,"114{,}222","88{,}421","71{,}816 Cache read tokens","79{,}712","38{,}639","32{,}228 Task completed correctly",Yes,Yes,"Yes 
+Token reduction",---,22.6%,37.1%

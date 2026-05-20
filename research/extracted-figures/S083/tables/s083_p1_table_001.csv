@@ -1,0 +1,5 @@
+,⾸⻚,探索稀⼟掘⾦
+,,
+,,
+"Hermes + Holographic：AI Agent 的""⻓期记 忆""是如何⼯作的 Hermes + Holographic：AI Agent 的""⻓期记忆""是如何⼯作的 ⼤多数 AI 助⼿每次对话都从零开始。Hermes Agent 通过 Holographic 记忆插件，让 AI 真 正拥有跨会话的结构化⻓期记忆——⽽且完全本地运⾏，不需要任何外部 API。 背景：AI 助⼿的""失忆""问题 ⽤过 AI 助⼿的⼈都有这个感受：每次新开⼀个对话，它就像失忆了⼀样，什么都要重新解释。你的 技术栈、你的偏好、上周讨论过的项⽬——全没了。 Hermes Agent 的内置记忆（ / ）解决了⼀部分问题：把关键信息写成 MEMORY.md USER.md Markdown ⽂本，每次对话时注⼊到 prompt 中。但这种⽅式有明显局限—— ⽂本量⼤时会占⽤⼤量 context window ⽆法做精确检索，只能全量加载 没有""知识之间的关联性"" Holographic 记忆插件是为解决这些问题⽽⽣的。 Holographic 是什么",,
+,,

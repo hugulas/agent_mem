@@ -1,0 +1,2 @@
+Session 开始 → MemoryManager 加载 HolographicMemoryProvider → 注册两个新⼯具到对话： • fact_store (9种操作) • fact_feedback (训练 trust score)
+""

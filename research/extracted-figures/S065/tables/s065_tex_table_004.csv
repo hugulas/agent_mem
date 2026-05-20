@@ -1,0 +1,22 @@
+"{@{} >{}p{2.4cm}
+  >{}p{3.0cm}
+  X @{}}
+
+Concept",Zone / Transition,"Operators 
+Tool / function call",$}$: $ $,"$$ (decide to call); $^{+}$ (mediate result
+    before entering $$) [3pt]
+RAG retrieval",$}$: $ $,"$$ (query indexed corpus); $^{+}$ (format chunks for
+    $$) [3pt]
+MCP server~",Standardized $}$ interface,"$$ (select server/tool); $$ (common projection schema
+    across providers) [3pt]
+System prompt~",Pinned region of $$,"$$ (typed namespace); $$ (constraint pinning at
+    primacy position) [3pt]
+Conversation history~",$$ (live); $$ (after compaction),"$^{-}$ (compaction cycle); $_{}$
+    (re-project from archive) [3pt]
+Memory system~",$$,"$$ (episodic / semantic / procedural layers);
+    $$, $$ (maintenance) [3pt]
+Subagent delegation~",$$ from orchestrator's view,"$$ (delegate exploration); $$ (package context);
+    $^{+}$ (receive condensed result) [3pt]
+Summarization",$ $ or $ $,"$$ (within-zone); $^{-}$ (cross-zone compaction) [3pt]
+Context window management",Cycle: $  $,"Full compaction cycle: $^{-}$ (archive),
+    then $^{+}$ (re-project summary)"

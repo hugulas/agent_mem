@@ -1,0 +1,1 @@
+"psql -U postgres -c ""CREATE USER retaindb WITH PASSWORD 'retaindb';"" psql -U postgres -c ""CREATE DATABASE retaindb OWNER retaindb;"" psql -U postgres -d retaindb -c ""CREATE EXTENSION IF NOT EXISTS vector;""",

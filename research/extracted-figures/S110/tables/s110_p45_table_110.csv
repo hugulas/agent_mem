@@ -1,0 +1,5 @@
+# Confirm delete_file API parameters before deletion.
+""
+"print(apis.api_docs.show_api_doc(app_name=""file_system"", api_name="""
+"delete_file""))"
+""

@@ -1,0 +1,18 @@
+""
+You are maintaining a structured context-aware summary for a
+productivity agent. You will be given the user instruction
+"for the agent, a list of interactions corresponding to"
+"actions taken by the agent, and the most recent previous"
+summary if one exists. Produce the following:
+""
+### REASONING
+"Summarize key progress, decisions made, important observed"
+"outcomes, and rationale behind actions taken so far. Include"
+how earlier steps influenced later ones and why certain
+data is retained in the summary.
+""
+### COMPLETED
+"List completed subtasks or successful outcomes, with brief"
+results if applicable.
+""
+---

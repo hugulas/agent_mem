@@ -1,0 +1,1 @@
+File,Size,Responsibility,804KB,"Entry point, mode dispatch, setup",68KB,"Core agent loop, 5 context shapers",47KB,SDK/headless conversation wrapper,30KB,"Tool interface, types, utilities",14KB,Global prompt history,Large,MCP client (8+ transport variants),Large,Compaction engine,Large,"Agent tool, subagent dispatch",Large,21-parameter agent lifecycle

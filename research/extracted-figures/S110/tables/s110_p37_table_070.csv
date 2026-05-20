@@ -1,0 +1,4 @@
+""
+"# Task complete. I will submit ""Evelyn Rose"" as the answer."
+"apis.supervisor.complete_task(answer=""Evelyn Rose"")"
+""

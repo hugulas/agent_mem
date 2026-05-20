@@ -1,0 +1,4 @@
+""
+"{""path"":""/auth/token"",""method"":""POST"",""parameters"":[{""name"":"""
+"username""},{""name"":""password""}], ...}"
+""

@@ -1,0 +1,6 @@
+Category,$n$,"F1 
+Single-hop",841,0.462 Multi-hop,282,0.355 Temporal,321,0.533 Open-domain,96,"0.290 
+Retrieval average",1540},"0.447 
+Adversarial (refusal acc.)$^$",446,"0.975 
+Overall (incl.adversarial)","1{,}986","0.565 
+{@{}p{0.75}@{}}{$^$ Binary refusal detection, not continuous token-level F1. See Caveats.}"

@@ -1,0 +1,23 @@
+""
+#oneturnofClaudeCode’sagentloop
+whilenotstopped:
+# a assemble--buildwhatthemodelsees
+context=assemble(
+"system_prompt, #instructionsheader"
+"tool_schemas, #callabletoolsignatures"
+"history, #priorturnmessages"
+"hook_additions, #pushedinbyhooks"
+)
+# b model--pickthenextaction
+"action=model(context,tools) #flattoolpool"
+ifaction.is_text_only():
+stopped=run_stop_hooks(action) #mayveto
+continue
+# c execute--gateandrunthetoolcall
+ifnotpermitted(action): #permission
+continue
+action=run_pre_tool_hooks(action) #block/rewrite
+result=execute(action) #toolrunshere
+result=run_post_tool_hooks(result) #mutate/annotate
+"history.append(action,result)"
+""

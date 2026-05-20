@@ -1,0 +1,5 @@
+$10^1$ Triples,$10^2$ Triples,$10^3$ Triples,$10^4$ Triples         Method,Steps,"[gray]{0.9} Eval on ATLAS-Pes2o-QKV         
+        {*}{AtlasKV w/o HiKVP}",3e3,100.0,100.0,92.7,100.0,72.7,90.9,47.3,67.2          {*}{AtlasKV w/o HiKVP,Event},3e3,100.0,{*}{AtlasKV w/o HiKVP,Entity},3e3,100.0,100.0,49.0,67.3,20.0,30.9,3.6,"5.5        
+        [gray]{0.9} Eval on Enron 
+         
+        {*}{AtlasKV w/o HiKVP}",3e3,100.0,100.0,76.4,92.7,56.4,80.0,27.3,47.3        {*}{AtlasKV w/o HiKVP,Event},3e3,100.0,{*}{AtlasKV w/o HiKVP,Entity},3e3,40.0,100.0,40.0,74.5,16.4,27.3,1.8,9.1

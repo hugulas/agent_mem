@@ -1,0 +1,2 @@
+""
+├── FTS5 匹配分 × 0.4 ├── Jaccard 词重叠 × 0.3 └── HRR 向量相似度 × 0.3 │ ▼ Stage 3: Trust Score 加权 │ final_score = relevance × trust_score ▼ 返回 Top-K 结果

@@ -1,0 +1,4 @@
+$10^1$ Triples,$10^2$ Triples,$10^3$ Triples,$10^4$ Triples       Method,Steps,"[gray]{0.9} Eval on ATLAS-Pes2o-QKV 
+       
+      {*}{KBLaM}",2e4,50.0,25.5,52.7,3.6,14.5,0.0,"5.5      
+      {*}{AtlasKV (128-64-16)}",3e3,100.0,92.7,52.7,70.9,16.4,{*}{AtlasKV-Ntest (128-64-16)},3e3,100.0,86.5,90.4,46.2,61.5,23.1,36.5      {*}{AtlasKV w/o HiKVP},3e3,100.0,100.0,92.7,100.0,72.7,90.9,47.3,67.2       {*}{AtlasKV-Ntest w/o HiKVP},3e3,100.0,100.0,76.9,46.2

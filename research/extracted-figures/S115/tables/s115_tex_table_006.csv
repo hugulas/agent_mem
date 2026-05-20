@@ -1,0 +1,9 @@
+"% 
+% Method",F1$$,B1$$,"J$$ % 
+% LoCoMo-LLaMA3.1-8B",26.73,20.54,47.82 % LoCoMo-LLaMA3.1-8B + PPO,41.05,32.91,57.54 % LoCoMo-LLaMA3.1-8B + GRPO,45.02,37.51,"62.74 % 
+% LoCoMo-Qwen-2.5-7B",29.36,23.14,58.38 % LoCoMo-Qwen-2.5-7B + PPO,41.72,33.70,59.53 % LoCoMo-Qwen-2.5-7B + GRPO,60.06,54.77,"70.80 % 
+% msc-LLaMA-3.1-8B",34.33,28.99,42.80 % msc-LLaMA-3.1-8B + PPO,58.87,53.13,69.40 % msc-LLaMA-3.1-8B + GRPO,60.06,54.77,"70.80 % 
+% msc-Qwen-2.5-7B",44.83,38.49,65.80 % msc-Qwen-2.5-7B + PPO,51.88,46.91,61.80 % msc-Qwen-2.5-7B + GRPO,59.65,53.61,"71.00 % 
+% LongMemEval-LLaMA-3.1-8B",31.29,25.03,44.20 % LongMemEval-LLaMA-3.1-8B + PPO,43.57,39.53,55.20 % LongMemEval-LLaMA-3.1-8B + GRPO,45.17,39.28,"55.40 % 
+% LongMemEval-Qwen-2.5-7B",35.47,28.29,53.20 % LongMemEval-Qwen-2.5-7B + PPO,40.33,35.52,47.40 % LongMemEval-Qwen-2.5-7B + GRPO,46.67,41.13,"57.80 % 
+%"

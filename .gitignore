@@ -1,0 +1,40 @@
+# PDFs
+*.pdf
+
+# Archives
+*.tar.gz
+*.tgz
+*.tar
+*.zip
+*.rar
+*.7z
+
+# Videos & Audio
+*.mp4
+*.mp3
+*.avi
+*.mov
+*.webm
+*.mkv
+*.wav
+*.flac
+
+# Large binary assets in cited-materials
+**/cited-materials/images/
+**/cited-materials/web-archives/
+**/cited-materials/tex-sources/
+
+# Node/Browser artifacts
+*.woff2
+*.js
+*.css
+*.gif
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db

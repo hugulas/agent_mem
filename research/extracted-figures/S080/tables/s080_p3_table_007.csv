@@ -1,0 +1,1 @@
+"# 1. Install npm install -g @mem0/cli # or: pip install mem0-cli # 2. Sign up as an agent (replace `claude-code` with your name) mem0 init --agent --agent-caller claude-code # 3. Add a memory mem0 add ""I am using mem0"" # 4. Search mem0 search ""am I using mem0""",

@@ -1,0 +1,179 @@
+# Agent Memory Systems Wiki — Index
+
+> 120 sources compiled into 22 entities, 10 concepts, and 16 comparisons.
+
+## Sources
+- [S001](sources/S001.md): OpenClaw docs: Memory overview
+- [S002](sources/S002.md): OpenClaw docs: Builtin memory engine
+- [S003](sources/S003.md): arXiv: A Security Analysis of OpenClaw
+- [S004](sources/S004.md): arXiv: OpenClaw case study / tri-layered risk
+- [S005](sources/S005.md): RobotPaper: Reference Architecture OpenClaw
+- [S006](sources/S006.md): MMNTM: How OpenClaw Implements Agent Memory
+- [S007](sources/S007.md): arXiv: Dive into Claude Code (2604.14228)
+- [S008](sources/S008.md): Claude Code Architecture Analysis (bits-bytes)
+- [S009](sources/S009.md): What we can all learn from Claude Code source
+- [S010](sources/S010.md): Mem0: How Memory works in Codex CLI
+- [S011](sources/S011.md): OpenAI Codex docs: Memories
+- [S012](sources/S012.md): Context Compaction in Codex, Claude Code, OpenCode
+- [S013](sources/S013.md): Hermes docs: Memory Providers
+- [S014](sources/S014.md): OpenWalrus: Hermes memory five layers
+- [S015](sources/S015.md): Vectorize: Hermes Agent Memory Explained
+- [S016](sources/S016.md): CrabTalk: Hermes Agent survey
+- [S017](sources/S017.md): Context Compaction comparison (justin3go)
+- [S018](sources/S018.md): OpenClaw Hardware Requirements (macaron.im)
+- [S019](sources/S019.md): OpenClaw Hardware (sfailabs)
+- [S020](sources/S020.md): Hermes Agent Railway deploy
+- [S021](sources/S021.md): Claude Code hardware (bswen)
+- [S022](sources/S022.md): Best Computer for Claude Code (jdhodges)
+- [S023](sources/S023.md): Codex CLI system requirements (deployhq)
+- [S024](sources/S024.md): Apple Silicon for AI buying guide
+- [S025](sources/S025.md): SegmentFault: 四大终端 AI Agent 选型
+- [S026](sources/S026.md): EasyClaw: OpenClaw vs Hermes Agent
+- [S027](sources/S027.md): Regolo: Benchmark memory usage
+- [S028](sources/S028.md): Business20Channel: Hermes vs OpenClaw benchmarks
+- [S029](sources/S029.md): OpenAI Community: Memory-first architecture
+- [S030](sources/S030.md): OpenClaw memorySearch complete guide (dev.to)
+- [S031](sources/S031.md): Skywork: Deep Dive CVE-2026-25253
+- [S032](sources/S032.md): Ollama local deployment for Claude Code
+- [S033](sources/S033.md): 万字拆解OpenClaw (huxiu)
+- [S034](sources/S034.md): ClaudeMem vs Context Mode
+- [S035](sources/S035.md): Skywork: OpenClaw vs Hermes competitive analysis
+- [S036](sources/S036.md): DeepSeek Ollama deployment rules
+- [S037](sources/S037.md): Hermes Agent v0.13 Reference (Blake Crosley)
+- [S038](sources/S038.md): Hermes Orange Book (pyshine)
+- [S039](sources/S039.md): Claude Code Auto-Memory (mindstudio)
+- [S040](sources/S040.md): Codex CLI Windows install (itecsonline)
+- [S041](sources/S041.md): UI-TARS-2 Technical Report (arXiv:2509.02544)
+- [S042](sources/S042.md): ByteDance Seed blog: UI-TARS-1.5 open source
+- [S043](sources/S043.md): MIT AI Agent Index: UI-TARS-desktop
+- [S044](sources/S044.md): CSDN: 豆包手机技术分析
+- [S045](sources/S045.md): CSDN: 豆包手机 vs AutoGLM
+- [S046](sources/S046.md): AI Base: ByteDance Doubao UI-TARS-1.5
+- [S047](sources/S047.md): Google DeepMind: Project Astra
+- [S048](sources/S048.md): WindowsForum: Google Project Astra analysis
+- [S049](sources/S049.md): Google Developers Blog: Gemini 1.5 Pro 2M context
+- [S050](sources/S050.md): Introl Blog: Long-Context LLM Infrastructure
+- [S051](sources/S051.md): Microsoft TechCommunity: Introducing Copilot Memory
+- [S052](sources/S052.md): Microsoft Learn: Agent memory governance
+- [S053](sources/S053.md): VS Code docs: Memory in VS Code agents
+- [S054](sources/S054.md): WindowsForum: Microsoft Copilot Fall Release
+- [S055](sources/S055.md): Amazon Bedrock AgentCore Memory (Dev.to)
+- [S056](sources/S056.md): AWS: Build persistent memory for agentic AI
+- [S057](sources/S057.md): Apple Intelligence official page
+- [S058](sources/S058.md): TechTarget: What is Apple Intelligence
+- [S059](sources/S059.md): 36kr: 库克谈Apple Intelligence
+- [S060](sources/S060.md): MindStudio: What is Llama and AI Agents
+- [S061](sources/S061.md): ajithp.com: AI-Native Memory 2024-2025
+- [S062](sources/S062.md): arXiv: Mobile GUI Agent Memory Survey
+- [S063](sources/S063.md): OpenViking GitHub repo (volcengine/OpenViking)
+- [S064](sources/S064.md): Red Hat: Deploy OpenViking on OpenShift AI
+- [S065](sources/S065.md): arXiv: Context Cartography (2603.20578)
+- [S066](sources/S066.md): CSDN: OpenViking 深度解析
+- [S067](sources/S067.md): MarkTechPost: Meet OpenViking
+- [S068](sources/S068.md): Karpathy X post / GitHub gist: LLM Knowledge Bases
+- [S069](sources/S069.md): VentureBeat: Karpathy LLM Knowledge Bases
+- [S070](sources/S070.md): MindStudio: Karpathy LLM Wiki with Claude Code
+- [S071](sources/S071.md): Yu Wenhao: Karpathy Zettelkasten comparison
+- [S072](sources/S072.md): antigravity.codes: Karpathy's 6-Step Workflow
+- [S073](sources/S073.md): OpenClaw docs: Honcho memory
+- [S074](sources/S074.md): Hermes docs: Honcho Memory
+- [S075](sources/S075.md): Plastic Labs blog: Beyond User-Assistant Paradigm
+- [S076](sources/S076.md): Hermes GitHub issue #4074: observe_me privacy
+- [S077](sources/S077.md): Pydantic AI harness issue #108: Honcho-style user modeling
+- [S078](sources/S078.md): Mem0 blog: State of AI Agent Memory 2026
+- [S079](sources/S079.md): Mem0 research paper (arXiv:2504.19413)
+- [S080](sources/S080.md): Mem0 GitHub: New Memory Algorithm April 2026
+- [S081](sources/S081.md): Hindsight arXiv paper (2512.12818)
+- [S082](sources/S082.md): ByteRover arXiv paper (2604.01599) with benchmarks
+- [S083](sources/S083.md): Juejin: Hermes + Holographic deep dive
+- [S084](sources/S084.md): Vectorize.io: Hermes Holographic technical deep dive
+- [S085](sources/S085.md): Hermes docs: Holographic memory provider
+- [S086](sources/S086.md): RetainDB features page
+- [S087](sources/S087.md): RetainDB GitHub repo
+- [S088](sources/S088.md): RetainDB pricing page
+- [S089](sources/S089.md): Gamgee: Supermemory vs RetainDB comparison
+- [S090](sources/S090.md): ByteRover arXiv paper (2604.01599)
+- [S091](sources/S091.md): ByteRover blog: Beta CLI 0.3.1
+- [S092](sources/S092.md): Hermes docs: ByteRover provider
+- [S093](sources/S093.md): Hermes issue #23367: Context compression integration
+- [S094](sources/S094.md): Supermemory docs: What is Supermemory?
+- [S095](sources/S095.md): Gamgee: Mem0 vs Supermemory comparison
+- [S096](sources/S096.md): Supermemory blog: Long-term memory for AI assistants
+- [S097](sources/S097.md): Stork.ai: Supermemory review
+- [S098](sources/S098.md): ClawTank: OpenClaw + Supermemory setup
+- [S099](sources/S099.md): get-hermes.ai/memory/ provider selection guide
+- [S100](sources/S100.md): OpenClaw docs: Memory overview & embedding providers
+- [S101](sources/S101.md): Du (2026): Memory for Autonomous LLM Agents — Survey
+- [S102](sources/S102.md): Jiang et al. (2026): Anatomy of Agentic Memory
+- [S103](sources/S103.md): Graph-based Agent Memory: Taxonomy, Techniques, Applications
+- [S104](sources/S104.md): HyperMem: Hypergraph Memory for Long-Term Conversations
+- [S105](sources/S105.md): MemMA: Coordinating Memory Cycle through Multi-Agent Reasoning
+- [S106](sources/S106.md): MAGMA: Multi-Graph Based Agentic Memory Architecture
+- [S107](sources/S107.md): Adaptive Memory Structures for LLM Agents
+- [S108](sources/S108.md): Graph-Native Cognitive Memory for AI Agents
+- [S109](sources/S109.md): Slipstream: Trajectory-Grounded Compaction Validation
+- [S110](sources/S110.md): ACON: Optimizing Context Compression for Long-Horizon LLM Agents
+- [S111](sources/S111.md): The Complexity Trap: Simple Observation Masking = LLM Summarization
+- [S112](sources/S112.md): Contextual Memory Virtualisation: DAG-Based State Management
+- [S113](sources/S113.md): Beyond the Context Window: Cost-Performance of Memory vs Long-Context
+- [S114](sources/S114.md): The Missing Memory Hierarchy: Demand Paging for LLM
+- [S115](sources/S115.md): Memory-R1: Enhancing LLM Agents to Manage Memories via RL
+- [S116](sources/S116.md): Revisitable Memory for Long-Context LLM Agents
+- [S117](sources/S117.md): Efficient Long-Horizon GUI Agents via KV Cache Compression
+- [S118](sources/S118.md): GUI-Rise: Structured Reasoning and History Summarization for GUI
+- [S119](sources/S119.md): AtlasKV: Billion-Scale KG in 20GB VRAM
+- [S120](sources/S120.md): TiMem: Temporal-Hierarchical Memory Consolidation
+
+## Entities
+- [[Amazon Bedrock]]
+- [[Apple Intelligence]]
+- [[Atlaskv]]
+- [[Byterover]]
+- [[Claude Code]]
+- [[Codex Cli]]
+- [[Google Project Astra]]
+- [[Hermes]]
+- [[Hindsight]]
+- [[Honcho]]
+- [[Hypermem]]
+- [[Karpathy Llm Wiki]]
+- [[Magma]]
+- [[Mem0]]
+- [[Memma]]
+- [[Microsoft Copilot]]
+- [[Openclaw]]
+- [[Openviking]]
+- [[Retaindb]]
+- [[Supermemory]]
+- [[Timem]]
+- [[Ui Tars]]
+
+## Concepts
+- [[Agent Memory]]
+- [[Context Compaction]]
+- [[Episodic Memory]]
+- [[File Based Memory]]
+- [[Hybrid Search]]
+- [[Long Term Memory]]
+- [[Memory Benchmarks]]
+- [[Memory Security]]
+- [[Pre Compaction Flush]]
+- [[Semantic Memory]]
+
+## Comparisons
+- [[Academic Memory Architectures]]
+- [[Benchmark Landscape]]
+- [[Claude Code Vs Codex Cli]]
+- [[Cloud Vendor Memory]]
+- [[External Memory Providers]]
+- [[File Based Vs Database Memory]]
+- [[Framework Security Comparison]]
+- [[Google Vs Apple Memory]]
+- [[Local Vs Cloud Memory]]
+- [[Mem0 Vs Hindsight]]
+- [[Memory Update Strategies]]
+- [[Open Source Vs Closed Source]]
+- [[Openclaw Vs Claude Code]]
+- [[Openclaw Vs Hermes]]
+- [[Supermemory Vs Retaindb]]
+- [[Ui Tars Vs Openviking]]

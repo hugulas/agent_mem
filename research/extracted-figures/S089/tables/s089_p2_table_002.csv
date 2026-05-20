@@ -1,0 +1,7 @@
+Factor,Supermemory,RetainDB
+Architecture,Hybrid RAG with fact extraction,PostgreSQL + pgvector with chronological retrieval
+LongMemEval*,85.2%,79%
+Deployment,Cloud API,Cloud or self-hosted (PostgreSQL required)
+Pricing,Not publicly disclosed,Free tier (10K ops/mo) / Pro $20/mo
+GitHub Stars,21.7K,8
+Funding,$2.6M seed (Google/Cloudflare execs),Not disclosed

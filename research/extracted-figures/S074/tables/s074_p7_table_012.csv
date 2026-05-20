@@ -1,0 +1,7 @@
+Setting,hybrid,context,tools
+writeFrequency,flushes messages,flushes messages,flushes messages
+contextCadence,gates base context refresh,gates base context refresh,irrelevant — no injection
+dialecticCadence,gates auto LLM calls,gates auto LLM calls,irrelevant — model calls explicitly
+dialecticDepth,multi-pass per invocation,multi-pass per invocation,irrelevant — model calls explicitly
+contextTokens,caps injection,caps injection,irrelevant — no injection
+dialecticDynamic,gates model override,N/A (no tools),gates model override

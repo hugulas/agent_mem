@@ -1,0 +1,6 @@
+Gold:“18days” Pred:“Thetotaldurationwas18days” Analysis:Correctanswerpenalizedforlowpre- cisionduetoextrawords.
+Gold:“compatiblewithMac” Pred:“notcompatiblewithMac” Analysis: Fatal contradiction receives near- perfectscoresduetohightokenoverlap.
+Gold:“14:00” Pred:“2PM” Analysis:Differentformatsresultinzeroover- lapdespiteidenticalmeaning.
+Gold:“cheap” Pred:“inexpensive” Analysis:Standardmetricscannothandlesyn- onymmatchingwithoutexternalresources.
+"Gold:“Johncompletedtheproject” Pred:“Sarahcompletedtheproject” Analysis: Wrong entity (Sarah vs John), yet highmetricsduetosharedsentencestructure."
+Gold:“5” Pred:“5(extractedfromJSON...)” Analysis:Correctvalueembeddedinnoisere- sultsinpoorprecisionmetrics.

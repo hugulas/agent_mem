@@ -1,0 +1,2 @@
+Hyper-parameter,"Value  
+Training Batch Size",128  Micro Training Batch Size,8  Total Converge Steps,200$$300 Actor Model Learning Rate,$110^{-6}$ Actor Model Warmup Steps,20 Rollout Temperature,1 Max Chunk Length,5000 Training Chunk Number T,6 Max Response Length,2048 KL Coefficient $$,0.001 Clip Ratio $$,0.2 Group Size $G$,16
