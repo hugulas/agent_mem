@@ -21,3 +21,6 @@
 - [S010](sources/S010.md)
 - [S023](sources/S023.md)
 - [S040](sources/S040.md)
+- [S144](sources/S144.md)
+- [S149](sources/S149.md)
+- [S151](sources/S151.md)

@@ -1,25 +1,29 @@
 # Agent Memory Systems Wiki — Index
 
-> 120 sources compiled into 22 entities, 10 concepts, and 16 comparisons.
+> 139 sources compiled into 22 entities, 10 concepts, and 16 comparisons.
 
 ## Sources
 - [S001](sources/S001.md): OpenClaw docs: Memory overview
 - [S002](sources/S002.md): OpenClaw docs: Builtin memory engine
-- [S132](sources/S132.md): arXiv: A Security Analysis of OpenClaw
-- [S132](sources/S132.md): arXiv: OpenClaw case study / tri-layered risk
+- [S132](sources/S132.md): arXiv: A Security Analysis of OpenClaw / OpenClaw case study / tri-layered risk
 - [S005](sources/S005.md): RobotPaper: Reference Architecture OpenClaw
 - [S006](sources/S006.md): MMNTM: How OpenClaw Implements Agent Memory
+- [S146](sources/S146.md): OpenClaw: Builtin Memory Engine
 - [S007](sources/S007.md): arXiv: Dive into Claude Code (2604.14228)
 - [S008](sources/S008.md): Claude Code Architecture Analysis (bits-bytes)
 - [S009](sources/S009.md): What we can all learn from Claude Code source
+- [S145](sources/S145.md): Claude Code Architecture Analysis (bits-bytes-nn leaked source)
 - [S010](sources/S010.md): Mem0: How Memory works in Codex CLI
 - [S011](sources/S011.md): OpenAI Codex docs: Memories
+- [S144](sources/S144.md): OpenAI Developers: Codex CLI Official Documentation
 - [S012](sources/S012.md): Context Compaction in Codex, Claude Code, OpenCode
 - [S013](sources/S013.md): Hermes docs: Memory Providers
 - [S014](sources/S014.md): OpenWalrus: Hermes memory five layers
 - [S015](sources/S015.md): Vectorize: Hermes Agent Memory Explained
+- [S142](sources/S142.md): Hermes Official Docs: Persistent Memory (memory.md)
 - [S016](sources/S016.md): CrabTalk: Hermes Agent survey
 - [S017](sources/S017.md): Context Compaction comparison (justin3go)
+- [S147](sources/S147.md): 上下文压缩术：Codex、Claude Code 与 OpenCode 的上下文压缩术
 - [S018](sources/S018.md): OpenClaw Hardware Requirements (macaron.im)
 - [S019](sources/S019.md): OpenClaw Hardware (sfailabs)
 - [S020](sources/S020.md): Hermes Agent Railway deploy
@@ -27,14 +31,23 @@
 - [S022](sources/S022.md): Best Computer for Claude Code (jdhodges)
 - [S023](sources/S023.md): Codex CLI system requirements (deployhq)
 - [S024](sources/S024.md): Apple Silicon for AI buying guide
+- [S138](sources/S138.md): Cherry Servers: OpenClaw Hardware Requirements
+- [S139](sources/S139.md): LocalAIMaster: Apple Silicon for AI Buying Guide 2026
 - [S025](sources/S025.md): SegmentFault: 四大终端 AI Agent 选型
 - [S026](sources/S026.md): EasyClaw: OpenClaw vs Hermes Agent
 - [S027](sources/S027.md): Regolo: Benchmark memory usage
+- [S136](sources/S136.md): Regolo: How to benchmark memory usage between Hermes Agent and OpenClaw
+- [S137](sources/S137.md): EasyClaw: OpenClaw vs Hermes Agent — Reproducible Benchmark
 - [S028](sources/S028.md): Business20Channel: Hermes vs OpenClaw benchmarks
+- [S140](sources/S140.md): NxCode: Hermes Agent vs OpenClaw 2026 Comparison
 - [S029](sources/S029.md): OpenAI Community: Memory-first architecture
 - [S030](sources/S030.md): OpenClaw memorySearch complete guide (dev.to)
 - [S131](sources/S131.md): Skywork: Deep Dive CVE-2026-25253
+- [S133](sources/S133.md): Ethiack: One-Click RCE on OpenClaw (Moltbot)
+- [S135](sources/S135.md): SkillSieve: Hierarchical Triage for Malicious AI Agent Skills
 - [S032](sources/S032.md): Ollama local deployment for Claude Code
+- [S148](sources/S148.md): Ollama Official Documentation
+- [S152](sources/S152.md): Ollama System Requirements Guide
 - [S033](sources/S033.md): 万字拆解OpenClaw (huxiu)
 - [S034](sources/S034.md): ClaudeMem vs Context Mode
 - [S035](sources/S035.md): Skywork: OpenClaw vs Hermes competitive analysis
@@ -42,6 +55,9 @@
 - [S037](sources/S037.md): Hermes Agent v0.13 Reference (Blake Crosley)
 - [S038](sources/S038.md): Hermes Orange Book (pyshine)
 - [S039](sources/S039.md): Claude Code Auto-Memory (mindstudio)
+- [S149](sources/S149.md): Codex CLI 记忆工作机制 (Hubwiz)
+- [S150](sources/S150.md): Hermes Agent Configuration Guide
+- [S151](sources/S151.md): Codex vs. Claude Code: Context Window and Token Efficiency
 - [S040](sources/S040.md): Codex CLI Windows install (itecsonline)
 - [S041](sources/S041.md): UI-TARS-2 Technical Report (arXiv:2509.02544)
 - [S042](sources/S042.md): ByteDance Seed blog: UI-TARS-1.5 open source
@@ -59,6 +75,7 @@
 - [S054](sources/S054.md): WindowsForum: Microsoft Copilot Fall Release
 - [S055](sources/S055.md): Amazon Bedrock AgentCore Memory (Dev.to)
 - [S056](sources/S056.md): AWS: Build persistent memory for agentic AI
+- [S153](sources/S153.md): Bedrock Prompt Caching Issue (Hermes Agent #11970)
 - [S057](sources/S057.md): Apple Intelligence official page
 - [S058](sources/S058.md): TechTarget: What is Apple Intelligence
 - [S059](sources/S059.md): 36kr: 库克谈Apple Intelligence
@@ -75,10 +92,12 @@
 - [S070](sources/S070.md): MindStudio: Karpathy LLM Wiki with Claude Code
 - [S071](sources/S071.md): Yu Wenhao: Karpathy Zettelkasten comparison
 - [S072](sources/S072.md): antigravity.codes: Karpathy's 6-Step Workflow
+- [S141](sources/S141.md): Antigravity: Karpathy's LLM Knowledge Bases — The Post-Code AI Workflow
 - [S073](sources/S073.md): OpenClaw docs: Honcho memory
 - [S074](sources/S074.md): Hermes docs: Honcho Memory
 - [S075](sources/S075.md): Plastic Labs blog: Beyond User-Assistant Paradigm
 - [S076](sources/S076.md): Hermes GitHub issue #4074: observe_me privacy
+- [S143](sources/S143.md): GitHub Issue #4074: Honcho integration privacy audit (observe_me=True)
 - [S077](sources/S077.md): Pydantic AI harness issue #108: Honcho-style user modeling
 - [S078](sources/S078.md): Mem0 blog: State of AI Agent Memory 2026
 - [S079](sources/S079.md): Mem0 research paper (arXiv:2504.19413)

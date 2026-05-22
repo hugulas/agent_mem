@@ -1,0 +1,986 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="MindStudio Blog" href="/rss.xml"><!-- Inter is self-hosted via @font-face in global.css --><title>Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session | MindStudio</title><meta name="description" content="Codex has 256K tokens vs. Claude Code's 1M — but GPT 5.5's efficiency may close the gap. Here's the real session-length comparison."><link rel="canonical" href="https://www.mindstudio.ai/blog/codex-vs-claude-code-context-window-token-efficiency/"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session"><meta property="og:description" content="Codex has 256K tokens vs. Claude Code's 1M — but GPT 5.5's efficiency may close the gap. Here's the real session-length comparison."><meta property="og:image" content="https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/534f9b8d-8cec-49a2-87b9-602264773f90.png?fm=auto&#38;w=1200&#38;h=630&#38;fit=crop"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:url" content="https://www.mindstudio.ai/blog/codex-vs-claude-code-context-window-token-efficiency/"><meta property="og:site_name" content="MindStudio"><meta property="article:published_time" content="2026-05-07T00:00:00.000Z"><meta property="article:modified_time" content="2026-05-07T00:00:00.000Z"><meta property="article:author" content="MindStudio Team"><meta property="article:section" content="GPT &#38; OpenAI"><meta property="article:tag" content="GPT &#38; OpenAI"><meta property="article:tag" content="Claude"><meta property="article:tag" content="Comparisons"><meta property="article:tag" content="LLMs &#38; Models"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@MindStudio_ai"><meta name="twitter:creator" content="MindStudio Team"><meta name="twitter:title" content="Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session"><meta name="twitter:description" content="Codex has 256K tokens vs. Claude Code's 1M — but GPT 5.5's efficiency may close the gap. Here's the real session-length comparison."><meta name="twitter:image" content="https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/534f9b8d-8cec-49a2-87b9-602264773f90.png?fm=auto&#38;w=1200&#38;h=630&#38;fit=crop"><!-- CookieYes Consent --><script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/cfb9cb88e1b98070c3fb09f2/script.js"></script><!-- Google Tag Manager --><script>(function(){const GTM_ID = "GTM-MGRB9WXW";
+
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer',GTM_ID);
+      })();</script><!-- Plausible Analytics --><script async src="https://plausible.io/js/pa-Gq4HSvRyySBTxhAYct6cA.js"></script><script>
+        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments); };
+        plausible.init = plausible.init || function (i) { plausible.o = i || {}; };
+        // Disable auto pageview + fire manually with explicit URL — Plausible's
+        // internal trailing-slash normalization strips `/` to `""`, splitting
+        // the homepage across two Entry Page rows. Custom locations bypass it.
+        plausible.init({ autoCapturePageviews: false });
+        plausible('pageview', {
+          url: window.location.origin + (window.location.pathname || '/') + window.location.search,
+        });
+      </script><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.mindstudio.ai/#organization","name":"MindStudio","legalName":"GoMeta, Inc.","url":"https://www.mindstudio.ai","logo":{"@type":"ImageObject","@id":"https://www.mindstudio.ai/#logo","url":"https://www.mindstudio.ai/MindStudio-lockup-blk.svg","contentUrl":"https://www.mindstudio.ai/MindStudio-lockup-blk.svg","caption":"MindStudio"},"image":{"@id":"https://www.mindstudio.ai/#logo"},"sameAs":["https://www.youtube.com/@MindStudio_ai","https://www.linkedin.com/company/mindstudioai"]},{"@type":"WebSite","@id":"https://www.mindstudio.ai/#website","name":"MindStudio","url":"https://www.mindstudio.ai","publisher":{"@id":"https://www.mindstudio.ai/#organization"},"inLanguage":"en-US"}]}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://www.mindstudio.ai/blog/codex-vs-claude-code-context-window-token-efficiency/","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.mindstudio.ai/blog/codex-vs-claude-code-context-window-token-efficiency/","isPartOf":{"@id":"https://www.mindstudio.ai/#website"}},"headline":"Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session","description":"Codex has 256K tokens vs. Claude Code's 1M — but GPT 5.5's efficiency may close the gap. Here's the real session-length comparison.","url":"https://www.mindstudio.ai/blog/codex-vs-claude-code-context-window-token-efficiency/","datePublished":"2026-05-07T00:00:00.000Z","dateModified":"2026-05-07T00:00:00.000Z","author":{"@type":"Person","name":"MindStudio Team"},"publisher":{"@id":"https://www.mindstudio.ai/#organization"},"inLanguage":"en-US","image":{"@type":"ImageObject","url":"https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/534f9b8d-8cec-49a2-87b9-602264773f90.png?fm=auto&w=1200&fit=cover","width":1200,"height":675},"keywords":"GPT & OpenAI, Claude, Comparisons, LLMs & Models","articleSection":"GPT & OpenAI","wordCount":1814}</script> <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Blog","item":"https://www.mindstudio.ai/blog"},{"@type":"ListItem","position":2,"name":"Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session","item":"https://www.mindstudio.ai/blog/codex-vs-claude-code-context-window-token-efficiency/"}]}</script> <link rel="preconnect" href="https://api.fontshare.com" crossorigin> <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap"> <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"> <link rel="stylesheet" href="/_astro/Base.purHXd3b.css">
+<link rel="stylesheet" href="/_astro/_..BrpdlF6R.css">
+<link rel="stylesheet" href="/_astro/utilities.CpBby9LH.css"></head> <body class="flex min-h-screen flex-col"> <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white focus:shadow-lg">
+Skip to main content
+</a> <!-- GTM noscript fallback --> <noscript> <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGRB9WXW" height="0" width="0" style="display:none;visibility:hidden"></iframe> </noscript> <header class="sticky top-0 z-50 w-full border-b border-neutral-200 bg-neutral-50/80 backdrop-blur-lg"> <nav class="mx-auto flex max-w-content items-center justify-between px-6 py-2.5"> <a href="/" class="inline-flex items-center"> <img src="/MindStudio-lockup-blk.svg" alt="MindStudio" width="140" height="17"> </a> <div class="hidden items-center gap-8 md:flex"> <div class="relative flex items-center" data-dropdown> <button type="button" aria-expanded="false" aria-haspopup="true" class="inline-flex items-center gap-1 text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors" data-dropdown-toggle>
+Product
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform" data-dropdown-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-2" data-dropdown-menu> <div class="w-56 rounded-card border border-neutral-200 bg-white py-1 shadow-lg"> <a href="/models" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">AI Models</a> <a href="/product/ai-media-workbench" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">AI Media Workbench</a> <a href="/product/agent-skills-plugin" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Agent Skills Plugin</a> <a href="/capabilities" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Workflow Capabilities</a> </div> </div> </div> <a href="/pricing" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">Pricing</a> <div class="relative flex items-center" data-dropdown> <button type="button" aria-expanded="false" aria-haspopup="true" class="inline-flex items-center gap-1 text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors" data-dropdown-toggle>
+Learn
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform" data-dropdown-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="absolute left-1/2 top-full hidden -translate-x-1/2 pt-2" data-dropdown-menu> <div class="w-48 rounded-card border border-neutral-200 bg-white py-1 shadow-lg"> <a href="https://university.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">University</a> <a href="/bootcamps/catch-up-on-ai/2" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Bootcamps</a> <a href="https://docs.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Documentation</a> </div> </div> </div> <a href="/blog" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">Blog</a> <a href="/about" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">About</a> </div> <div class="hidden items-center gap-4 md:flex"> <div visibility="signed-out" class="mindstudio-hidden"> <div class="flex items-center gap-4"> <a href="https://app.mindstudio.ai/login" class="text-body-sm text-neutral-600 hover:text-neutral-950 transition-colors">Log in</a> <a href="/pricing" class="inline-flex items-center rounded-xl bg-brand-500 px-3.5 py-1.5 text-body-sm font-medium text-white hover:bg-brand-600 transition-colors" data-cta="get-started" data-cta-location="header">
+Get Started
+</a> </div> </div> <a visibility="signed-in" href="https://app.mindstudio.ai" class="mindstudio-hidden inline-flex items-center rounded-xl bg-neutral-950 px-3.5 py-1.5 text-body-sm font-medium text-white hover:bg-neutral-800 transition-colors" data-cta="my-workspace" data-cta-location="header">
+My Workspace
+</a> </div> <button class="md:hidden text-neutral-700" aria-label="Open menu" aria-expanded="false" data-mobile-menu-toggle> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 6l16 0" />
+  <path d="M4 12l16 0" />
+  <path d="M4 18l16 0" /></svg> </button> </nav> </header> <!-- Mobile drawer backdrop --> <div class="fixed inset-0 z-60 bg-neutral-950/40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" data-mobile-backdrop></div> <!-- Mobile drawer --> <div class="fixed top-0 right-0 z-70 h-full w-72 translate-x-full bg-neutral-50 shadow-xl transition-transform duration-300 ease-in-out md:hidden" data-mobile-drawer> <div class="flex items-center justify-between border-b border-neutral-200 px-6 py-3"> <a href="/" class="inline-flex items-center"> <img src="/MindStudio-lockup-blk.svg" alt="MindStudio" width="120" height="15"> </a> <button class="text-neutral-700" aria-label="Close menu" data-mobile-drawer-close> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" /></svg> </button> </div> <div class="flex flex-col gap-1 px-6 py-4"> <div data-mobile-accordion> <button type="button" aria-expanded="false" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950" data-mobile-accordion-toggle>
+Product
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-200" data-mobile-accordion-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="hidden" data-mobile-accordion-content> <a href="/models" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">AI Models</a> <a href="/product/ai-media-workbench" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">AI Media Workbench</a> <a href="/product/agent-skills-plugin" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Agent Skills Plugin</a> <a href="/capabilities" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Workflow Capabilities</a> </div> </div> <a href="/pricing" class="block rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Pricing</a> <div data-mobile-accordion> <button type="button" aria-expanded="false" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950" data-mobile-accordion-toggle>
+Learn
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform duration-200" data-mobile-accordion-chevron="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M6 9l6 6l6 -6" /></svg> </button> <div class="hidden" data-mobile-accordion-content> <a href="https://university.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">University</a> <a href="/bootcamps/catch-up-on-ai/2" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Bootcamps</a> <a href="https://docs.mindstudio.ai/" target="_blank" rel="noopener noreferrer" class="block rounded-lg py-2.5 pl-8 pr-3 text-body-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-950">Documentation</a> </div> </div> <a href="/blog" class="block rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Blog</a> <a href="/about" class="block rounded-lg px-3 py-2.5 text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">About</a> </div> <div class="mt-auto border-t border-neutral-200 px-6 py-4 space-y-3"> <div visibility="signed-out" class="mindstudio-hidden"> <div class="space-y-3"> <a href="https://app.mindstudio.ai/login" class="block rounded-lg px-3 py-2.5 text-center text-body-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-950">Log in</a> <a href="/pricing" class="block rounded-xl bg-brand-500 px-3 py-2.5 text-center text-body-sm font-medium text-white hover:bg-brand-600 transition-colors" data-cta="get-started" data-cta-location="header-mobile">Get Started</a> </div> </div> <a visibility="signed-in" href="https://app.mindstudio.ai" class="mindstudio-hidden block rounded-xl bg-neutral-950 px-3 py-2.5 text-center text-body-sm font-medium text-white hover:bg-neutral-800 transition-colors" data-cta="my-workspace" data-cta-location="header-mobile">My Workspace</a> </div> </div> <script>
+ document.addEventListener('DOMContentLoaded', () => {
+ // Mobile drawer
+ const toggle = document.querySelector('[data-mobile-menu-toggle]');
+ const drawer = document.querySelector('[data-mobile-drawer]');
+ const backdrop = document.querySelector('[data-mobile-backdrop]');
+ const closeBtn = document.querySelector('[data-mobile-drawer-close]');
+
+ function openDrawer() {
+ if (!drawer || !backdrop) return;
+ drawer.classList.remove('translate-x-full');
+ drawer.classList.add('translate-x-0');
+ backdrop.classList.remove('opacity-0', 'pointer-events-none');
+ backdrop.classList.add('opacity-100', 'pointer-events-auto');
+ document.body.classList.add('overflow-hidden');
+ if (toggle) toggle.setAttribute('aria-expanded', 'true');
+ }
+
+ function closeDrawer() {
+ if (!drawer || !backdrop) return;
+ drawer.classList.remove('translate-x-0');
+ drawer.classList.add('translate-x-full');
+ backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+ backdrop.classList.add('opacity-0', 'pointer-events-none');
+ document.body.classList.remove('overflow-hidden');
+ if (toggle) toggle.setAttribute('aria-expanded', 'false');
+ }
+
+ if (toggle) toggle.addEventListener('click', openDrawer);
+ if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+ if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+ // Close drawer on Escape key
+ document.addEventListener('keydown', (e) => {
+ if (e.key === 'Escape' && toggle && toggle.getAttribute('aria-expanded') === 'true') {
+ closeDrawer();
+ }
+ });
+
+ // Mobile accordion (Learn dropdown in drawer)
+ document.querySelectorAll('[data-mobile-accordion]').forEach((acc) => {
+ const btn = acc.querySelector('[data-mobile-accordion-toggle]');
+ const content = acc.querySelector('[data-mobile-accordion-content]');
+ const chevron = acc.querySelector('[data-mobile-accordion-chevron]');
+ if (!btn || !content) return;
+
+ btn.addEventListener('click', () => {
+ const isOpen = !content.classList.contains('hidden');
+ content.classList.toggle('hidden', isOpen);
+ btn.setAttribute('aria-expanded', String(!isOpen));
+ if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+ });
+ });
+
+ // Dropdown menus
+ document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
+ const btn = dropdown.querySelector('[data-dropdown-toggle]');
+ const menu = dropdown.querySelector('[data-dropdown-menu]');
+ const chevron = dropdown.querySelector('[data-dropdown-chevron]');
+ if (!btn || !menu) return;
+
+ btn.addEventListener('click', () => {
+ const open = !menu.classList.contains('hidden');
+ menu.classList.toggle('hidden', open);
+ btn.setAttribute('aria-expanded', String(!open));
+ if (chevron) chevron.style.transform = open ? '' : 'rotate(180deg)';
+ });
+
+ document.addEventListener('click', (e) => {
+ if (!dropdown.contains(e.target)) {
+ menu.classList.add('hidden');
+ btn.setAttribute('aria-expanded', 'false');
+ if (chevron) chevron.style.transform = '';
+ }
+ });
+ });
+ });
+</script> <main id="main-content" class="flex-1">   <div class="ms-page"> <article class="ms-blog-article"> <nav class="ms-blog-breadcrumb" aria-label="Breadcrumb"> <a href="/blog">Blog</a> <span aria-hidden="true">/</span> <span>Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session</span> </nav> <header class="ms-blog-header"> <div class="ms-blog-keywords"> <a href="/blog/tag/gpt-openai" class="ms-badge ms-badge-sm ms-badge-blue hover:opacity-80 transition-opacity"> GPT &amp; OpenAI </a><a href="/blog/tag/claude" class="ms-badge ms-badge-sm ms-badge-blue hover:opacity-80 transition-opacity"> Claude </a><a href="/blog/tag/comparisons" class="ms-badge ms-badge-sm ms-badge-blue hover:opacity-80 transition-opacity"> Comparisons </a> </div> <h1>Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session</h1> <p class="ms-blog-header-desc">Codex has 256K tokens vs. Claude Code&#39;s 1M — but GPT 5.5&#39;s efficiency may close the gap. Here&#39;s the real session-length comparison.</p> <div class="ms-blog-header-meta"> <span>MindStudio Team</span> <span aria-hidden="true">&middot;</span> <time datetime="2026-05-07T00:00:00.000Z"> May 7, 2026 </time> <span aria-hidden="true">&middot;</span> <a href="/rss.xml" class="ms-blog-rss-link"> <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" /></svg>
+RSS
+</a> </div> </header> <img src="https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/534f9b8d-8cec-49a2-87b9-602264773f90.png?fm=auto&#38;w=1200&#38;fit=cover?fm=auto&#38;w=1200&#38;fit=cover" alt="Codex vs. Claude Code: Context Window, Token Efficiency, and Which Lasts Longer Per Session" class="ms-blog-hero-img" width="1200" height="675" loading="eager"> <div class="prose prose-lg max-w-none ms-blog-content">  <h2 id="the-number-thats-misleading-you-about-codex-sessions">The Number That’s Misleading You About Codex Sessions</h2>
+<p>Codex has a 256,000-token context window. Claude Code with Opus has roughly 1 million. On paper, that’s a 4x disadvantage for Codex. In practice, the gap is considerably smaller — and for many workflows, it may not matter at all.</p>
+<p>If you’re choosing between these two tools for a serious agentic project, the raw context window number is the wrong thing to optimize for. What you actually care about is how long a session lasts before you hit a wall, and that depends on token efficiency as much as window size.</p>
+<p>This post is about that distinction.</p>
+<h2 id="the-number-that-actually-matters-effective-session-length">The Number That Actually Matters: Effective Session Length</h2>
+<p>Context window size and session length are not the same thing.</p>
+<p>A 1 million token window means nothing if the model burns through tokens at 4x the rate. And a 256K window means less than you’d think if the model is dramatically more efficient per task.</p>
+<p>Nate Herk, who uses both tools daily, put it directly: “I have seen that my session is lasting way longer in Codex than it is in Claude Code. And a big part of that is because ChatGPT 5.5 is really, really efficient with tokens — with output tokens and input tokens.”</p>
+<p>That’s an empirical observation from someone running real projects through both tools, not a benchmark. It’s the kind of signal worth taking seriously.</p>
+<aside class="not-prose my-10" role="complementary" aria-label="Remy" style="background:#FAFAFA;color:#141414;font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;border:1px solid rgba(20,20,20,0.12);border-radius:2px;padding:32px">
+		<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+		<img src="/remy/logo-64.svg" alt="" width="20" height="20" style="display:block" loading="lazy">
+		<p style="font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#6B6B6B;margin:0;color:#A52B2B">Introducing Remy</p>
+		</div>
+		<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:24px;border-bottom:1px solid rgba(20,20,20,0.12)"><div style="text-align:left"><p style="font-family:&#x27;Gambarino&#x27;,&#x27;Playfair Display&#x27;,Georgia,serif;font-weight:400;font-size:36px;line-height:1.08;letter-spacing:-0.02em;color:#141414;margin:0;letter-spacing:-0.03em">200+</p><p style="font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#6B6B6B;margin:0;margin-top:8px">AI models</p></div><div style="text-align:left"><p style="font-family:&#x27;Gambarino&#x27;,&#x27;Playfair Display&#x27;,Georgia,serif;font-weight:400;font-size:36px;line-height:1.08;letter-spacing:-0.02em;color:#141414;margin:0;letter-spacing:-0.03em">1000+</p><p style="font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#6B6B6B;margin:0;margin-top:8px">Integrations</p></div><div style="text-align:left"><p style="font-family:&#x27;Gambarino&#x27;,&#x27;Playfair Display&#x27;,Georgia,serif;font-weight:400;font-size:36px;line-height:1.08;letter-spacing:-0.02em;color:#141414;margin:0;letter-spacing:-0.03em">Years</p><p style="font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#6B6B6B;margin:0;margin-top:8px">Of production use</p></div></div>
+		<div style="margin-top:24px">
+		<p style="font-family:&#x27;Gambarino&#x27;,&#x27;Playfair Display&#x27;,Georgia,serif;font-weight:400;font-size:26px;line-height:1.08;letter-spacing:-0.02em;color:#141414;margin:0;max-width:28ch">200+ AI models. 1000+ integrations. Built in from day one.</p>
+		<p style="font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;font-size:16px;line-height:1.6;color:#6B6B6B;margin:0;margin-top:10px;max-width:52ch">Remy runs on MindStudio — infrastructure we've been building for years. Every model and every integration is ready the moment your app needs it.</p>
+		</div>
+		<div style="margin-top:24px"><a href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="metric-grid" data-cta-angle="credibility" data-cta-copy-index="0" data-cta-variant-id="metric-grid-credibility-0" data-cta-slot-index="1" class="remy-cta-outline" style="display:inline-block;padding:12px 28px;border:1px solid #141414;border-radius:2px;background:transparent;color:#141414;font-family:&#x27;Switzer&#x27;,-apple-system,system-ui,sans-serif;font-size:15px;font-weight:500;letter-spacing:0.15px;text-decoration:none;line-height:1;transition:background-color .15s ease,color .15s ease">Try Remy today →</a></div>
+	</aside>
+<p>The underlying reason: GPT 5.5 tends to produce more concise outputs than Opus. It doesn’t over-explain. It doesn’t pad. When you’re running an agentic loop that might execute dozens of tool calls, that concision compounds. You can dig into the specifics in this <a href="/blog/gpt-55-vs-claude-opus-47-coding-comparison">GPT-5.5 vs Claude Opus 4.7 coding comparison</a>, which found GPT 5.5 using 72% fewer output tokens than Opus 4.7 on equivalent tasks.</p>
+<h2 id="what-the-specs-actually-say">What the Specs Actually Say</h2>
+<p>Let’s be precise about what we’re comparing.</p>
+<p><strong>Codex:</strong> ~256,000 tokens per session. Resets every 5 hours (with a weekly reset as well). You can check your remaining session budget under Settings > Rate Limits Remaining, which shows percentage remaining and expiry time. The model running under the hood is GPT 5.5 (with options for 5.4 and others). Intelligence levels run Low, Medium, High, and Extra High — Extra High is recommended only for hard bugs, because it burns session faster and can over-engineer simple tasks.</p>
+<p><strong>Claude Code:</strong> ~1 million tokens with Opus (Sonnet and Haiku have smaller windows). No built-in session timer in the same sense — you’re working against token limits per conversation, not a rolling time window.</p>
+<p>Both tools auto-compact context when sessions get long. Codex does this automatically, same as Claude Code does. So neither tool simply crashes when you approach the limit — they summarize and compress earlier context to keep the session alive.</p>
+<p>The context window bar at the bottom of Codex chats shows your current session usage as a percentage. It’s a small UI detail, but it changes how you work. You can see the pressure building and make decisions accordingly — switch to a lower intelligence level, start a new chat, or compact manually.</p>
+<h2 id="three-dimensions-that-actually-determine-session-length">Three Dimensions That Actually Determine Session Length</h2>
+<h3 id="1-model-verbosity">1. Model verbosity</h3>
+<p>This is the biggest variable. Opus is a verbose model. It reasons out loud, explains its decisions, and produces detailed output even when you didn’t ask for it. That’s often useful — but it costs tokens.</p>
+<p>GPT 5.5 in Codex is more terse by default. The pragmatic personality mode (activated via <code>/personality</code> → pragmatic) makes it even more concise: “concise, task-focused, and direct” is how the setting describes itself. If you’re running long agentic sessions, that personality setting alone can meaningfully extend how far your 256K window takes you.</p>
+<h3 id="2-what-youre-building">2. What you’re building</h3>
+<p>A single-file Python script and a full-stack dashboard with browser-use QA are not the same context load.</p>
+<p>In Herk’s demo, Codex built a YouTube analytics dashboard — pulling 200 comments via the YouTube Data API, running analysis, generating an Excel workbook with multiple tabs, creating UI assets via GPT Image 2, running browser-use QA (which found 6 real bugs including broken YouTube external links), and then deploying to Vercel via GitHub. That’s a substantial session. It ran on Codex’s 256K window without hitting limits.</p>
+<p>The <code>/goal</code> command — which activates a multi-hour agentic loop by editing a TOML config file — is the extreme case. Alex Finn used it to build a complete extraction shooter video game in one session, with auto-generated assets. That’s the kind of task where you’d expect context limits to bite. Apparently they didn’t, which says something about how efficiently GPT 5.5 manages that loop.</p>
+<h3 id="3-context-hygiene">3. Context hygiene</h3>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc11" data-v3-angle="credibility"><div class="gc11">
+    <div class="gc11-top-msg">
+      <h2 class="gc11-headline">
+        <span class="gc11-line">Remy is new.</span>
+        <span class="gc11-line gc11-accent">The platform isn't.</span>
+      </h2>
+    </div>
+    <div class="gc11-diagram">
+      <div class="gc11-node gc11-node-top">
+        <div class="gc11-node-name">Remy</div>
+        <div class="gc11-node-role">Product Manager Agent</div>
+      </div>
+      <div class="gc11-connector"><span class="gc11-conn-dot"></span></div>
+      <div class="gc11-node gc11-node-platform">
+        <div class="gc11-node-label">THE PLATFORM</div>
+        <div class="gc11-platform-list">
+          <span class="gc11-badge">200+ models</span>
+          <span class="gc11-badge">1,000+ integrations</span>
+          <span class="gc11-badge">Managed DB</span>
+          <span class="gc11-badge">Auth</span>
+          <span class="gc11-badge">Payments</span>
+          <span class="gc11-badge">Deploy</span>
+        </div>
+      </div>
+      <div class="gc11-connector"><span class="gc11-conn-dot"></span></div>
+      <div class="gc11-node gc11-node-base">
+        <div class="gc11-base-mark">▮</div>
+        <div class="gc11-base-text">
+          <div class="gc11-base-name">BUILT BY MINDSTUDIO</div>
+          <div class="gc11-base-detail">Shipping agent infrastructure since 2021</div>
+        </div>
+      </div>
+    </div>
+    <p class="gc11-closing">
+      <span class="gc11-closing-main">Remy is the latest expression of years of platform work.</span>
+      <span class="gc11-closing-punch">Not a hastily wrapped LLM.</span>
+    </p>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-11" data-cta-angle="credibility" data-cta-copy-index="0" data-cta-variant-id="b02-11">Try Remy today</a></div></div></div>
+<p>Both tools reward the same habits. The <code>agents.md</code> file in Codex (the equivalent of <code>CLAUDE.md</code> in Claude Code) gets read at the start of every new chat. Keeping it lean — not dumping everything you’ve ever told the model into it — directly affects how many tokens each session starts with. Herk’s explicit advice: don’t put everything in agents.md, because a bloated onboarding doc eats tokens before you’ve done any real work.</p>
+<p>The skills system compounds this. Reusable markdown instruction files stored in <code>~/.codex/skills/</code> (global) or project-local directories mean you don’t have to re-explain workflows in every chat. You call <code>/youtube-comment-insights</code> and the model reads the recipe. That’s not just a productivity feature — it’s a token management feature.</p>
+<p>For Claude Code users who’ve built similar habits, the <a href="/blog/claude-code-token-management-hacks">Claude Code token management techniques</a> that work there translate directly to Codex. The principles are the same: front-load context efficiently, don’t repeat yourself, compact before you’re forced to.</p>
+<h2 id="codexs-session-model-whats-different">Codex’s Session Model: What’s Different</h2>
+<p>The 5-hour rolling reset is a meaningful structural difference from Claude Code.</p>
+<p>Claude Code’s limits are per-conversation token counts. Codex’s limits are time-windowed. That changes the calculus for long-running work. If you’re running an automation that refreshes weekly — like Herk’s Sunday 5pm YouTube comment refresh — you’re not worried about a single session limit. You’re worried about whether the automation has enough runway to complete before the window closes.</p>
+<p>The automations tab in Codex handles this by injecting prompts into new Codex chats on a schedule (hourly, daily, weekly). Each automation run starts a fresh chat with a fresh context window. So a weekly automation that would theoretically exceed 256K tokens in a single session gets broken into a new session automatically. That’s a reasonable architectural workaround for the smaller window.</p>
+<p>The side chat feature — opening a parallel conversation within the same project context — is another session management tool that doesn’t have a direct Claude Code equivalent. If your main session is getting heavy, you can offload exploratory questions to a side chat without burning the main session’s context.</p>
+<h2 id="where-claude-codes-1m-window-actually-wins">Where Claude Code’s 1M Window Actually Wins</h2>
+<p>There are real scenarios where the larger window is the right answer.</p>
+<p>Long-document analysis. If you’re feeding in multiple large codebases, extensive documentation, or months of logs, 256K can become a genuine constraint. Claude Code’s million-token window with Opus is the right tool for that work. The <a href="/blog/claude-code-effort-levels-explained">Claude Code effort levels</a> post covers how to calibrate Opus’s reasoning depth for exactly these heavy-context tasks.</p>
+<p>Exploratory reasoning. Herk’s own take: “I really like Claude for being sort of like exploratory and brainstorming and helping me get creative and think through things and plan.” Opus’s verbosity — the thing that costs tokens — is also what makes it good at working through ambiguous problems. When you want the model to think out loud and surface assumptions, that’s a feature, not a bug.</p>
+<p>Switching between Opus, Sonnet, and Haiku in Claude Code gives you a finer-grained efficiency dial than Codex’s Low/Medium/High/Extra High intelligence levels. If you’re building a multi-agent system where some sub-agents do simple tasks and one does hard reasoning, Claude Code’s model flexibility is an advantage. The <a href="/blog/gpt-54-mini-vs-claude-haiku-sub-agent-comparison">GPT-5.4 Mini vs Claude Haiku sub-agent comparison</a> gets into this specifically for sub-agent use cases.</p>
+<div class="not-prose"><div class="v3-frame" data-v3-variant="gc15" data-v3-angle="aesthetic"><div class="gc15">
+    <div class="gc15-grid" aria-hidden="true"></div>
+    <h2 class="gc15-headline">
+      <span class="gc15-line">Plans first.</span>
+      <span class="gc15-line"><em class="gc15-accent">Then code.</em></span>
+    </h2>
+    <div class="gc15-titleblock">
+      <div class="gc15-tb-cell"><span class="gc15-tb-label">PROJECT</span><span class="gc15-tb-value">YOUR APP</span></div>
+      <div class="gc15-tb-cell"><span class="gc15-tb-label">SCREENS</span><span class="gc15-tb-value">12</span></div>
+      <div class="gc15-tb-cell"><span class="gc15-tb-label">DB TABLES</span><span class="gc15-tb-value">6</span></div>
+      <div class="gc15-tb-cell"><span class="gc15-tb-label">BUILT BY</span><span class="gc15-tb-value">REMY</span></div>
+    </div>
+    <div class="gc15-drawing">
+      <svg class="gc15-dim" viewBox="0 0 400 14" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="0" y1="7" x2="400" y2="7" stroke="rgba(138,198,232,.55)" stroke-width="1"></line>
+        <line x1="0" y1="0" x2="0" y2="14" stroke="rgba(138,198,232,.55)" stroke-width="1"></line>
+        <line x1="400" y1="0" x2="400" y2="14" stroke="rgba(138,198,232,.55)" stroke-width="1"></line>
+      </svg>
+      <span class="gc15-dim-label">1280 px · TYP.</span>
+      <div class="gc15-window">
+        <div class="gc15-window-bar">
+          <span class="gc15-dot"></span><span class="gc15-dot"></span><span class="gc15-dot"></span>
+          <span class="gc15-url">yourapp.msagent.ai</span>
+        </div>
+        <div class="gc15-window-body">
+          <div class="gc15-nav">
+            <span class="gc15-nav-item gc15-nav-active"></span>
+            <span class="gc15-nav-item"></span>
+            <span class="gc15-nav-item"></span>
+          </div>
+          <div class="gc15-hero-stub"></div>
+          <div class="gc15-line-stub gc15-line-stub-1"></div>
+          <div class="gc15-line-stub gc15-line-stub-2"></div>
+          <div class="gc15-cta-stub"></div>
+        </div>
+      </div>
+      <span class="gc15-drawing-label">A · UI · FRONT END</span>
+    </div>
+    <p class="gc15-closing">Remy writes the spec, manages the build, and ships the app.</p>
+  </div><div class="v3-footer-bar"><img class="v3-wordmark" src="/remy/lockup-h-sm.svg" alt="Remy" width="80" height="23" loading="lazy"><span class="v3-tagline">The world's most powerful product manager agent</span><a class="v3-cta" href="https://mindstudio.ai/remy" target="_blank" rel="noopener noreferrer" data-cta="try-remy-today" data-cta-location="blog-interstitial" data-cta-format="b02-15" data-cta-angle="aesthetic" data-cta-copy-index="0" data-cta-variant-id="b02-15">Try Remy today</a></div></div></div>
+<p>When you’re building agents that need to connect to a wide range of external services, the orchestration layer matters as much as the model. Platforms like <a href="/">MindStudio</a> handle this at a different level — 200+ models, 1,000+ integrations, and a visual builder for chaining agents — which is worth considering if you’re building workflows that need to survive model swaps or run across multiple providers without rewriting orchestration code.</p>
+<h2 id="where-codexs-256k-window-is-enough">Where Codex’s 256K Window Is Enough</h2>
+<p>For most coding and automation work, 256K is sufficient. The question is whether GPT 5.5’s efficiency keeps you inside that window for the tasks you actually run.</p>
+<p>The evidence from real usage suggests it does, for typical agentic coding sessions. Building a dashboard, running browser-use QA, setting up GitHub/Vercel deployment, creating skills — these workflows fit comfortably. The 5-hour reset means you’re not accumulating debt across days of work in a single session.</p>
+<p>The <code>/goal</code> command’s multi-hour loops are the stress test. If those work within the 256K window — and the demos suggest they do — then the efficiency argument holds up.</p>
+<p>One thing worth noting about the full-stack app building workflow: when the output is a deployed application, the question of what to do with that code matters. Tools like <a href="/remy">Remy</a> take a different approach to this problem — you write a spec as annotated markdown, and it compiles into a complete TypeScript backend, SQLite database, auth, and deployment. The spec is the source of truth; the generated code is derived output. That’s a different abstraction layer than what Codex or Claude Code offer, but it’s worth knowing the option exists when you’re thinking about how production apps get built from AI-assisted workflows.</p>
+<h2 id="verdict-which-tool-for-which-work">Verdict: Which Tool for Which Work</h2>
+<p><strong>Use Codex if:</strong> You’re running agentic coding sessions, building and deploying apps, automating workflows, or doing browser-use QA. GPT 5.5’s token efficiency means your 256K window lasts longer than the raw number implies. The 5-hour rolling reset and the automations tab handle long-running work cleanly.</p>
+<p><strong>Use Claude Code if:</strong> You’re doing deep document analysis, working with large codebases that need to live in context simultaneously, or doing the kind of exploratory reasoning where Opus’s verbosity is an asset. The 1M window with Opus is genuinely useful for these cases, not just a spec sheet number.</p>
+<p><strong>Use both if:</strong> You’re serious about this work. Herk’s workflow — Claude for brainstorming and planning, Codex for execution and troubleshooting — is a reasonable division of labor. They work out of the same local directory. An <code>agents.md</code> in Codex and a <code>CLAUDE.md</code> in Claude Code can describe the same project. There’s no reason to be tribal about it.</p>
+<p>The 4x context window gap is real. The token efficiency gap is also real, and it runs in the opposite direction. Where they net out depends on what you’re building — but for most agentic coding work, Codex’s session length is competitive in practice, even if it looks worse on paper.</p>
+<p>That’s the comparison that matters. Not the spec sheet. The session.</p>  </div> </article> <section class="py-section-sm" aria-label="Related articles"><div class="mx-auto max-w-content px-6"><h2 class="text-heading font-semibold text-neutral-950 dark:text-neutral-50 mb-8">
+Related Articles
+</h2><div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"><a href="/blog/grok-4-3-vs-claude-opus-vs-gpt-4o-benchmark-cost-comparison" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/1c31e27e-f602-4bb3-a55c-afe820ca8e11.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-05-10T00:00:00.000Z" class="text-caption text-neutral-500"> May 10, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> Grok 4.3 vs Claude Opus vs GPT-4o: Is Cheaper Worth It When You&#39;re Behind on Every Benchmark? </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> Grok 4.3 trails Claude, GPT, Gemini, Kimi, and MIMO on intelligence benchmarks — but it&#39;s cheaper than all of them. Here&#39;s when the cost trade-off makes sense. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Comparisons </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> LLMs &amp; Models </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span> </div> </div> </a><a href="/blog/claude-opus-47-vs-gpt-52-coding-benchmarks-elo-gap" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/6590eb5c-4fe8-47ed-9a6c-284d295d8f13.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-05-09T00:00:00.000Z" class="text-caption text-neutral-500"> May 9, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> Claude Opus 4.7 vs GPT-5.2 on Coding Benchmarks: The 144 Elo Gap Explained </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> Claude Opus 4.6 beats GPT-5.2 by 144 Elo on GPQA — equivalent to a national master vs a club player. Here&#39;s what the benchmark gap means in practice. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> GPT &amp; OpenAI </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Comparisons </span> </div> </div> </a><a href="/blog/gpt-55-vs-claude-opus-46-hallucination-medical-legal-financial" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/b4ffc41c-fcef-4043-b587-9921a5ca401e/generated-images/03da5c94-fb8b-4171-90e5-8de5a36ca35c.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-05-09T00:00:00.000Z" class="text-caption text-neutral-500"> May 9, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> GPT-5.5 vs Claude Opus 4.6: Which Model Hallucinates Less in Medical, Legal, and Financial Tasks? </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> GPT-5.5 claims 50%+ hallucination reduction in high-stakes domains. We stack it against Claude Opus 4.6 to see which holds up under pressure. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> GPT &amp; OpenAI </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Comparisons </span> </div> </div> </a><a href="/blog/gpt-5-5-vs-claude-opus-4-7-agentic-coding-2" class="group flex h-full flex-col rounded-card border border-neutral-200 bg-white transition-shadow hover:shadow-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"> <div class="overflow-hidden rounded-t-card"> <img src="https://i.mscdn.ai/70cbb1ad-08d7-4fdc-ab31-e343780966a6/generated-images/35a96d72-3b65-4946-bdde-4ff57fa5f2fb.png?fm=auto&#38;w=1200&#38;fit=cover" alt="" class="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" width="640" height="360"> </div> <div class="flex flex-1 flex-col p-6"> <time datetime="2026-05-06T00:00:00.000Z" class="text-caption text-neutral-500"> May 6, 2026 </time> <h3 class="mt-3 text-body-lg font-semibold leading-snug text-neutral-950 group-hover:text-brand-600 transition-colors"> GPT 5.5 vs Claude Opus 4.7 for Agentic Coding: Real-World Differences </h3> <p class="mt-2 line-clamp-2 text-body-sm text-neutral-600"> GPT 5.5 and Claude Opus 4.7 power different coding agents. Compare their strengths, token efficiency, and best use cases for agentic development work. </p> <div class="mt-auto flex flex-wrap gap-2 pt-4"> <span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> GPT &amp; OpenAI </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Claude </span><span class="rounded-full bg-brand-50 px-2.5 py-0.5 text-caption font-medium text-brand-700"> Comparisons </span> </div> </div> </a></div></div></section> <dialog id="ms-newsletter-popup" class="ms-newsletter-dialog" data-form-id="bd8f1e3f-11fb-4619-a593-cb9ce6bb5be1" aria-labelledby="ms-newsletter-title" data-astro-cid-xawie52d> <div class="ms-newsletter-inner" data-astro-cid-xawie52d> <button class="ms-newsletter-close" aria-label="Close newsletter signup" data-cta="newsletter-dismiss" data-cta-location="newsletter-popup" data-astro-cid-xawie52d> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-astro-cid-xawie52d> <line x1="18" y1="6" x2="6" y2="18" data-astro-cid-xawie52d></line> <line x1="6" y1="6" x2="18" y2="18" data-astro-cid-xawie52d></line> </svg> </button> <div id="ms-newsletter-content" data-astro-cid-xawie52d> <p class="ms-newsletter-presented" data-astro-cid-xawie52d>Presented by MindStudio</p> <h2 id="ms-newsletter-title" class="ms-newsletter-headline" data-astro-cid-xawie52d></h2> <p class="ms-newsletter-subheading" data-astro-cid-xawie52d></p> <form id="ms-newsletter-form" class="ms-newsletter-form" novalidate data-astro-cid-xawie52d> <div class="ms-newsletter-field-row" data-astro-cid-xawie52d> <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" class="ms-newsletter-input" aria-label="Email address" data-astro-cid-xawie52d> <button type="submit" class="ms-newsletter-submit" data-cta="newsletter-subscribe" data-cta-location="newsletter-popup" data-astro-cid-xawie52d></button> </div> <p id="ms-newsletter-error" class="ms-newsletter-error" role="alert" aria-live="assertive" hidden data-astro-cid-xawie52d></p> </form> <p class="ms-newsletter-privacy" data-astro-cid-xawie52d>No spam. Unsubscribe anytime.</p> </div> <div id="ms-newsletter-success" class="ms-newsletter-success" hidden data-astro-cid-xawie52d> <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-xawie52d> <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" data-astro-cid-xawie52d></path> <polyline points="22 4 12 14.01 9 11.01" data-astro-cid-xawie52d></polyline> </svg> <p class="ms-newsletter-success-text" data-astro-cid-xawie52d>You're in! Check your inbox.</p> </div> </div> </dialog> <div id="ms-newsletter-bar" class="ms-newsletter-bar" hidden role="complementary" aria-label="Newsletter signup" data-astro-cid-xawie52d> <div class="ms-newsletter-bar-inner" data-astro-cid-xawie52d> <p class="ms-newsletter-bar-text" data-astro-cid-xawie52d> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-xawie52d> <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-astro-cid-xawie52d></path> <polyline points="22,6 12,13 2,6" data-astro-cid-xawie52d></polyline> </svg>
+Get weekly AI insights from MindStudio
+</p> <button class="ms-newsletter-bar-btn" data-cta="newsletter-bar-subscribe" data-cta-location="newsletter-bar" data-astro-cid-xawie52d>Subscribe</button> </div> </div>  <script>
+(function () {
+  var dialog = document.getElementById('ms-newsletter-popup');
+  var bar = document.getElementById('ms-newsletter-bar');
+  if (!dialog || !bar) return;
+
+  var variant = {
+    headline: "The AI builder's briefing",
+    subheading: 'New models, automation patterns, and what actually works in production \u2014 delivered weekly to your inbox.',
+    cta: 'Get the briefing'
+  };
+  var variantSlug = 'the-ai-builders-briefing';
+
+  // Populate content
+  dialog.querySelector('#ms-newsletter-title').textContent = variant.headline;
+  dialog.querySelector('.ms-newsletter-subheading').textContent = variant.subheading;
+  dialog.querySelector('.ms-newsletter-submit').textContent = variant.cta;
+
+  // Frequency cap check
+  var STORAGE_KEY = 'mindstudio_newsletter_popup';
+  var COOLDOWN_MS = 5 * 24 * 60 * 60 * 1000; // 5 days
+  var wasDismissed = false;
+  try {
+    var stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (stored) {
+      if (stored.subscribed) return;
+      if (stored.dismissed && (Date.now() - stored.dismissed) < COOLDOWN_MS) {
+        wasDismissed = true;
+      }
+    }
+  } catch (e) { /* ignore parse errors */ }
+
+  // If previously dismissed within cooldown, show the sticky bar instead of the popup
+  // (showBar is defined below, so we defer this with a minimal timeout)
+  if (wasDismissed) {
+    setTimeout(function () { showBar(); }, 500);
+  } else {
+    // Scroll trigger — only if not already dismissed
+    var triggered = false;
+    var pageLoadTime = Date.now();
+
+    function onScroll() {
+      if (triggered) return;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
+      var pct = (window.scrollY / docHeight) * 100;
+      if (pct >= 35 && (Date.now() - pageLoadTime) >= 5000) {
+        triggered = true;
+        window.removeEventListener('scroll', onScroll);
+        showPopup();
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  function track(eventName, extraProps) {
+    if (typeof window.plausible === 'function') {
+      var props = { variant: variantSlug, page: window.location.pathname };
+      if (extraProps) {
+        for (var k in extraProps) props[k] = extraProps[k];
+      }
+      window.plausible(eventName, { props: props });
+    }
+  }
+
+  function lockScroll() {
+    document.body.style.overflow = 'hidden';
+  }
+  function unlockScroll() {
+    document.body.style.overflow = '';
+  }
+
+  function showPopup() {
+    dialog.showModal();
+    lockScroll();
+    dialog.querySelector('input[name="email"]').focus();
+    track('Newsletter Popup View');
+  }
+
+  // Sticky bar helpers
+  function showBar() {
+    bar.hidden = false;
+    // Force reflow before adding attribute for transition
+    bar.offsetHeight;
+    bar.setAttribute('data-visible', '');
+    track('Newsletter Bar View');
+  }
+
+  function hideBar() {
+    bar.removeAttribute('data-visible');
+    bar.addEventListener('transitionend', function handler() {
+      bar.hidden = true;
+      bar.removeEventListener('transitionend', handler);
+    });
+  }
+
+  // Dismiss handling
+  function recordDismiss(method) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ dismissed: Date.now(), subscribed: false }));
+    } catch (e) { /* ignore storage errors */ }
+    track('Newsletter Popup Dismiss', { method: method });
+    showBar();
+  }
+
+  dialog.querySelector('.ms-newsletter-close').addEventListener('click', function () {
+    dialog.close();
+    unlockScroll();
+    recordDismiss('close-button');
+  });
+
+  dialog.addEventListener('cancel', function () {
+    unlockScroll();
+    recordDismiss('escape');
+  });
+
+  dialog.addEventListener('click', function (e) {
+    if (e.target === dialog) {
+      dialog.close();
+      unlockScroll();
+      recordDismiss('backdrop');
+    }
+  });
+
+  // Bar interactions
+  bar.querySelector('.ms-newsletter-bar-btn').addEventListener('click', function () {
+    hideBar();
+    // Reset popup form state in case it was previously errored
+    dialog.querySelector('#ms-newsletter-content').hidden = false;
+    dialog.querySelector('#ms-newsletter-success').hidden = true;
+    dialog.querySelector('#ms-newsletter-error').hidden = true;
+    var emailInput = dialog.querySelector('input[name="email"]');
+    emailInput.value = '';
+    var btn = dialog.querySelector('.ms-newsletter-submit');
+    btn.disabled = false;
+    btn.textContent = variant.cta;
+    showPopup();
+  });
+
+
+  // Form submission
+  var form = dialog.querySelector('#ms-newsletter-form');
+  var submitBtn = dialog.querySelector('.ms-newsletter-submit');
+  var errorEl = dialog.querySelector('#ms-newsletter-error');
+  var formId = dialog.getAttribute('data-form-id');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var emailInput = form.querySelector('input[name="email"]');
+    var email = emailInput.value.trim();
+
+    if (!email || !emailInput.validity.valid) {
+      emailInput.reportValidity();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing\u2026';
+    errorEl.hidden = true;
+
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/46257612/' + formId, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [{ objectTypeId: '0-1', name: 'email', value: email }],
+        context: { pageUri: window.location.href, pageName: document.title }
+      })
+    }).then(function (res) {
+      if (res.ok) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ subscribed: true }));
+        } catch (e) { /* ignore */ }
+        dialog.querySelector('#ms-newsletter-content').hidden = true;
+        dialog.querySelector('#ms-newsletter-success').hidden = false;
+        track('Newsletter Popup Signup');
+        setTimeout(function () { dialog.close(); unlockScroll(); hideBar(); }, 2000);
+      } else {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = variant.cta;
+      }
+    }).catch(function () {
+      errorEl.textContent = 'Network error. Please try again.';
+      errorEl.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = variant.cta;
+    });
+  });
+})();
+</script> </div> <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var blocks = document.querySelectorAll('.ms-blog-content pre');
+      blocks.forEach(function (pre) {
+        var code = pre.querySelector('code');
+        if (!code) return;
+
+        var lang = pre.getAttribute('data-language') || '';
+        if (!lang) {
+          var match = (code.className || '').match(/language-(\w+)/);
+          if (match) lang = match[1];
+        }
+
+        var header = document.createElement('div');
+        header.className = 'ms-blog-code-header';
+
+        var langEl = document.createElement('span');
+        langEl.className = 'ms-blog-code-lang';
+        langEl.textContent = lang || 'code';
+
+        var btn = document.createElement('button');
+        btn.className = 'ms-code-copy';
+        btn.setAttribute('aria-label', 'Copy code to clipboard');
+        btn.innerHTML =
+          '<svg class="ms-icon-copy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>' +
+          '<svg class="ms-icon-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' +
+          '<span class="ms-copy-label">Copy</span>' +
+          '<span class="ms-copy-label-copied">Copied!</span>';
+
+        btn.addEventListener('click', function () {
+          navigator.clipboard.writeText(code.textContent);
+          btn.classList.add('copied');
+          setTimeout(function () { btn.classList.remove('copied'); }, 2000);
+        });
+
+        header.appendChild(langEl);
+        header.appendChild(btn);
+        pre.insertBefore(header, pre.firstChild);
+      });
+    });
+  </script> <script>
+    (function () {
+      // Parse a plain-text spec into segments: each segment becomes a DOM
+      // element (heading or paragraph). Paragraph breaks are \n\n.
+      function parseSpec(spec) {
+        return spec.split(/\n\n+/).map(function (para) {
+          para = para.trim();
+          if (/^#+\s/.test(para)) {
+            return { tag: 'h3', text: para.replace(/^#+\s+/, '') };
+          }
+          return { tag: 'p', text: para };
+        }).filter(function (seg) { return seg.text.length > 0; });
+      }
+
+      function renderStatic(stream, spec) {
+        var segs = parseSpec(spec);
+        segs.forEach(function (seg) {
+          var el = document.createElement(seg.tag);
+          el.className = 'remy-typewriter-' + (seg.tag === 'h3' ? 'heading' : 'paragraph');
+          el.textContent = seg.text;
+          stream.appendChild(el);
+        });
+      }
+
+      function start(viewport) {
+        // Idempotency: guard against double-start (HMR reloads, repeat intersects).
+        if (viewport.__remyStarted) return;
+        viewport.__remyStarted = true;
+
+        var stream = viewport.querySelector('.remy-typewriter-stream');
+        var specs;
+        try { specs = JSON.parse(viewport.getAttribute('data-remy-specs') || '[]'); } catch (e) { return; }
+        if (!stream || !specs.length) return;
+
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) {
+          renderStatic(stream, specs[Math.floor(Math.random() * specs.length)]);
+          viewport.scrollTop = 0;
+          return;
+        }
+
+        // Shuffle per-viewport so different placements on the page start
+        // with different specs and cycle in different orders.
+        function shuffle(arr) {
+          var a = arr.slice();
+          for (var i = a.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+          }
+          return a;
+        }
+        var order = shuffle(specs);
+
+        var specIdx = 0;
+        var segs = parseSpec(order[0]);
+        var segIdx = 0;
+        var charIdx = 0;
+        var currentEl = null;
+        var running = true;
+        var pendingTimer = null;
+
+        // Pause when the viewport leaves the screen; cancel any queued step
+        // so it doesn't fire during the pause, and resume cleanly.
+        var pauseObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            var nowRunning = e.isIntersecting;
+            if (!nowRunning && pendingTimer !== null) { clearTimeout(pendingTimer); pendingTimer = null; }
+            running = nowRunning;
+            if (running && pendingTimer === null) schedule(0);
+          });
+        }, { threshold: 0 });
+        pauseObserver.observe(viewport);
+
+        // Single-flight scheduler — always cancels the previous timer so
+        // we never get two step() loops racing into the same element.
+        function schedule(delay) {
+          if (!running) return;
+          if (pendingTimer !== null) clearTimeout(pendingTimer);
+          pendingTimer = setTimeout(function () { pendingTimer = null; step(); }, delay);
+        }
+
+        function ensureCurrentEl() {
+          if (currentEl) return;
+          var seg = segs[segIdx];
+          currentEl = document.createElement(seg.tag);
+          currentEl.className = 'remy-typewriter-' + (seg.tag === 'h3' ? 'heading' : 'paragraph') + ' is-typing';
+          stream.appendChild(currentEl);
+        }
+
+        function step() {
+          if (!running) return;
+          var seg = segs[segIdx];
+          if (charIdx < seg.text.length) {
+            ensureCurrentEl();
+            var ch = seg.text.charAt(charIdx);
+            currentEl.appendChild(document.createTextNode(ch));
+            charIdx++;
+            var delay;
+            if (ch === '.' || ch === '!' || ch === '?') delay = 240;
+            else if (ch === ',' || ch === ';' || ch === ':') delay = 100;
+            else delay = 18 + Math.random() * 30;
+            schedule(delay);
+          } else if (segIdx < segs.length - 1) {
+            // Next segment in the current spec.
+            if (currentEl) { currentEl.classList.remove('is-typing'); currentEl = null; }
+            segIdx++;
+            charIdx = 0;
+            schedule(220);
+          } else {
+            // Full spec done. Pause to let the reader absorb, then fade the
+            // whole stream out, clear it, and start the next spec fresh.
+            if (currentEl) { currentEl.classList.remove('is-typing'); currentEl = null; }
+            if (pendingTimer !== null) clearTimeout(pendingTimer);
+            pendingTimer = setTimeout(function () {
+              pendingTimer = null;
+              if (!running) return;
+              stream.classList.add('is-fading');
+              pendingTimer = setTimeout(function () {
+                pendingTimer = null;
+                if (!running) return;
+                while (stream.firstChild) stream.removeChild(stream.firstChild);
+                stream.classList.remove('is-fading');
+                specIdx++;
+                // End of the shuffled cycle — re-shuffle so the next round
+                // plays in a different order. The last spec of the previous
+                // cycle won't repeat as the first of the next one.
+                if (specIdx >= order.length) {
+                  var last = order[order.length - 1];
+                  do { order = shuffle(specs); } while (order.length > 1 && order[0] === last);
+                  specIdx = 0;
+                }
+                segs = parseSpec(order[specIdx]);
+                segIdx = 0;
+                charIdx = 0;
+                schedule(350);
+              }, 700);
+            }, 2200);
+          }
+        }
+        schedule(400);
+      }
+
+      function init() {
+        var viewports = document.querySelectorAll('.remy-typewriter-viewport');
+        if (!viewports.length) return;
+        if (!('IntersectionObserver' in window)) {
+          viewports.forEach(start);
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              start(entry.target);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.25 });
+        viewports.forEach(function (v) { io.observe(v); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script> <script>
+    (function () {
+      function fireView(anchor) {
+        if (!anchor || typeof window.plausible !== 'function') return;
+        var ctaName = anchor.getAttribute('data-cta');
+        if (!ctaName) return;
+        var props = {
+          cta_name: ctaName,
+          cta_location: anchor.getAttribute('data-cta-location') || 'unknown',
+          page: window.location.pathname,
+        };
+        var fmt = anchor.getAttribute('data-cta-format');
+        if (fmt) props.cta_format = fmt;
+        var ang = anchor.getAttribute('data-cta-angle');
+        if (ang) props.cta_angle = ang;
+        var vid = anchor.getAttribute('data-cta-variant-id');
+        if (vid) props.cta_variant_id = vid;
+        var cidx = anchor.getAttribute('data-cta-copy-index');
+        if (cidx) props.cta_copy_index = cidx;
+        var sidx = anchor.getAttribute('data-cta-slot-index');
+        if (sidx) props.cta_slot_index = sidx;
+        if (window.__msExperiments) {
+          Object.keys(window.__msExperiments).forEach(function (expId) {
+            props['exp_' + expId.replace(/-/g, '_')] = window.__msExperiments[expId];
+          });
+        }
+        window.plausible('CTA View', { props: props });
+      }
+
+      function init() {
+        // Legacy template variants render as <aside aria-label="Remy">; v3
+        // (b02-*) prebaked variants render as <div class="v3-frame">. Both
+        // need view tracking — same selector pair as the click-forward script
+        // below.
+        var nodes = document.querySelectorAll('aside[aria-label="Remy"], .v3-frame');
+        if (!nodes.length) return;
+        if (!('IntersectionObserver' in window)) {
+          nodes.forEach(function (n) { fireView(n.querySelector('a[data-cta]')); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              fireView(entry.target.querySelector('a[data-cta]'));
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        nodes.forEach(function (n) { io.observe(n); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script> <script>
+    document.addEventListener('click', function (e) {
+      var frame = e.target.closest('.v3-frame, .remy-v3-wrap');
+      if (!frame) return;
+      if (e.target.closest('a, button, input, textarea, select, label')) return;
+      if (window.getSelection && window.getSelection().toString()) return;
+      var cta = frame.querySelector('a.v3-cta');
+      if (cta) cta.click();
+    });
+  </script>  </main> <footer class="border-t border-neutral-800 bg-neutral-950 text-neutral-50"> <div class="mx-auto max-w-content px-6 py-section-sm"> <div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5"> <div> <h3 class="text-body-sm font-semibold text-neutral-50">Compare</h3> <ul class="mt-3 space-y-2"> <li> <a href="/blog/mindstudio-vs-n8n" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> n8n vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-make" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Make vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-zapier" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Zapier vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-botpress" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Botpress vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-langchain" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> LangChain vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-crewai" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> CrewAI vs MindStudio </a> </li><li> <a href="/blog/mindstudio-vs-retool" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Retool vs MindStudio </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">Use Cases</h3> <ul class="mt-3 space-y-2"> <li> <a href="/blog/ai-agents-for-product-managers" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Product Management </a> </li><li> <a href="/blog/ai-agents-for-marketing-teams" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Marketing </a> </li><li> <a href="/blog/ai-agents-for-sales-teams" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Sales </a> </li><li> <a href="/blog/ai-agents-for-customer-success" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Customer Success </a> </li><li> <a href="/blog/ai-agents-for-hr-teams" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Human Resources </a> </li><li> <a href="/blog/ai-agents-for-legal-professionals" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Legal </a> </li><li> <a href="/blog/ai-agents-lead-generation" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Lead Generation </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">Capabilities</h3> <ul class="mt-3 space-y-2"> <li> <a href="/blog/how-to-generate-ai-images-in-mindstudio" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Image Generation </a> </li><li> <a href="/blog/prompt-engineering-ai-agents" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Prompt Engineering </a> </li><li> <a href="/blog/what-is-rag" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> RAG </a> </li><li> <a href="/blog/human-in-the-loop-ai" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Human-in-the-Loop </a> </li><li> <a href="/blog/what-are-mcp-servers" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> MCP Servers </a> </li><li> <a href="/blog/multi-step-reasoning" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Multi-Step Reasoning </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">MindStudio</h3> <ul class="mt-3 space-y-2"> <li> <a href="/about" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> About </a> </li><li> <a href="/pricing" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Pricing </a> </li><li> <a href="/blog" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Blog </a> </li><li> <a href="/newsroom" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Newsroom </a> </li><li> <a href="/contact" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors"> Contact </a> </li><li> <a href="https://trust.mindstudio.ai/" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Trust Center </a> </li><li> <a href="https://community.mindstudio.ai/" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Community </a> </li><li> <a href="https://university.mindstudio.ai/" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Documentation </a> </li> </ul> </div><div> <h3 class="text-body-sm font-semibold text-neutral-50">Programs</h3> <ul class="mt-3 space-y-2"> <li> <a href="https://university.mindstudio.ai/programs/mindstudio-for-enterprises" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Enterprise </a> </li><li> <a href="https://university.mindstudio.ai/programs/mindstudio-for-developers" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Developers </a> </li><li> <a href="https://university.mindstudio.ai/programs/mindstudio-solutions-partners" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Partners </a> </li><li> <a href="https://university.mindstudio.ai/programs/referral-program" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> Referral Program </a> </li><li> <a href="https://mindstudio-academy.circle.so/c/events-bootcamps?topics=338932" class="text-body-sm text-neutral-400 hover:text-neutral-50 transition-colors" target="_blank" rel="noopener noreferrer"> AI Agent Bootcamp </a> </li> </ul> </div> </div> <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-neutral-800 pt-8 md:flex-row"> <div class="flex items-center gap-6"> <a href="/" class="text-heading-sm font-bold text-neutral-50">MindStudio</a> <div class="flex items-center gap-4"> <a href="https://www.youtube.com/@MindStudio_ai" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="text-neutral-500 hover:text-neutral-300 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 3a5 5 0 0 1 5 5v8a5 5 0 0 1 -5 5h-12a5 5 0 0 1 -5 -5v-8a5 5 0 0 1 5 -5zm-9 6v6a1 1 0 0 0 1.514 .857l5 -3a1 1 0 0 0 0 -1.714l-5 -3a1 1 0 0 0 -1.514 .857z" /></svg> </a><a href="https://www.linkedin.com/company/mindstudioai" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-neutral-500 hover:text-neutral-300 transition-colors"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M17 2a5 5 0 0 1 5 5v10a5 5 0 0 1 -5 5h-10a5 5 0 0 1 -5 -5v-10a5 5 0 0 1 5 -5zm-9 8a1 1 0 0 0 -1 1v5a1 1 0 0 0 2 0v-5a1 1 0 0 0 -1 -1m6 0a3 3 0 0 0 -1.168 .236l-.125 .057a1 1 0 0 0 -1.707 .707v5a1 1 0 0 0 2 0v-3a1 1 0 0 1 2 0v3a1 1 0 0 0 2 0v-3a3 3 0 0 0 -3 -3m-6 -3a1 1 0 0 0 -.993 .883l-.007 .127a1 1 0 0 0 1.993 .117l.007 -.127a1 1 0 0 0 -1 -1" /></svg> </a> </div> </div> <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-caption text-neutral-500"> <a href="/legal/terms-of-use" class="hover:text-neutral-300 transition-colors">Terms of Use</a> <a href="/legal/privacy-policy" class="hover:text-neutral-300 transition-colors">Privacy Policy</a> <span>&copy; 2026 MindStudio (GoMeta, Inc.). All rights reserved.</span> </div> </div> </div> </footer> <!-- HubSpot --> <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46257612.js"></script> <!-- Auth Detection --> <script>
+      var getAuthData = function () {
+        var cookies = Object.fromEntries(document.cookie.split(/; */).map(function(c) {
+          var index = c.indexOf("=");
+          var key   = c.slice(0, index);
+          var value = c.slice(index + 1);
+          return [ decodeURIComponent(key), decodeURIComponent(value) ];
+        }));
+        var userData = false;
+        for (var key in cookies) {
+          if (key.startsWith('CognitoIdentityServiceProvider') && (key.endsWith('.idToken') || key.endsWith('.accessToken'))) {
+            userData = true;
+          }
+        }
+        return userData;
+      };
+      try {
+        window.__mindstudioWebflowAuthData = getAuthData();
+      } catch (e) {}
+    </script> <!-- Signed-in / Signed-out Visibility --> <script>
+      function updateElementVisibility() {
+        var isLoggedIn = !!window.__mindstudioWebflowAuthData;
+        var elements = document.querySelectorAll('[visibility]');
+        elements.forEach(function (element) {
+          var value = element.getAttribute('visibility');
+          if (isLoggedIn) {
+            if (value === 'signed-out') element.classList.add('mindstudio-hidden');
+            if (value === 'signed-in') element.classList.remove('mindstudio-hidden');
+          } else {
+            if (value === 'signed-out') element.classList.remove('mindstudio-hidden');
+            if (value === 'signed-in') element.classList.add('mindstudio-hidden');
+          }
+        });
+      }
+      updateElementVisibility();
+      document.addEventListener('DOMContentLoaded', updateElementVisibility);
+    </script> <!-- Attribution Data --> <script>
+      var localStorageKey = 'mindstudio_attributionData';
+      var cookieKey = 'mindstudio_attributionData';
+
+      function setAttrCookie(name, value, days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        var expires = 'expires=' + date.toUTCString();
+        document.cookie = name + '=' + encodeURIComponent(JSON.stringify(value)) + ';' + expires + ';path=/;domain=.mindstudio.ai;Secure;SameSite=Lax';
+      }
+
+      function getAttrCookie(name, jsonParse) {
+        var nameEQ = name + '=';
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var c = cookies[i];
+          while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) === 0) {
+            var contents = decodeURIComponent(c.substring(nameEQ.length, c.length));
+            return jsonParse ? JSON.parse(contents) : contents;
+          }
+        }
+        return null;
+      }
+
+      function setAttrLocalStorage(name, value) {
+        localStorage.setItem(name, JSON.stringify(value));
+      }
+
+      function getAttrLocalStorage(name) {
+        var item = localStorage.getItem(name);
+        return item ? JSON.parse(item) : null;
+      }
+
+      function isConsentToAnalytics() {
+        var consentCookie = getAttrCookie('cookieyes-consent');
+        if (!consentCookie) return false;
+        return consentCookie.includes('analytics:yes');
+      }
+
+      function storeAttributionData() {
+        var params = new URL(window.document.location.href).searchParams;
+        var utmSource = params.get('utm-source') || params.get('utm_source') || '';
+        var inviteCode = params.get('invite-code') || '';
+        var partnerStackId = params.get('ps_xid') || '';
+        var partnerStackKey = params.get('ps_partner_key') || '';
+        var partnerStackCoupon = params.get('ps_coupon') || '';
+        var referrer = window.document.location.href;
+
+        var conversionParams = {
+          facebook: { fbclid: params.get('fbclid') || '' },
+          google: { gclid: params.get('gclid') || '', wbraid: params.get('wbraid') || '', gbraid: params.get('gbraid') || '' },
+          linkedin: { li_fat_id: params.get('li_fat_id') || '' },
+          reddit: { rdt_cid: params.get('rdt_cid') || '' }
+        };
+
+        var existingAttribution = isConsentToAnalytics()
+          ? getAttrCookie(cookieKey, true)
+          : getAttrLocalStorage(localStorageKey);
+
+        function mergeConversionParams(existing, incoming) {
+          var merged = {};
+          var allKeys = new Set([].concat(Object.keys(existing || {}), Object.keys(incoming || {})));
+          allKeys.forEach(function (platform) {
+            merged[platform] = {};
+            var existPlatform = (existing && existing[platform]) || {};
+            var incomingPlatform = (incoming && incoming[platform]) || {};
+            var paramKeys = new Set([].concat(Object.keys(existPlatform), Object.keys(incomingPlatform)));
+            paramKeys.forEach(function (key) {
+              merged[platform][key] = incomingPlatform[key] || existPlatform[key] || '';
+            });
+          });
+          return merged;
+        }
+
+        var attributionData;
+        if (existingAttribution) {
+          attributionData = Object.assign({}, existingAttribution, {
+            referrer: referrer || existingAttribution.referrer,
+            inviteCode: inviteCode || existingAttribution.inviteCode,
+            partnerStackId: partnerStackId || existingAttribution.partnerStackId,
+            partnerStackKey: partnerStackKey || existingAttribution.partnerStackKey,
+            partnerStackCoupon: partnerStackCoupon || existingAttribution.partnerStackCoupon,
+            conversionParams: mergeConversionParams(existingAttribution.conversionParams, conversionParams)
+          });
+        } else {
+          attributionData = {
+            utmSource: utmSource,
+            inviteCode: inviteCode,
+            partnerStackId: partnerStackId,
+            partnerStackKey: partnerStackKey,
+            partnerStackCoupon: partnerStackCoupon,
+            referrer: referrer,
+            initialLandingPage: window.document.location.href,
+            initialReferrer: window.document.referrer,
+            conversionParams: conversionParams,
+            trialIntent: false
+          };
+        }
+
+        if (isConsentToAnalytics()) {
+          setAttrCookie(cookieKey, attributionData, 30);
+        } else {
+          setAttrLocalStorage(localStorageKey, attributionData);
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        try { storeAttributionData(); } catch (e) { console.log(e); }
+      });
+
+      document.addEventListener('cookieyes_consent_update', function (eventData) {
+        try {
+          if (eventData.detail.accepted.includes('analytics')) {
+            var attributionData = getAttrLocalStorage(localStorageKey);
+            if (attributionData) {
+              setAttrCookie(cookieKey, attributionData, 30);
+              localStorage.removeItem(localStorageKey);
+            }
+          }
+        } catch (e) { console.log(e); }
+      });
+    </script> <!-- Persist Query Params Across Links --> <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var search = window.location.search;
+        if (!search) return;
+
+        var params = new URLSearchParams(search);
+        if (!params.toString()) return;
+
+        var links = document.querySelectorAll('a[href]');
+        links.forEach(function (link) {
+          var href = link.getAttribute('href');
+          if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+
+          try {
+            var url = new URL(href, window.location.origin);
+            params.forEach(function (value, key) {
+              if (!url.searchParams.has(key)) {
+                url.searchParams.set(key, value);
+              }
+            });
+
+            if (href.startsWith('/') || href.startsWith('./') || href.startsWith('../') || !href.includes('://')) {
+              link.setAttribute('href', url.pathname + url.search + url.hash);
+            } else {
+              link.setAttribute('href', url.toString());
+            }
+          } catch (e) {}
+        });
+      });
+    </script> <!-- A/B Testing: Inject experiment assignments --> <script>(function(){const experimentAssignments = "{}";
+
+      window.__msExperiments = JSON.parse(experimentAssignments);
+    })();</script> <!-- A/B Testing: Fire Experiment View events --> <script>
+      if (window.__msExperiments && typeof window.plausible === 'function') {
+        Object.keys(window.__msExperiments).forEach(function (expId) {
+          window.plausible('Experiment View', {
+            props: {
+              experiment: expId,
+              variant: window.__msExperiments[expId],
+              page: window.location.pathname,
+            },
+          });
+        });
+      }
+    </script> <!-- Plausible Custom Events: CTA Clicks + Scroll Depth --> <script>
+      (function () {
+        // CTA Click tracking — fires on elements with data-cta attribute
+        document.addEventListener('click', function (e) {
+          var el = e.target.closest('[data-cta]');
+          if (!el || typeof window.plausible !== 'function') return;
+          var ctaName = el.getAttribute('data-cta');
+          if (!ctaName) return;
+          var ctaProps = {
+            cta_name: ctaName,
+            cta_location: el.getAttribute('data-cta-location') || 'unknown',
+            page: window.location.pathname,
+          };
+          var ctaFormat = el.getAttribute('data-cta-format');
+          if (ctaFormat) ctaProps.cta_format = ctaFormat;
+          var ctaAngle = el.getAttribute('data-cta-angle');
+          if (ctaAngle) ctaProps.cta_angle = ctaAngle;
+          var ctaVariantId = el.getAttribute('data-cta-variant-id');
+          if (ctaVariantId) ctaProps.cta_variant_id = ctaVariantId;
+          var ctaCopyIndex = el.getAttribute('data-cta-copy-index');
+          if (ctaCopyIndex) ctaProps.cta_copy_index = ctaCopyIndex;
+          var ctaSlotIndex = el.getAttribute('data-cta-slot-index');
+          if (ctaSlotIndex) ctaProps.cta_slot_index = ctaSlotIndex;
+          if (window.__msExperiments) {
+            Object.keys(window.__msExperiments).forEach(function (expId) {
+              ctaProps['exp_' + expId.replace(/-/g, '_')] = window.__msExperiments[expId];
+            });
+          }
+          window.plausible('CTA Click', { props: ctaProps });
+        });
+
+        // Scroll Depth tracking — fires at 25%, 50%, 75%, 100% milestones
+        var fired = {};
+        var thresholds = [25, 50, 75, 100];
+        function checkScroll() {
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (docHeight <= 0) return;
+          var pct = Math.round((window.scrollY / docHeight) * 100);
+          for (var i = 0; i < thresholds.length; i++) {
+            var t = thresholds[i];
+            if (pct >= t && !fired[t] && typeof window.plausible === 'function') {
+              fired[t] = true;
+              window.plausible('Scroll Depth', {
+                props: { depth: t + '%', page: window.location.pathname },
+              });
+            }
+          }
+        }
+        window.addEventListener('scroll', checkScroll, { passive: true });
+        // Check once on load for short pages
+        window.addEventListener('load', checkScroll);
+      })();
+    </script> <!-- Vercel Web Analytics --> <script defer src="/_vercel/insights/script.js"></script> </body> </html>

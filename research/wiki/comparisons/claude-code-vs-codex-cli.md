@@ -80,4 +80,4 @@
 - [[Claude Code]]
 - [[Codex CLI]]
 - [[context-compaction]]
-- [S007](sources/S007.md), [S008](sources/S008.md), [S009](sources/S009.md), [S010](sources/S010.md), [S011](sources/S011.md), [S012](sources/S012.md)
+- [S007](sources/S007.md), [S009](sources/S009.md), [S010](sources/S010.md), [S011](sources/S011.md), [S012](sources/S012.md), [S145](sources/S145.md), [S151](sources/S151.md)

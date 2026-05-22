@@ -71,4 +71,4 @@
 - [[Hermes]]
 - [[Honcho]]
 - [[OpenViking]]
-- [S001](sources/S001.md), [S013](sources/S013.md), [S014](sources/S014.md), [S015](sources/S015.md), [S026](sources/S026.md), [S035](sources/S035.md)
+- [S001](sources/S001.md), [S013](sources/S013.md), [S014](sources/S014.md), [S015](sources/S015.md), [S026](sources/S026.md), [S035](sources/S035.md), [S136](sources/S136.md), [S137](sources/S137.md), [S140](sources/S140.md)
